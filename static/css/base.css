@@ -42,6 +42,11 @@ body {
     object-fit: cover;
 }
 
+/* ====== HAMBURGER ICON (MOBILE) ====== */
+.navbar-toggler-icon {
+    background-color: transparent;
+}
+
 /* ====== Search Bar ====== */
 .search-bar-container {
     display: flex; /* Enable flex layout */
