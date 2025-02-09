@@ -94,6 +94,33 @@ body {
     transition: 0.3s ease-in-out;
 }
 
+.browse-now-button {
+    background-color: #3E474F;
+    color: white !important;
+    font-weight: 600;
+    padding: 12px 24px;
+    border: 2px solid #288AC1;
+    border-radius: 12px;
+    transition: all 0.3s ease-in-out;
+    display: inline-block;
+    letter-spacing: 1px;
+    text-decoration: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Hover effect */
+.browse-now-button:hover {
+    background-color: #2179A5; /* Darker Blue */
+    border-color: #2179A5;
+    transform: translateY(-3px); /* Lift effect */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Click effect */
+.browse-now-button:active {
+    transform: scale(0.98); /* Slight button press effect */
+}
+
 /* ====== RESPONSIVENESS ====== */
 @media (max-width: 768px) {
     .search-bar {
