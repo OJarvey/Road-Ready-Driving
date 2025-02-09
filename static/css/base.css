@@ -1,14 +1,14 @@
 /* Background Image */
-html{
+html, body{
     height: 100%;
+    font-family: 'Lato', sans-serif;
+    color: #3E474F; /* Dark gray text */
 }
 
 body {
     background: url("/static/media/background-image.jpg") no-repeat center center fixed;
     background-size: cover;
     height: calc(100vh - 164px);
-    color: #555;
-    font-family: 'Lato';
 }
 
 .icon {
@@ -17,9 +17,32 @@ body {
     justify-content: center;
     height: 1.5rem;
     width: 1.5rem;
+    color: #288AC1;
 }
 
-/* Search Bar */
+/* ====== NAVBAR ====== */
+.navbar {
+    background-color: #3E474F !important; /* Dark gray navbar */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.navbar .nav-link {
+    color: #EBF2F3 !important; /* Off-white text */
+    font-weight: 500;
+}
+
+.navbar .nav-link:hover {
+    color: #288AC1 !important; /* Blue hover effect */
+}
+
+.navbar-brand img {
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+}
+
+/* ====== Search Bar ====== */
 .search-bar-container {
     display: flex; /* Enable flex layout */
     justify-content: center; /* Center content horizontally */
@@ -39,19 +62,20 @@ body {
     flex: 1; /* Allow flexibility in resizing */
     width: 50%; /* Set width as a percentage */
     max-width: 400px; /* Constrain maximum width */
+    border-radius: 4px;
+    padding: 5px;
 }
 
-/* Optional: Style the search input and button */
 .search-bar input {
     flex: 1; /* Allow input to grow and fill space */
     padding: 8px; /* Add padding for better appearance */
-    border: 1px solid #ccc; /* Add a border */
+    border: 1px solid #919CA2; /* Add a border */
     border-radius: 4px; /* Rounded corners */
 }
 
 .search-bar button {
     padding: 8px 16px; /* Add padding */
-    background-color: #007bff; /* Button background color */
+    background-color: #288AC1; /* Button background color */
     color: white; /* Button text color */
     border: none; /* Remove border */
     border-radius: 4px; /* Rounded corners */
@@ -59,13 +83,20 @@ body {
 }
 
 .search-bar button:hover {
-    background-color: #0056b3; /* Darker background on hover */
+    background-color: #2179A5; /* Darker background on hover */
 }
 
-/* Nav Bar Image */
-.navbar-brand img {
-    border-radius: 50%;
-    width: 60px;
-    height: 60px;
-    object-fit: cover;
+/* ====== BUTTON STYLES ====== */
+.btn-primary {
+    background-color: #288AC1;
+    color: white;
+    border: none;
+    transition: 0.3s ease-in-out;
+}
+
+/* ====== RESPONSIVENESS ====== */
+@media (max-width: 768px) {
+    .search-bar {
+        width: 80%;
+    }
 }
