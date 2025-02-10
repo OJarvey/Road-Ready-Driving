@@ -71,8 +71,14 @@ p {
 
 .navbar .fa-user, 
 .navbar .fa-shopping-bag {
-    font-size: 30px; /* Larger icons */
+    font-size: 30px; /* Larger icons */ 
     color: #EBF2F3; /* Match navbar color */
+}
+
+.navbar .fa-user:hover, 
+.navbar .fa-shopping-bag:hover {
+    color: #288AC1; /* Blue hover effect */
+    transition: color 0.3s ease-in-out;
 }
 
 
