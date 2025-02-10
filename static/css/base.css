@@ -9,6 +9,7 @@ body {
     background: url("/static/media/background-image.jpg") no-repeat center center fixed;
     background-size: cover;
     height: calc(100vh - 164px);
+    padding-top: 100px;
 }
 
 
@@ -45,7 +46,7 @@ p {
 .navbar {
     background-color: #3E474F !important; /* Dark gray navbar */
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-    z-index: 1050; /* Bootstrap default navbar z-index */
+    z-index: 1060; /* Bootstrap default navbar z-index */
 }
 
 .dropdown-menu {
@@ -133,6 +134,16 @@ p {
     background-color: #2179A5; /* Darker background on hover */
 }
 
+.overlay {
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    position: fixed;
+    background: white;
+    z-index: -1;
+}
+
 /* ====== BUTTON STYLES ====== */
 .btn {
     font-family: 'Rubik', sans-serif;
@@ -172,10 +183,38 @@ p {
     transform: scale(0.98); /* Slight button press effect */
 }
 
+.logo-font {
+    text-align: center; /* Ensures the header is centered */
+    font-weight: bold; /* Optional: Makes the text bold */
+    color: #333; /* Optional: Sets the color of the text */
+}
+
+.card {
+    margin: 0 auto; /* Centers the card in its column */
+    width: 100%; /* Makes sure the card uses all available width */
+}
+
+.header-container {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 1050; /* Ensure it is above other content */
+    margin-top: 0; /* Adds some space at the top of the page */
+    margin-bottom: 50px; /* Adds some space below the header before the cards start */
+}
+
+.container {
+    padding-top: 100px; /* Adjust the value based on the height of your navbar */
+}
+
 /* ====== RESPONSIVENESS ====== */
 @media (max-width: 768px) {
     .search-bar {
         width: 80%;
+    }
+    .header-container {
+        margin-top: 10px;
+        margin-bottom: 30px;
     }
 }
 

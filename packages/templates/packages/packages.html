@@ -2,20 +2,41 @@
 {% load static %}
 
 {% block page_header %}
-    <div class="container header-container">
-        <div class="row">
-            <div class="col">
-            </div>
+<div class="container header-container">
+    <div class="row">
+        <div class="col-12 text-center mt-5">
+            <h2 class="logo-font">Our Packages</h2>
+            <hr class="mx-auto w-50 mb-4"> <!-- Ensure the line is centered and not too wide -->
         </div>
     </div>
+</div>
 {% endblock %}
 
 {% block content %}
-    <div class="container">
-        <div class="row">
-            <div class="col ">
-                {{ packages }}
+<div class="container">
+    <div class="row justify-content-center">
+        {% for package in packages %}
+        <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
+            <div class="card h-100">
+                {% if package.icon %}
+                <img class="card-img-top" src="{{ package.image.url }}" alt="{{ package.name }}">
+                {% else %}
+                <img class="card-img-top" src="{{ MEDIA_URL }}noimage.png" alt="{{ package.name }}">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ package.name }}</h5>
+                    <p class="card-text">{{ package.description }}</p>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">Price: ${{ package.price }}</small>
+                </div>
             </div>
         </div>
+        {% empty %}
+        <div class="col">
+            <p>No packages available.</p>
+        </div>
+        {% endfor %}
     </div>
+</div>
 {% endblock %}
