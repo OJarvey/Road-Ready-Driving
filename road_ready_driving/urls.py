@@ -24,6 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),  # Allauth URLs
     path('', include('home.urls')),  # Home URLs
+    path('packages/', include('packages.urls')),  # Packages URLs
 ]
 
 if settings.DEBUG:
