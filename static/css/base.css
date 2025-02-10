@@ -71,8 +71,8 @@ p {
 
 .navbar .fa-user, 
 .navbar .fa-shopping-bag {
-    font-size: 30px; /* Adjust as needed */
-    color: #EBF2F3; /* Match your navbar color */
+    font-size: 30px; /* Larger icons */
+    color: #EBF2F3; /* Match navbar color */
 }
 
 
