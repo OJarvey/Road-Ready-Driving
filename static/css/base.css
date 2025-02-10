@@ -45,7 +45,7 @@ p {
 .navbar {
     background-color: #3E474F !important; /* Dark gray navbar */
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-    z-index: 1030; /* Bootstrap default navbar z-index */
+    z-index: 1050; /* Bootstrap default navbar z-index */
 }
 
 .dropdown-menu {
@@ -73,6 +73,8 @@ p {
 .navbar .fa-shopping-bag {
     font-size: 30px; /* Larger icons */ 
     color: #EBF2F3; /* Match navbar color */
+        position: relative; /* Keep it in place */
+    z-index: 1100; /* Ensure it's above other elements */
 }
 
 .navbar .fa-user:hover, 
@@ -175,4 +177,29 @@ p {
     .search-bar {
         width: 80%;
     }
+}
+
+/* Mobile Dropdown Fix */
+@media (max-width: 991px) {
+    .navbar-collapse {
+        position: relative;
+        z-index: 1000; /* Lower than dropdown z-index */
+    }  
+    
+    .dropdown-menu {
+        position: absolute;
+        right: 0;
+        left: auto;
+        width: 100vw; /* Full width on mobile */
+        margin-top: 0.5rem;
+    }
+    
+    .dropdown-toggle::after {
+        display: none; /* Hide default caret */
+    }
+}
+
+/* Ensure dropdown stays on top */
+.dropdown-menu {
+    z-index: 2000 !important; /* Higher than navbar */
 }
