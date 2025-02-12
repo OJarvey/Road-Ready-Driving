@@ -31,7 +31,8 @@
 
         <!-- Search Bar Container -->
         <div class="search-bar-container d-none d-lg-block">
-          <form class="search-bar" method="GET" action="">
+          <form class="search-bar" method="GET" action="{% url 'packages' %}">
+            {% csrf_token %}
             <input class="form-control" type="search" name="q" placeholder="Search" aria-label="Search" />
             <button class="btn btn-secondary" type="submit">GO</button>
           </form>
