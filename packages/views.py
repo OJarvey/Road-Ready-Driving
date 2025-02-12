@@ -14,3 +14,13 @@ def all_packages(request):
     
     return render(request, 'packages/packages.html', context)
 
+def package_detail(request, package_id):
+    """ A view to return the package detail page """
+    package = Package.objects.get(id=package_id)
+    
+    context = {
+        'package': package,
+    }
+    
+    return render(request, 'packages/packages_detail.html', context)
+
