@@ -25,6 +25,7 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),  # Allauth URLs
     path('', include('home.urls')),  # Home URLs
     path('packages/', include('packages.urls')),  # Packages URLs
+    path('bag/', include('bag.urls')),  # Bag URLs
 ]
 
 if settings.DEBUG:
