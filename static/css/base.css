@@ -207,6 +207,22 @@ p {
     padding-top: 100px; /* Adjust the value based on the height of your navbar */
 }
 
+.sort-form {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.sort-form select {
+    padding: 8px;
+    margin: auto;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: white;
+    cursor: pointer;
+}
+
 /* ====== RESPONSIVENESS ====== */
 @media (max-width: 768px) {
     .search-bar {

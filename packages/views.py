@@ -9,7 +9,9 @@ def all_packages(request):
     """ A view to return the packages page """
     packages = Package.objects.all()
     query = None
+    sort = request.GET.get('sort', '')
     
+    # Handle searching
     if request.GET:
         if 'q' in request.GET:
             query = request.GET['q']
@@ -19,6 +21,16 @@ def all_packages(request):
             
             query = Q(name__icontains=query) | Q(description__icontains=query)
             packages = packages.filter(query)
+            
+        # Handle sorting
+    if sort == 'price_asc':
+        packages = packages.order_by('price')
+    elif sort == 'price_desc':
+        packages = packages.order_by('-price')
+    elif sort == 'name_asc':
+        packages = packages.order_by('name')
+    elif sort == 'name_desc':
+        packages = packages.order_by('-name')
     
     context = {
         'packages': packages,

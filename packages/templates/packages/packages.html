@@ -14,6 +14,17 @@
 
 {% block content %}
 <div class="container">
+        <!-- Sorting Form -->
+        <form method="get" action="" class="sort-form">
+            <select name="sort" onchange="this.form.submit()">
+                <option value="">Sort by</option>
+                <option value="price_asc">Price (Low to High)</option>
+                <option value="price_desc">Price (High to Low)</option>
+                <option value="name_asc">Name (A - Z)</option>
+                <option value="name_desc">Name (Z - A)</option>
+            </select>
+        </form>
+        
     <div class="row justify-content-center">
         {% for package in packages %}
         <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
