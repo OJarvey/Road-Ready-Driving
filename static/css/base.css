@@ -183,6 +183,36 @@ p {
     transform: scale(0.98); /* Slight button press effect */
 }
 
+.btt-button {
+    position: fixed;
+    bottom: 20px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    z-index: 1000; /* High z-index to keep it on top of other content */
+    background-color: #288AC1;
+    border-color: #EBF2F3;
+    border-radius: 50%; /* Circular button */
+}
+
+.btt-link {
+    display: flex;
+    justify-content: center; /* Center the icon horizontally */
+    align-items: center; /* Center the icon vertically */
+    height: 100%; /* Full height of the container */
+    color: #EBF2F3; /* Off-white text to match navbar links */
+}
+
+.btt-button:hover {
+    background-color: #3E474F;
+    border: 2px solid #288AC1;
+}
+
+.fa-arrow-up {
+    font-size: 20px; /* Larger icon size for visibility */
+}
+
 .logo-font {
     text-align: center; /* Ensures the header is centered */
     font-weight: bold; /* Optional: Makes the text bold */
