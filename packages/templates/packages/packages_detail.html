@@ -37,6 +37,7 @@
                     {% csrf_token %}
                     <label for="quantity" class="form-label">Quantity:</label>
                     <input type="number" id="quantity" name="quantity" value="1" min="1" class="form-control mb-3" style="width:100px;">
+                    <input type="hidden" name="package_id" value="{{ package.id }}">
                     <button type="submit" class="btn btn-primary">Add to Bag</button>
                 </form>
             </div>
