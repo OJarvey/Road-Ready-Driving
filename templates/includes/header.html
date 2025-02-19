@@ -41,7 +41,8 @@
         <!-- Shopping Bag -->
         <div class="d-flex align-items-center">
           <div class="shopping-bag me-3">
-            <a class="nav-link {% if grand_total %}
+            <a class="nav-link {% if total %}
+                
                 
                 
                   
@@ -51,7 +52,9 @@
 
 
 
+
               {% else %}
+                
                 
                 
                   
@@ -61,18 +64,15 @@
 
 
 
+
               {% endif %}"
               href="{% url 'view_bag' %}">
-              <div class="text-center">
+              <div class="position-relative">
                 <i class="fas fa-shopping-bag fa-lg"></i>
-              </div>
-              <p class="my-0">
-                {% if item_count %}
-                  {{ item_count }} item{{ item_count|pluralize }}
-                {% else %}
-
+                {% if package_count > 0 %}
+                  <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{{ package_count }}</span>
                 {% endif %}
-              </p>
+              </div>
             </a>
           </div>
         </div>
