@@ -260,6 +260,17 @@ p {
     border-radius: 10px; /* adds rounded corners */
 }
 
+.highlight-update {
+    animation: highlight 1s ease;
+    background-color: rgba(40, 167, 69, 0.1);
+}
+
+@keyframes highlight {
+    0% { background-color: transparent; }
+    50% { background-color: rgba(40, 167, 69, 0.3); }
+    100% { background-color: transparent; }
+}
+
 /* ====== RESPONSIVENESS ====== */
 @media (max-width: 768px) {
     .search-bar {

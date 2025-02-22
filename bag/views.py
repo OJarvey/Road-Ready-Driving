@@ -51,38 +51,38 @@ def add_to_bag(request, item_id):
     return redirect(redirect_url)
 
 def update_bag(request, item_id):
-    """ Update the quantity of a package in the shopping bag """
-    if request.method == "POST":
-        try:
-            quantity = int(request.POST.get("quantity", 1))
-            if quantity < 1:  # Prevent invalid quantities
-                return JsonResponse({'success': False, 'error': 'Invalid quantity. Must be at least 1.'}, status=400)
-        except ValueError:
-            return JsonResponse({'success': False, 'error': 'Invalid quantity value.'}, status=400)
-
+    try:
+        quantity = int(request.POST.get("quantity", 1))
         bag = request.session.get('bag', {})
-
+        item_id_str = str(item_id)
+        
+        package = Package.objects.get(id=item_id)
+        
         if quantity > 0:
-            bag[str(item_id)] = quantity
+            bag[item_id_str] = quantity
         else:
-            bag.pop(str(item_id), None)
-
+            bag.pop(item_id_str, None)
+            
         request.session['bag'] = bag
-
-        # Calculate new totals
-        total = sum(Package.objects.get(id=int(k)).price * v for k, v in bag.items()) if bag else 0
-        package_count = sum(bag.values()) if bag else 0
-        package_price = Package.objects.get(id=item_id).price * quantity if quantity > 0 else 0
+        
+        # Convert Decimal to float for JSON serialization
+        subtotal = float(package.price * quantity)
+        grand_total = float(sum(
+            Package.objects.get(id=int(k)).price * v 
+            for k, v in bag.items()
+        ))
+        package_count = sum(bag.values())
 
         return JsonResponse({
             'success': True,
-            'subtotal': package_price,
-            'grand_total': total,
+            'subtotal': subtotal,
+            'grand_total': grand_total,
             'item_count': package_count,
-            'message': 'Quantity updated successfully!'
+            'message': 'Updated successfully'
         })
 
-    return JsonResponse({'success': False, 'error': 'Invalid request method'}, status=405)
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)})
 
 
 def remove_from_bag(request, item_id):
