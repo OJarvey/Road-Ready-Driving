@@ -31,7 +31,7 @@
                 <h5 class="card-title">{{ package.name }}</h5>
                 <p class="card-text">{{ package.description }}</p>
                 <div class="card-footer">
-                    <p class="lead mb-0 text-left font-weight-bold">Price: ${{ package.price }}</p>
+                    <p class="lead mb-0 text-left font-weight-bold">Price: £{{ package.price }}</p>
                 </div>
                 <form action="{% url 'add_to_bag' package.id %}" method="post">
                     {% csrf_token %}
