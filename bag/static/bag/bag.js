@@ -10,11 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const quantityInput = row.querySelector(".quantity-input");
             let quantity = parseInt(quantityInput.value);
 
-            if (isNaN(quantity) || quantity < 1) {
-                alert("Quantity must be at least 1.");
-                quantityInput.value = 1;
-                return;
-            }
+            if (!validateQuantity(quantity, quantityInput)) return;
 
             updateBag(itemId, quantity, row);
         }
@@ -25,6 +21,33 @@ document.addEventListener("DOMContentLoaded", function () {
             removeFromBag(itemId, e.target);
         }
     });
+
+    // Prevent users from manually entering invalid quantities
+    document.querySelectorAll(".quantity-input").forEach(input => {
+        input.addEventListener("input", function () {
+            let quantity = parseInt(this.value);
+
+            if (isNaN(quantity) || quantity < 1) {
+                this.value = 1; // Reset to 1 if invalid
+            } else if (quantity > 10) {
+                alert("Maximum quantity allowed is 10.");
+                this.value = 10;
+            }
+        });
+    });
+
+    function validateQuantity(quantity, inputField) {
+        if (isNaN(quantity) || quantity < 1) {
+            alert("Quantity must be at least 1.");
+            inputField.value = 1;
+            return false;
+        } else if (quantity > 10) {
+            alert("Maximum quantity allowed is 10.");
+            inputField.value = 10;
+            return false;
+        }
+        return true;
+    }
 
     function updateBag(itemId, quantity, row) {
         fetch(`/bag/update/${itemId}/`, {
@@ -90,7 +113,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function getCSRFToken() {
-        return document.getElementById("csrf_token").value;
+        return document.getElementById("csrf_token") ? document.getElementById("csrf_token").value : "";
     }
 
     function showToast(type, message) {

@@ -30,12 +30,16 @@ def add_to_bag(request, item_id):
     quantity = request.POST.get('quantity')
 
     # Validate quantity input
-    if not quantity or not quantity.isdigit() or int(quantity) < 1:
-        return JsonResponse({'success': False, 'error': 'Invalid quantity. Must be at least 1.'}, status=400)
+    if not quantity or not quantity.isdigit():
+        return JsonResponse({'success': False, 'error': 'Invalid quantity. Please enter a number between 1 and 10.'}, status=400)
 
-    quantity = int(quantity)  # Convert to integer after validation
+    quantity = int(quantity)
+
+    # Ensure quantity is between 1 and 10
+    if quantity < 1 or quantity > 10:
+        return JsonResponse({'success': False, 'error': 'Quantity must be between 1 and 10.'}, status=400)
+
     redirect_url = request.POST.get('redirect_url', '/')
-
     bag = request.session.get('bag', {})
 
     if str(item_id) in bag:
