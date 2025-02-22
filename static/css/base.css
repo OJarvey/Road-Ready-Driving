@@ -253,6 +253,13 @@ p {
     cursor: pointer;
 }
 
+.image-container img {
+    width: 70%;  /* Ensures it fits within the container */
+    max-height: 70%; /* Adjust height to make it smaller */
+    object-fit: cover; /* Ensures image is cropped proportionally */
+    border-radius: 10px; /* adds rounded corners */
+}
+
 /* ====== RESPONSIVENESS ====== */
 @media (max-width: 768px) {
     .search-bar {

@@ -37,12 +37,15 @@
                     <td>{{ booking.package.description }}</td>
                     <td>£{{ booking.package.price }}</td>
                     <td>
-                      <input type="number" name="quantity" value="{{ booking.quantity }}" min="1" class="form-control" />
+                      <input type="number" name="quantity" class="form-control quantity-input"
+                          value="{{ booking.quantity }}" min="1" data-item-id="{{ booking.package.id }}">
                     </td>
                     <td>£<span class="line-total">{{ booking.line_total }}</span></td>
                     <td>
-                      <a href="" class="btn btn-primary">Edit</a>
-                      <a href="" class="btn btn-danger">Remove</a>
+                      <div class="d-flex gap-2">
+                        <button type="button" class="btn btn-sm btn-success update-link w-100">Update</button>
+                        <button class="btn btn-sm btn-danger remove-item w-100" data-item-id="{{ booking.package.id }}">Remove</button>
+                      </div>
                     </td>
                   </tr>
                 {% endfor %}
@@ -63,59 +66,9 @@
     </div>
   </div>
 
-  <script>
-    // Update quantity
-    $('.update-link').click(function(e) {
-        e.preventDefault();
-        const form = $(this).closest('.input-group');
-        const itemId = form.find('.quantity-input').data('item-id');
-        const quantity = form.find('.quantity-input').val();
-        updateBag(itemId, quantity);
-    });
+  <!-- Include CSRF Token -->
+  <input type="hidden" id="csrf_token" value="{{ csrf_token }}">
 
-    // Remove item
-    $('.remove-item').click(function(e) {
-        e.preventDefault();
-        const itemId = $(this).data('item-id');
-        updateBag(itemId, 0);
-    });
+  <script src="{% static 'bag/bag.js' %}"></script>
 
-    function updateBag(itemId, quantity) {
-        const url = `/bag/update/${itemId}/`;
-        const csrfToken = "{{ csrf_token }}";
-        const data = {'quantity': quantity, 'csrfmiddlewaretoken': csrfToken};
-
-        $.post(url, data)
-         .done(function(response) {
-             if (response.success) {
-                 // Update subtotal
-                 $(`tr[data-item-id="${itemId}"] .subtotal`).text(
-                     `£${response.subtotal.toFixed(2)}`
-                 );
-                 
-                 // Update grand total
-                 $('#grand-total').text(response.grand_total.toFixed(2));
-                 
-                 // Update bag counter
-                 $('.bag-counter').text(response.item_count);
-                 
-                 // Show success message
-                 showToast('success', response.message);
-                 
-                 // Remove row if quantity is 0
-                 if (quantity === 0) {
-                     $(`tr[data-item-id="${itemId}"]`).remove();
-                 }
-             }
-         })
-         .fail(function(error) {
-             showToast('error', error.responseJSON.error);
-         });
-    }
-
-    function showToast(type, message) {
-        // Implement your toast notification system here
-        console.log(`${type.toUpperCase()}: ${message}`);
-    }
-</script>
 {% endblock %}
