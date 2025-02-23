@@ -101,39 +101,27 @@ document.addEventListener("DOMContentLoaded", function () {
             if (response.success) {
                 const row = button.closest('tr');
                 row.remove();
-
                 document.getElementById("total").textContent = response.grand_total.toFixed(2);
-
-                const bagBadge = document.querySelector('.shopping-bag .badge');
-                if (bagBadge) {
-                    if (response.item_count > 0) {
-                        bagBadge.textContent = response.item_count;
-                        bagBadge.style.display = 'block';
-                    } else {
-                        bagBadge.style.display = 'none';
-                    }
-                }
-
+                window.updateBagBadge(response.item_count);
                 if (response.item_count === 0) {
                     const container = document.querySelector('.container .row .col-12');
                     container.innerHTML = `
                         <div class="text-center my-5">
                             <p class="lead">Your bookings are currently empty.</p>
-                            <a href="/packages/" class="btn btn-outline-primary btn-lg">
+                            <a href="/packages/packages/" class="btn btn-outline-primary btn-lg">
                                 <i class="fas fa-chevron-left"></i> Book a Driving Package
                             </a>
                         </div>
                     `;
                 }
-
-                showToast('success', response.message);
+                window.showToast('success', response.message);
             } else {
-                showToast('error', response.error || "Error removing item.");
+                window.showToast('error', response.error || "Error removing item.");
             }
         })
         .catch(error => {
             console.error("Remove error:", error);
-            showToast('error', "Error removing item.");
+            window.showToast('error', "Error removing item.");
         });
     }
 
