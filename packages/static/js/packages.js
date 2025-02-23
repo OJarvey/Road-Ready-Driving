@@ -48,18 +48,16 @@ document.addEventListener("DOMContentLoaded", function () {
             submitButton.disabled = false;
             if (data.success) {
                 quantityError.style.display = "none";
-                showToast('success', data.message); // Show success toast
-                // Optional: Update bag badge
+                showToast('success', data.message);
                 const bagBadge = document.querySelector('.shopping-bag .badge');
                 if (bagBadge) {
-                    const currentCount = parseInt(bagBadge.textContent) || 0;
-                    bagBadge.textContent = currentCount + quantity; // Simplified update
-                    bagBadge.style.display = 'block';
+                    bagBadge.textContent = data.item_count;
+                    bagBadge.style.display = data.item_count > 0 ? 'block' : 'none';
                 }
             } else {
                 quantityError.textContent = data.error;
                 quantityError.style.display = "block";
-                showToast('error', data.error); // Show error toast
+                showToast('error', data.error);
             }
         })
         .catch(error => {
