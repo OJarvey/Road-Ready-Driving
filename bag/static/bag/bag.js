@@ -65,33 +65,29 @@ document.addEventListener("DOMContentLoaded", function () {
             },
             body: new URLSearchParams({ 'quantity': quantity }),
         })
-            .then(response => {
-                if (!response.ok) throw new Error('Network response was not ok');
-                return response.json();
-            })
-            .then(response => {
-                if (response.success) {
-                    // Convert to numbers explicitly
-                    const subtotal = Number(response.subtotal);
-                    const grandTotal = Number(response.grand_total);
-
-                    // Update totals with fixed decimal places
-                    // Change this line in the updateBag function
-                    row.querySelector(".line-total").textContent =
-                        response.subtotal.toFixed(2);
-                    document.getElementById("total").textContent =
-                        grandTotal.toFixed(2);
-
-                    // Update bag counter
-                    document.querySelectorAll('.bag-counter').forEach(el => {
-                        el.textContent = response.item_count;
-                    });
-                }
-            })
-            .catch(error => {
-                console.error("Error:", error);
-                alert("Update failed: " + error.message);
+        .then(response => response.json())
+        .then(response => {
+            if (!response.success) {
+                showToast('error', response.error || "⚠ Error updating bag.");
+                return;
+            }
+    
+            const subtotal = Number(response.subtotal);
+            const grandTotal = Number(response.grand_total);
+    
+            row.querySelector(".line-total").textContent = `£${subtotal.toFixed(2)}`;
+            document.getElementById("total").textContent = `£${grandTotal.toFixed(2)}`;
+    
+            document.querySelectorAll('.bag-counter').forEach(el => {
+                el.textContent = response.item_count;
             });
+    
+            showToast('success', "✅ Quantity updated successfully!");
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            showToast('error', "⚠ Error updating bag.");
+        });
     }
 
     function removeFromBag(itemId, button) {
@@ -114,9 +110,11 @@ document.addEventListener("DOMContentLoaded", function () {
                     document.getElementById("total").textContent = response.grand_total.toFixed(2);
 
                     // Update bag counter
-                    const bagCounter = document.querySelector('.bag-counter');
-                    if (bagCounter) {
-                        bagCounter.textContent = response.item_count;
+                    const bagBadge = document.querySelector('.shopping-bag .badge');
+                    if (bagBadge) {
+                        bagBadge.textContent = response.item_count;
+                    }else {
+                        bagBadge.style.display = 'none';
                     }
 
                     showToast('success', response.message);
