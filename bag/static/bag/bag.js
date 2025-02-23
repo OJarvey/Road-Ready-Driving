@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function () {
             } else if (isNaN(quantity) || quantity < 1) {
                 this.value = 1;
             } else if (quantity > 10) {
-                alert("⚠ Maximum quantity allowed is 10.");
+                showToast("⚠ Maximum quantity allowed is 10.");
                 this.value = 10;
             }
         });
@@ -40,16 +40,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function validateQuantity(quantity, inputField) {
         if (!inputField.value) {
-            alert("⚠ Please enter a valid quantity.");
+            showToast("⚠ Please enter a valid quantity.");
             inputField.value = 1;
             return false;
         }
         if (isNaN(quantity) || quantity < 1) {
-            alert("⚠ Quantity must be at least 1.");
+            showToast("⚠ Quantity must be at least 1.");
             inputField.value = 1;
             return false;
         } else if (quantity > 10) {
-            alert("⚠ Maximum quantity allowed is 10.");
+            showToast("⚠ Maximum quantity allowed is 10.");
             inputField.value = 10;
             return false;
         }
@@ -67,26 +67,22 @@ document.addEventListener("DOMContentLoaded", function () {
         })
         .then(response => response.json())
         .then(response => {
-            if (!response.success) {
-                showToast('error', response.error || "⚠ Error updating bag.");
-                return;
+            if (response.success) {
+                row.querySelector(".line-total").textContent = `${response.subtotal.toFixed(2)}`;
+                document.getElementById("total").textContent = response.grand_total.toFixed(2);
+
+                document.querySelectorAll('.shopping-bag .badge').forEach(el => {
+                    el.textContent = response.item_count;
+                });
+
+                showToast('success', response.message);
+            } else {
+                showToast('error', response.error || "Error updating bag.");
             }
-    
-            const subtotal = Number(response.subtotal);
-            const grandTotal = Number(response.grand_total);
-    
-            row.querySelector(".line-total").textContent = `£${subtotal.toFixed(2)}`;
-            document.getElementById("total").textContent = `£${grandTotal.toFixed(2)}`;
-    
-            document.querySelectorAll('.bag-counter').forEach(el => {
-                el.textContent = response.item_count;
-            });
-    
-            showToast('success', "✅ Quantity updated successfully!");
         })
         .catch(error => {
-            console.error("Error:", error);
-            showToast('error', "⚠ Error updating bag.");
+            console.error("Update error:", error);
+            showToast('error', "Error updating bag.");
         });
     }
 
@@ -134,6 +130,23 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function showToast(type, message) {
-        console.log(`${type.toUpperCase()}: ${message}`);
+        const toastContainer = document.querySelector('.message-container');
+        const toastElement = document.createElement('div');
+
+        toastElement.classList.add('toast', `toast-${type}`);
+        toastElement.innerHTML = `
+            <div class="toast-header">
+                <strong class="mr-auto">${type.toUpperCase()}</strong>
+                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="toast-body">${message}</div>
+        `;
+
+        toastContainer.appendChild(toastElement);
+        $(toastElement).toast({ delay: 3000 }).toast('show');
+
+        setTimeout(() => toastElement.remove(), 4000);
     }
 });

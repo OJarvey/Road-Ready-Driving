@@ -31,23 +31,39 @@ def add_to_bag(request, item_id):
 
     # Validate quantity input
     if not quantity or not quantity.isdigit():
-        return JsonResponse({'success': False, 'error': 'Invalid quantity. Please enter a number between 1 and 10.'}, status=400)
+        error_message = "Invalid quantity. Please enter a number between 1 and 10."
+        if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+            return JsonResponse({'success': False, 'error': error_message}, status=400)
+        return redirect('view_bag')
 
     quantity = int(quantity)
 
     # Ensure quantity is between 1 and 10
     if quantity < 1 or quantity > 10:
-        return JsonResponse({'success': False, 'error': 'Quantity must be between 1 and 10.'}, status=400)
+        error_message = "You can only add up to 10 per item."
+        if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+            return JsonResponse({'success': False, 'error': error_message}, status=400)
+        return redirect('view_bag')
 
     redirect_url = request.POST.get('redirect_url', '/')
     bag = request.session.get('bag', {})
 
     if str(item_id) in bag:
+        if bag[str(item_id)] + quantity > 10:
+            error_message = "Total quantity in bag cannot exceed 10."
+            if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+                return JsonResponse({'success': False, 'error': error_message}, status=400)
+            return redirect('view_bag')
         bag[str(item_id)] += quantity
     else:
         bag[str(item_id)] = quantity
 
     request.session['bag'] = bag
+    
+        # If it's an AJAX request, return JSON response
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        return JsonResponse({'success': True, 'message': "Item added to bag successfully!"})
+    
     return redirect(redirect_url)
 
 def update_bag(request, item_id):
