@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
 from packages.models import Package
 from django.contrib import messages
+from django.urls import reverse
 
 def view_bag(request):
     """ A view to return the bag page """
@@ -22,6 +23,7 @@ def view_bag(request):
     context = {
         'bookings': bookings,
         'total': total,
+        'packages_url': reverse('packages'),
     }
 
     return render(request, 'bag/bag.html', context)

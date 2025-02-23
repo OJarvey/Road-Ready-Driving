@@ -108,7 +108,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     container.innerHTML = `
                         <div class="text-center my-5">
                             <p class="lead">Your bookings are currently empty.</p>
-                            <a href="/packages/packages/" class="btn btn-outline-primary btn-lg">
+                            <a href="${packagesUrl}" class="btn btn-outline-primary btn-lg">
                                 <i class="fas fa-chevron-left"></i> Book a Driving Package
                             </a>
                         </div>
