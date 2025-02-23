@@ -271,6 +271,13 @@ p {
     100% { background-color: transparent; }
 }
 
+.table img.img-thumbnail {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
 /* ====== RESPONSIVENESS ====== */
 @media (max-width: 768px) {
     .search-bar {

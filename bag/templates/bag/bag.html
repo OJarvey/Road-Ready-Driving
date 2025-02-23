@@ -33,7 +33,15 @@
               <tbody>
                 {% for booking in bookings %}
                   <tr data-item-id="{{ booking.package.id }}">
-                    <td>{{ booking.package.name }}</td>
+                    <td>
+                      {% if booking.package.image %}
+                        <img src="{{ booking.package.image.url }}" alt="{{ booking.package.name }}"
+                             class="img-thumbnail">
+                      {% else %}
+                        <img src="{{ MEDIA_URL }}noimage.png" alt="No Image"
+                             class="img-thumbnail">
+                      {% endif %}
+                    </td>
                     <td>{{ booking.package.description }}</td>
                     <td>£{{ booking.package.price }}</td>
                     <td>
