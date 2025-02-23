@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function () {
             } else if (isNaN(quantity) || quantity < 1) {
                 this.value = 1;
             } else if (quantity > 10) {
-                showToast("⚠ Maximum quantity allowed is 10.");
+                showToast('warning', "⚠ Maximum quantity allowed is 10.");
                 this.value = 10;
             }
         });
@@ -40,16 +40,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function validateQuantity(quantity, inputField) {
         if (!inputField.value) {
-            showToast("⚠ Please enter a valid quantity.");
+            showToast('warning', "⚠ Please enter a valid quantity.");
             inputField.value = 1;
             return false;
         }
         if (isNaN(quantity) || quantity < 1) {
-            showToast("⚠ Quantity must be at least 1.");
+            showToast('warning', "⚠ Quantity must be at least 1.");
             inputField.value = 1;
             return false;
         } else if (quantity > 10) {
-            showToast("⚠ Maximum quantity allowed is 10.");
+            showToast('warning', "⚠ Maximum quantity allowed is 10.");
             inputField.value = 10;
             return false;
         }
@@ -73,6 +73,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 document.querySelectorAll('.shopping-bag .badge').forEach(el => {
                     el.textContent = response.item_count;
+                    el.style.display = response.item_count > 0 ? 'block' : 'none';
                 });
 
                 showToast('success', response.message);
@@ -95,33 +96,45 @@ document.addEventListener("DOMContentLoaded", function () {
             },
             body: new URLSearchParams({}),
         })
-            .then(response => response.json())
-            .then(response => {
-                if (response.success) {
-                    // Remove the row instantly
-                    const row = button.closest('tr');
-                    row.remove();
+        .then(response => response.json())
+        .then(response => {
+            if (response.success) {
+                const row = button.closest('tr');
+                row.remove();
 
-                    // Update grand total in real-time
-                    document.getElementById("total").textContent = response.grand_total.toFixed(2);
+                document.getElementById("total").textContent = response.grand_total.toFixed(2);
 
-                    // Update bag counter
-                    const bagBadge = document.querySelector('.shopping-bag .badge');
-                    if (bagBadge) {
+                const bagBadge = document.querySelector('.shopping-bag .badge');
+                if (bagBadge) {
+                    if (response.item_count > 0) {
                         bagBadge.textContent = response.item_count;
-                    }else {
+                        bagBadge.style.display = 'block';
+                    } else {
                         bagBadge.style.display = 'none';
                     }
-
-                    showToast('success', response.message);
-                } else {
-                    showToast('error', response.error || "Error removing item.");
                 }
-            })
-            .catch(error => {
-                console.error("Remove error:", error);
-                showToast('error', "Error removing item.");
-            });
+
+                if (response.item_count === 0) {
+                    const container = document.querySelector('.container .row .col-12');
+                    container.innerHTML = `
+                        <div class="text-center my-5">
+                            <p class="lead">Your bookings are currently empty.</p>
+                            <a href="/packages/" class="btn btn-outline-primary btn-lg">
+                                <i class="fas fa-chevron-left"></i> Book a Driving Package
+                            </a>
+                        </div>
+                    `;
+                }
+
+                showToast('success', response.message);
+            } else {
+                showToast('error', response.error || "Error removing item.");
+            }
+        })
+        .catch(error => {
+            console.error("Remove error:", error);
+            showToast('error', "Error removing item.");
+        });
     }
 
     function getCSRFToken() {
@@ -130,23 +143,37 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function showToast(type, message) {
-        const toastContainer = document.querySelector('.message-container');
-        const toastElement = document.createElement('div');
+        const toastContainer = document.querySelector('.message-container') || document.createElement('div');
+        if (!toastContainer.classList.contains('message-container')) {
+            toastContainer.classList.add('message-container');
+            document.body.appendChild(toastContainer);
+        }
 
-        toastElement.classList.add('toast', `toast-${type}`);
-        toastElement.innerHTML = `
-            <div class="toast-header">
-                <strong class="mr-auto">${type.toUpperCase()}</strong>
-                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+        const toastHTML = `
+            <div class="toast custom-toast rounded-0 border-top-0" data-bs-autohide="false">
+                <div class="arrow-up arrow-${type}"></div>
+                <div class="w-100 toast-capper bg-${type}"></div>
+                <div class="toast-header bg-white text-dark">
+                    <strong class="mr-auto">${type.charAt(0).toUpperCase() + type.slice(1)}!</strong>
+                    <button type="button" class="ml-2 mb-1 close text-dark" data-bs-dismiss="toast" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="toast-body bg-white">
+                    ${message}
+                </div>
             </div>
-            <div class="toast-body">${message}</div>
         `;
 
-        toastContainer.appendChild(toastElement);
-        $(toastElement).toast({ delay: 3000 }).toast('show');
+        toastContainer.innerHTML += toastHTML;
+        const toastEl = toastContainer.lastElementChild;
+        const toast = new bootstrap.Toast(toastEl, { autohide: false });
+        toast.show();
 
-        setTimeout(() => toastElement.remove(), 4000);
+        // Optional: Auto-hide after 4 seconds but allow manual dismissal
+        setTimeout(() => {
+            toast.hide(); // Hide with animation
+            setTimeout(() => toastEl.remove(), 300); // Remove after animation
+        }, 4000);
     }
 });
