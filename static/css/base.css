@@ -265,6 +265,25 @@ p {
     background-color: rgba(40, 167, 69, 0.1);
 }
 
+/* Toast Container */
+.message-container {
+    position: fixed;
+    top: 72px;
+    right: 15px;
+    z-index: 9999;
+}
+
+/* Custom Toast Styles */
+.custom-toast {
+    overflow: visible;
+    min-width: 250px;
+}
+
+/* Toast Capper */
+.toast-capper {
+    height: 2px;
+}
+
 @keyframes highlight {
     0% { background-color: transparent; }
     50% { background-color: rgba(40, 167, 69, 0.3); }
