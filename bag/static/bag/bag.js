@@ -76,14 +76,14 @@ document.addEventListener("DOMContentLoaded", function () {
                     el.style.display = response.item_count > 0 ? 'block' : 'none';
                 });
 
-                showToast('success', response.message);
+                showToast('success', response.message); // Local showToast
             } else {
-                showToast('error', response.error || "Error updating bag.");
+                showToast('error', response.error || "Error updating bag."); // Local showToast
             }
         })
         .catch(error => {
             console.error("Update error:", error);
-            showToast('error', "Error updating bag.");
+            showToast('error', "Error updating bag."); // Local showToast
         });
     }
 
@@ -102,26 +102,31 @@ document.addEventListener("DOMContentLoaded", function () {
                 const row = button.closest('tr');
                 row.remove();
                 document.getElementById("total").textContent = response.grand_total.toFixed(2);
-                window.updateBagBadge(response.item_count);
+                // Update badge locally (remove window.updateBagBadge if not in script.js)
+                const bagBadge = document.querySelector('.shopping-bag .badge');
+                if (bagBadge) {
+                    bagBadge.textContent = response.item_count;
+                    bagBadge.style.display = response.item_count > 0 ? 'block' : 'none';
+                }
                 if (response.item_count === 0) {
                     const container = document.querySelector('.container .row .col-12');
                     container.innerHTML = `
                         <div class="text-center my-5">
                             <p class="lead">Your bookings are currently empty.</p>
-                            <a href="${packagesUrl}" class="btn btn-outline-primary btn-lg">
+                            <a href="/packages/packages/" class="btn btn-outline-primary btn-lg">
                                 <i class="fas fa-chevron-left"></i> Book a Driving Package
                             </a>
                         </div>
                     `;
                 }
-                window.showToast('success', response.message);
+                showToast('success', response.message); // Local showToast
             } else {
-                window.showToast('error', response.error || "Error removing item.");
+                showToast('error', response.error || "Error removing item."); // Local showToast
             }
         })
         .catch(error => {
             console.error("Remove error:", error);
-            window.showToast('error', "Error removing item.");
+            showToast('error', "Error removing item."); // Local showToast
         });
     }
 
@@ -158,10 +163,9 @@ document.addEventListener("DOMContentLoaded", function () {
         const toast = new bootstrap.Toast(toastEl, { autohide: false });
         toast.show();
 
-        // Optional: Auto-hide after 4 seconds but allow manual dismissal
         setTimeout(() => {
-            toast.hide(); // Hide with animation
-            setTimeout(() => toastEl.remove(), 300); // Remove after animation
+            toast.hide();
+            setTimeout(() => toastEl.remove(), 300);
         }, 4000);
     }
 });
