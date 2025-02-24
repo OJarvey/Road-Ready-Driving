@@ -1,0 +1,48 @@
+input[type="text"],
+input[type="email"],
+input[type="number"],
+select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
+/* --- Adjust Label and Legend Spacing --- */
+legend {
+    font-size: 16px;
+    font-weight: bold;
+    color: #007bff;
+    margin-bottom: 10px;
+}
+
+fieldset {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+/* --- Fix Button Alignment and Spacing --- */
+.submit-button {
+    margin-top: 20px;
+    text-align: right;
+}
+
+.submit-button .btn {
+    margin-top: 10px;
+    width: auto;
+}
+
+/* --- Mobile Optimization --- */
+@media (max-width: 768px) {
+    .submit-button {
+        text-align: center;
+    }
+
+    .submit-button .btn {
+        width: 100%;
+    }
+}
