@@ -14,6 +14,7 @@ class Package(models.Model):
         return self.name
 
 class Order(models.Model):
+    order_number = models.CharField(max_length=32, unique=True, editable=False)
     full_name = models.CharField(max_length=50, blank=False)
     phone_number = models.CharField(max_length=20, blank=False)
     country = models.CharField(max_length=40, blank=False)
@@ -22,37 +23,39 @@ class Order(models.Model):
     street_address1 = models.CharField(max_length=80, blank=False)
     street_address2 = models.CharField(max_length=80, blank=True)
     county = models.CharField(max_length=80, blank=True)
-    date = models.DateField()
+    date = models.DateField(auto_now_add=True)
     order_total = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    grand_total = models.DecimalField(max_digits=10, decimal_places=2, default=0)  
+    grand_total = models.DecimalField(max_digits=10, decimal_places=2, default=0)
 
     def _generate_order_number(self):
+        """Generate a random order number using UUID"""
         return uuid.uuid4().hex.upper()
-    
+
     def update_total(self):
-        self.order.order_total = self.order.lineitems.aggregate(Sum('lineitem_total'))['lineitem_total__sum'] or 0
-        self.order.grand_total = self.order.order
-        self.order.save()
-    
+        """Update the total cost of the order"""
+        self.order_total = self.lineitems.aggregate(Sum('lineitem_total'))['lineitem_total__sum'] or 0
+        self.save()
+
     def save(self, *args, **kwargs):
-        
-        if not self.order.order_number:
-            self.order.order_number = self._generate_order_number()
-            self.order.save()
+        """Override save method to add order number if not set"""
+        if not self.order_number:
+            self.order_number = self._generate_order_number()
         super().save(*args, **kwargs)
-        
+
     def __str__(self):
         return self.order_number
-        
+
 class OrderLineItem(models.Model):
     order = models.ForeignKey(Order, null=False, on_delete=models.CASCADE, related_name='lineitems')
     package = models.ForeignKey(Package, null=False, on_delete=models.CASCADE)
-    quantity = models.IntegerField(null=False, blank=False, default=0)
+    quantity = models.IntegerField(null=False, blank=False, default=1)
     lineitem_total = models.DecimalField(max_digits=6, decimal_places=2, blank=False, null=False, editable=False)
-    
+
     def save(self, *args, **kwargs):
+        """Calculate line item total and update order total"""
         self.lineitem_total = self.package.price * self.quantity
         super().save(*args, **kwargs)
-        
+        self.order.update_total()
+
     def __str__(self):
-        return f'SKU {self.package.name} on order {self.order.order_number}'
+        return f'Package {self.package.name} on order {self.order.order_number}'
