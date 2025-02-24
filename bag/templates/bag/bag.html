@@ -63,7 +63,7 @@
           <div class="text-right">
             <h4>Total: <span id="total">{{ total }}</span></h4>
             <p>Items: <span class="bag-counter">{{ bookings|length }}</span></p>
-            <a href="" class="btn btn-primary mt-2">Proceed to Checkout</a>
+            <a href="{% url 'checkout' %}" class="btn btn-primary mt-2">Proceed to Checkout</a>
           </div>
         {% else %}
           <div class="text-center my-5">
