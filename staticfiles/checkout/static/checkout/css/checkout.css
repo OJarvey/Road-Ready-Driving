@@ -1,0 +1,134 @@
+input[type="text"],
+input[type="email"],
+input[type="number"],
+select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
+legend {
+    font-size: 16px;
+    font-weight: bold;
+    color: #007bff;
+    margin-bottom: 10px;
+}
+
+fieldset {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.submit-button {
+    margin-top: 20px;
+    text-align: right;
+}
+
+.submit-button .btn {
+    margin-top: 10px;
+    width: auto;
+}
+
+.StripeElement,
+.stripe-style-input {
+    box-sizing: border-box;
+    height: 45px;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease-in-out;
+}
+
+/* Highlight input fields on focus */
+.StripeElement--focus,
+.stripe-style-input:focus,
+.stripe-style-input:active {
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    border-color: #007bff;
+}
+
+/* Autofill Background */
+.StripeElement--webkit-autofill {
+    background-color: #f8f9fa !important;
+}
+
+/* Placeholder Styling */
+.stripe-style-input::placeholder {
+    color: #6c757d;
+    font-size: 14px;
+}
+
+/* Form Layout & Spacing */
+fieldset {
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+/* Legend (Form Section Titles) */
+.fieldset-label {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+    position: relative;
+    right: 0.5rem;
+    padding: 5px 10px;
+    background: #fff;
+}
+
+/* Form Input Fields */
+#payment-form .form-control,
+#card-element {
+    color: #000;
+    border: 1px solid #000;
+    border-radius: 5px;
+    height: 45px;
+}
+
+/* Button Styling */
+
+.submit-button {
+    text-align: right;
+    margin-top: 20px;
+}
+
+#submit-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: background 0.2s ease-in-out;
+}
+
+#submit-button:hover {
+    background-color: #0056b3;
+}
+
+#submit-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+    .submit-button {
+        text-align: center;
+    }
+
+    #submit-button {
+        width: 100%;
+    }
+
+    .fieldset-label {
+        font-size: 12px;
+    }
+}
