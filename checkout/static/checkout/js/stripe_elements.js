@@ -23,7 +23,6 @@ $(document).ready(function () {
     var card = elements.create('card', { style: style, hidePostalCode: true });
     card.mount('#card-element');
 
-    // Handle real-time validation errors on the card element
     card.addEventListener('change', function (event) {
         var errorDiv = $('#card-errors');
         if (event.error) {
@@ -39,7 +38,6 @@ $(document).ready(function () {
         }
     });
 
-    // Handle form submission
     var form = $('#payment-form');
     var submitButton = $('#submit-button');
 
@@ -66,7 +64,6 @@ $(document).ready(function () {
                 submitButton.attr('disabled', false);
             } else {
                 if (result.paymentIntent.status === 'succeeded') {
-                    // Use AJAX to save the order before redirecting
                     $.ajax({
                         type: "POST",
                         url: "/checkout/save-order/",
@@ -82,20 +79,21 @@ $(document).ready(function () {
                             town_or_city: $('#id_town_or_city').val(),
                             county: $('#id_county').val(),
                             postcode: $('#id_postcode').val(),
-                            country: $('#id_country').val()
+                            country: $('#id_country').val(),
+                            payment_intent_id: result.paymentIntent.id  // Pass Stripe payment intent ID
                         }),
                         contentType: "application/json",
                         success: function (data) {
                             if (data.success) {
                                 window.location.href = "/checkout/success/" + data.order_number + "/";
                             } else {
-                                errorDiv.html("Error saving order: " + (data.error || "Unknown error"));
+                                $('#card-errors').html("Error saving order: " + (data.error || "Unknown error"));
                                 submitButton.attr('disabled', false);
                                 card.update({ 'disabled': false });
                             }
                         },
                         error: function () {
-                            errorDiv.html("Error processing payment.");
+                            $('#card-errors').html("Error processing payment.");
                             submitButton.attr('disabled', false);
                             card.update({ 'disabled': false });
                         }

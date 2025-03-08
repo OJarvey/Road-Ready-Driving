@@ -27,6 +27,8 @@ class Order(models.Model):
     date = models.DateField(auto_now_add=True)
     order_total = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     grand_total = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    
+    stripe_payment_intent_id = models.CharField(max_length=255, null=True, blank=True)
 
     def _generate_order_number(self):
         """Generate a random order number using UUID"""
