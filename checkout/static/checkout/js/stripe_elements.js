@@ -37,6 +37,8 @@ $(document).ready(function () {
         ev.preventDefault();
         card.update({ 'disabled': true });
         submitButton.attr('disabled', true);
+        $('#payment-form').fadeToggle(100);
+        $('#loading-overlay').fadeToggle(100);
 
         stripe.confirmCardPayment(clientSecret, {
             payment_method: { card: card }
@@ -44,6 +46,8 @@ $(document).ready(function () {
             if (result.error) {
                 var errorDiv = $('#card-errors');
                 errorDiv.html(`<span class="icon" role="alert"><i class="fas fa-times"></i></span><span>${result.error.message}</span>`);
+                $('#payment-form').fadeToggle(100);
+                $('#loading-overlay').fadeToggle(100);
                 card.update({ 'disabled': false });
                 submitButton.attr('disabled', false);
             } else if (result.paymentIntent.status === 'succeeded') {
