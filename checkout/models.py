@@ -1,6 +1,7 @@
 import uuid
 
 from django.db import models
+from packages.models import Package as ExternalPackage
 from django.db.models import Sum
 from django.conf import settings
 from django_countries.fields import CountryField
@@ -27,20 +28,20 @@ class Order(models.Model):
     date = models.DateField(auto_now_add=True)
     order_total = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     grand_total = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    
     stripe_payment_intent_id = models.CharField(max_length=255, null=True, blank=True)
 
     def _generate_order_number(self):
-        """Generate a random order number using UUID"""
         return uuid.uuid4().hex.upper()
 
     def update_total(self):
-        """Update the total cost of the order"""
-        self.order_total = self.lineitems.aggregate(Sum('lineitem_total'))['lineitem_total__sum'] or 0
-        self.save()
+        total = self.lineitems.aggregate(total_sum=models.Sum('lineitem_total'))['total_sum'] or 0
+        print(f"Line items count: {self.lineitems.count()}, Calculated total: {total}")
+        self.order_total = total
+        self.grand_total = total
+        self.save(update_fields=['order_total', 'grand_total'])
+        print(f"Updated totals for order {self.order_number}: order_total={self.order_total}, grand_total={self.grand_total}")
 
     def save(self, *args, **kwargs):
-        """Override save method to add order number if not set"""
         if not self.order_number:
             self.order_number = self._generate_order_number()
         super().save(*args, **kwargs)
@@ -50,13 +51,18 @@ class Order(models.Model):
 
 class OrderLineItem(models.Model):
     order = models.ForeignKey(Order, null=False, on_delete=models.CASCADE, related_name='lineitems')
-    package = models.ForeignKey(Package, null=False, on_delete=models.CASCADE)
+    package = models.ForeignKey(ExternalPackage, null=False, on_delete=models.CASCADE)
     quantity = models.IntegerField(null=False, blank=False, default=1)
-    lineitem_total = models.DecimalField(max_digits=6, decimal_places=2, blank=False, null=False, editable=False)
+    lineitem_total = models.DecimalField(max_digits=6, decimal_places=2, null=False, blank=False, editable=False)
 
     def save(self, *args, **kwargs):
-        """Calculate line item total and update order total"""
+        print("Saving OrderLineItem")
+        print(f"Type of package inside save: {type(self.package)}")
+        print(f"Insance check inside save: {isinstance(self.package, Package)}")
+        print(f"Package ID inside save: {self.package.id}")
+        
         self.lineitem_total = self.package.price * self.quantity
+        print(f"Calculating lineitem_total: {self.package.name}, Price={self.package.price}, Qty={self.quantity}, Total={self.lineitem_total}")
         super().save(*args, **kwargs)
         self.order.update_total()
 
