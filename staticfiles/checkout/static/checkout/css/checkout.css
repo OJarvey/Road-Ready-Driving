@@ -119,6 +119,16 @@ fieldset {
     cursor: not-allowed;
 }
 
+.return-home-btn {
+    background-color: #288AC1;
+    border-radius: 50px;
+    color: #fff;
+}
+
+.return-home-btn:hover {
+    background-color: #2179A5;
+}
+
 @media (max-width: 768px) {
     .submit-button {
         text-align: center;

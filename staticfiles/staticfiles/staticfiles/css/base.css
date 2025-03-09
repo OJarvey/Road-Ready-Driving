@@ -1,0 +1,55 @@
+/* Background Image */
+html{
+    height: 100%;
+}
+
+body {
+    background: url("{% static 'images/background-image.jpg' %}") no-repeat center center fixed;
+    background-size: cover;
+    height: calc(100vh - 164px);
+    color: #555;
+    font-family: 'Lato';
+}
+
+/* Search Bar */
+.search-bar-container {
+    display: flex; /* Enable flex layout */
+    justify-content: center; /* Center content horizontally */
+    align-items: center; /* Center content vertically */
+    height: 100%; /* Fill container height */
+    position: relative; /* Position relative to page */
+    width: 100%; /* Full width */
+    margin-top: 10px; /* Add margin at the top */
+}
+
+.search-bar {
+    display: flex; /* Enable flex layout */
+    flex-direction: row; /* Arrange items in a row */
+    gap: 10px; /* Add spacing between elements */
+    margin-left: auto; /* Center the bar */
+    margin-right: auto; /* Center the bar */
+    flex: 1; /* Allow flexibility in resizing */
+    width: 50%; /* Set width as a percentage */
+    max-width: 400px; /* Constrain maximum width */
+}
+
+/* Optional: Style the search input and button */
+.search-bar input {
+    flex: 1; /* Allow input to grow and fill space */
+    padding: 8px; /* Add padding for better appearance */
+    border: 1px solid #ccc; /* Add a border */
+    border-radius: 4px; /* Rounded corners */
+}
+
+.search-bar button {
+    padding: 8px 16px; /* Add padding */
+    background-color: #007bff; /* Button background color */
+    color: white; /* Button text color */
+    border: none; /* Remove border */
+    border-radius: 4px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+}
+
+.search-bar button:hover {
+    background-color: #0056b3; /* Darker background on hover */
+}
