@@ -1,8 +1,7 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
-import json
 from django.contrib import messages
 from django.conf import settings
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import csrf_exempt
 
@@ -12,7 +11,24 @@ from packages.models import Package
 from bag.contexts import bag_contents
 from django.db import models
 
+import json
 import stripe
+
+@require_POST
+def cache_checkout_data(request):
+    try:
+        pid = request.POST.get('client_secret').split('_secret')[0]
+        stripe.api_key = settings.STRIPE_SECRET_KEY
+        stripe.PaymentIntent.modify(pid, metadata={
+            'bag': json.dumps(request.session.get('bag', {})),
+            'save_info': request.POST.get('save_info'),
+            'username': request.user.username if request.user.is_authenticated else 'Anonymous',
+        })
+        return HttpResponse(status=200)
+    except Exception as e:
+        messages.error(request, 'Sorry, your payment cannot be \
+            processed right now. Please try again later.')
+        return HttpResponse(content=e, status=400)
 
 def update_total(self):
     total = self.lineitems.aggregate(total_sum=models.Sum('lineitem_total'))['total_sum'] or 0
@@ -22,6 +38,7 @@ def update_total(self):
     print(f"Updated totals for order {self.order_number}: order_total={self.order_total}, grand_total={self.grand_total}")
 
 @require_POST
+@csrf_exempt
 def save_order(request):
     try:
         print("Received order data:", request.body)
