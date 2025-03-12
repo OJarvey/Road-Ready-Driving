@@ -19,7 +19,7 @@ class Order(models.Model):
     full_name = models.CharField(max_length=50, blank=False)
     email = models.EmailField(max_length=254, blank=False)
     phone_number = models.CharField(max_length=20, blank=False)
-    country = CountryField(blank_label='-- Select Country --')
+    country = CountryField(blank_label='-- Select Country --*')
     street_address1 = models.CharField(max_length=80, blank=False)
     street_address2 = models.CharField(max_length=80, blank=True)
     town_or_city = models.CharField(max_length=40, blank=False)

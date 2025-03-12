@@ -148,6 +148,16 @@ fieldset {
     height: 100%;
 }
 
+select,
+select option {
+    color: #000;
+}
+
+select:invalid,
+select option[value=""] {
+    color: #6c757d !important;
+}
+
 @media (max-width: 768px) {
     .submit-button {
         text-align: center;
