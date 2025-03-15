@@ -1,0 +1,67 @@
+{% load static url_path %}
+
+<nav class="sidebar" id="sidebar" aria-label="Profile Navigation">
+    <div class="menu-list">
+        <ul class="top-menu-dashboard navbar-nav">
+            <li>
+                <a href="{% url 'profile' %}" class="menu-item nav-link {% if request.path == 'profile'|get_url_path %}active{% endif %}" aria-label="Personal Info">
+                    <span class="menu-text">Profile</span>
+                    <i class="fa-regular fa-user" aria-hidden="true"></i>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'profile_user' %}" class="menu-item nav-link {% if request.path == 'profile_user'|get_url_path %}active{% endif %}" aria-label="User details">
+                    <span class="menu-text">Username</span>
+                    <i class="fa-solid fa-at"></i>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'account_change_password' %}" class="menu-item nav-link {% if request.path == 'account_change_password'|get_url_path %}active{% endif %}" aria-label="Password">
+                    <span class="menu-text">Password</span>
+                    <i class="fa-solid fa-key"></i>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'account_email' %}" class="menu-item nav-link {% if request.path == 'account_email'|get_url_path %}active{% endif %}" aria-label="Email">
+                    <span class="menu-text">Email</span>
+                    <i class="fa-solid fa-envelope"></i>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'profile_orders' %}" class="menu-item nav-link {% if request.path == 'profile_orders'|get_url_path %}active{% endif %}" aria-label="Orders">
+                    <span class="menu-text">Orders</span>
+                    <i class="fa-solid fa-clock-rotate-left"></i>
+                </a>
+            </li>
+        </ul>
+
+        <ul class="bottom-menu-dashboard navbar-nav">
+            {% if request.user.is_superuser or request.user.is_staff %}
+            <li>
+                <a href="/admin/" target="_blank" class="menu-item admin-access nav-link" aria-label="Admin">
+                    <span class="menu-text">{% if request.user.is_superuser %}Admin{% else %}Intranet{% endif %}</span>
+                    <i class="fa-solid fa-unlock" aria-hidden="true"></i>
+                </a>
+            </li>
+            {% else %}
+            <li>
+                <a href="{% url 'home' %}" class="menu-item nav-link {% if request.path == 'home'|get_url_path %}active{% endif %}" aria-label="Home">
+                    <span class="menu-text">Home</span>
+                    <i class="fa-solid fa-house" aria-hidden="true"></i>
+                </a>
+            </li>
+            {% endif %}
+            <li>
+                <a href="{% url 'account_logout' %}" class="menu-item logout-dashboard nav-link {% if request.path == 'account_logout'|get_url_path %}active{% endif %}" aria-label="Logout">
+                    <span class="menu-text">Logout</span>
+                    <i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <button class="toggle-btn menu-item" id="toggle-btn" aria-controls="sidebar" aria-expanded="false">
+        <i class="fas fa-arrow-left" aria-hidden="true"></i>
+        <span class="visually-hidden">Toggle Sidebar</span>
+    </button>
+</nav>

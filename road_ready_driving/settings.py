@@ -54,6 +54,8 @@ INSTALLED_APPS = [
     'checkout',
     'crispy_forms',
     'crispy_bootstrap4',
+    'profiles',
+    'django_countries',
 ]
 
 MIDDLEWARE = [
@@ -79,6 +81,7 @@ TEMPLATES = [
             os.path.join(BASE_DIR, 'templates'),
             os.path.join(BASE_DIR, 'templates', 'allauth'),
             os.path.join(BASE_DIR, 'packages', 'templates'),
+            os.path.join(BASE_DIR, 'profiles', 'templatetags'),
             ],
         'APP_DIRS': True,
         'OPTIONS': {
