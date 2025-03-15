@@ -159,6 +159,7 @@
     white-space: nowrap;
     transform-origin: right;
 }
+
 @media (min-width: 768px) {
     .sidebar {
         width: 150px;

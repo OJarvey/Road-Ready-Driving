@@ -1,40 +1,41 @@
-{% extends "account/base_entrance.html" %}
-{% load i18n %}
-{% load allauth account %}
-{% block head_title %}
-    {% translate "Sign In" %}
-{% endblock head_title %}
-{% block content %}
-    {% element h1 %}
-        {% translate "Enter Sign-In Code" %}
-    {% endelement %}
-    {% setvar email_link %}
-        <a href="mailto:{{ email }}">{{ email }}</a>
-    {% endsetvar %}
-    {% element p %}
-        {% blocktranslate %}We’ve sent a code to {{ email_link }}. The code expires shortly, so please enter it soon.{% endblocktranslate %}
-    {% endelement %}
-    {% url 'account_confirm_login_code' as login_url %}
-    {% element form form=form method="post" action=login_url tags="entrance,login" %}
-        {% slot body %}
-            {% csrf_token %}
-            {% element fields form=form unlabeled=True %}
-            {% endelement %}
-            {{ redirect_field }}
-        {% endslot %}
-        {% slot actions %}
-            {% element button type="submit" tags="prominent,login" %}
-                {% translate "Sign In" %}
-            {% endelement %}
-        {% endslot %}
-    {% endelement %}
-    {% element button type="submit" form="logout-from-stage" tags="link" %}
-        {% translate "Cancel" %}
-    {% endelement %}
-    <form id="logout-from-stage"
-          method="post"
-          action="{% url 'account_logout' %}">
-        <input type="hidden" name="next" value="{% url 'account_login' %}">
-        {% csrf_token %}
-    </form>
-{% endblock content %}
+{% extends "profiles/account.html" %}
+{% load i18n allauth account crispy_forms_tags %}
+
+{% block account_content %}
+<div class="overlay"></div>
+<div role="main" aria-labelledby="signin-code" class="page-container">
+    <h1 class="mb-5" id="signin-code">{% translate "Enter Sign-In Code" %}</h1>
+    <hr>
+
+    {% if messages %}
+        <div class="messages mb-4">
+            {% for message in messages %}
+                <div class="alert {% if message.tags == 'success' %}alert-success{% elif message.tags == 'error' %}alert-danger{% endif %} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-6">
+            <p>{% blocktranslate %}We’ve sent a code to <a href="mailto:{{ email }}">{{ email }}</a>. The code expires shortly, so please enter it soon.{% endblocktranslate %}</p>
+            {% url 'account_confirm_login_code' as login_url %}
+            <form method="post" action="{{ login_url }}" class="mb-4">
+                {% csrf_token %}
+                {{ form|crispy }}
+                {{ redirect_field }}
+                <div class="text-end">
+                    <button type="submit" class="btn btn-primary">{% translate "Sign In" %}</button>
+                    <button type="submit" form="logout-from-stage" class="btn btn-link">{% translate "Cancel" %}</button>
+                </div>
+            </form>
+            <form id="logout-from-stage" method="post" action="{% url 'account_logout' %}" style="display: none;">
+                {% csrf_token %}
+                <input type="hidden" name="next" value="{% url 'account_login' %}">
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

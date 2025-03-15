@@ -4,7 +4,7 @@
     <div class="menu-list">
         <ul class="top-menu-dashboard navbar-nav">
             <li>
-                <a href="{% url 'profile' %}" class="menu-item nav-link {% if request.path == 'profile'|get_url_path %}active{% endif %}" aria-label="Personal Info">
+                <a href="{% url 'profile' %}" class="menu-item nav-link {% if request.path == '/profiles/profile/' %}active{% endif %}" aria-label="Personal Info">
                     <span class="menu-text">Profile</span>
                     <i class="fa-regular fa-user" aria-hidden="true"></i>
                 </a>
@@ -28,9 +28,15 @@
                 </a>
             </li>
             <li>
-                <a href="{% url 'profile_orders' %}" class="menu-item nav-link {% if request.path == 'profile_orders'|get_url_path %}active{% endif %}" aria-label="Orders">
+                <a href="{% url 'profile_orders' %}" class="menu-item nav-link {% if request.path == '/profiles/orders/' %}active{% endif %}" aria-label="Orders">
                     <span class="menu-text">Orders</span>
-                    <i class="fa-solid fa-clock-rotate-left"></i>
+                    <i class="fa-solid fa-shopping-cart" aria-hidden="true"></i>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'delete_profile' %}" class="menu-item nav-link {% if request.path == '/profiles/delete/' %}active{% endif %}" aria-label="Delete Profile">
+                    <span class="menu-text">Delete Profile</span>
+                    <i class="fa-solid fa-trash" aria-hidden="true"></i>
                 </a>
             </li>
         </ul>
@@ -52,7 +58,7 @@
             </li>
             {% endif %}
             <li>
-                <a href="{% url 'account_logout' %}" class="menu-item logout-dashboard nav-link {% if request.path == 'account_logout'|get_url_path %}active{% endif %}" aria-label="Logout">
+                <a href="{% url 'account_logout' %}" class="menu-item logout-dashboard nav-link {% if request.path == '/profiles/logout/' %}active{% endif %}" aria-label="Logout">
                     <span class="menu-text">Logout</span>
                     <i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i>
                 </a>

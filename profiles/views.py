@@ -4,33 +4,45 @@ from django.contrib.auth import login
 from django.utils.decorators import method_decorator
 from django.views.generic.edit import FormView
 from django.views.generic.base import RedirectView
-from django.shortcuts import redirect, get_object_or_404
+from django.shortcuts import redirect, get_object_or_404, render
 from django.urls import reverse_lazy
 from django.contrib import messages
 from .forms import UpdateUsernameForm, UserProfileForm
 from checkout.models import Order
 from .models import UserProfile
+from allauth.account.forms import LoginForm
+from django.contrib.auth import logout
+from allauth.account.views import LoginView as AllauthLoginView
+from allauth.account.views import LogoutView as AllauthLogoutView
 
 
-class CustomLoginView(LoginView):
-    template_name = "profiles/login.html"
-    redirect_authenticated_user = True
-    next_page = reverse_lazy("home")
+class CustomLoginView(AllauthLoginView):
+    template_name = "allauth/login.html"
+    form_class = LoginForm
 
     def form_valid(self, form):
-        login(self.request, form.get_user())
-        previous_page = self.request.session.pop("previous_page", None)
-        return redirect(previous_page) if previous_page else super().form_valid(form)
+        self.user = form.user
+        login(self.request, self.user)
 
-    def get(self, request, *args, **kwargs):
-        if "next" not in request.GET:
-            previous_page = request.META.get("HTTP_REFERER")
-            if previous_page and previous_page != request.build_absolute_uri(
-                reverse_lazy("account_login")
-            ):
-                request.session["previous_page"] = previous_page
-        return super().get(request, *args, **kwargs)
+        messages.success(self.request, f"{self.user.username} has logged in successfully.")
+        return redirect(self.get_success_url())
 
+    def get_success_url(self):
+        return reverse_lazy("profile")
+
+class CustomLogoutView(AllauthLogoutView):
+    template_name = "allauth/logout.html"  # Reuse your styled template
+
+    def post(self, request, *args, **kwargs):
+        # Log the user out
+        logout(request)
+        # Add custom success message
+        messages.success(request, "User successfully logged out.")
+        return redirect(self.get_success_url())
+
+    def get_success_url(self):
+        # Redirect to login page after logout
+        return reverse_lazy("account_login")
 
 @method_decorator(login_required, name="dispatch")
 class UpdateUsernameView(FormView):
@@ -128,3 +140,13 @@ class OrderDetailView(FormView):
         )
         context["order"] = order
         return context
+
+@login_required
+def delete_profile(request):
+    if request.method == "POST":
+        # Confirm deletion and delete user + profile
+        user = request.user
+        user.delete()  # This deletes the User and cascades to UserProfile if on_delete=CASCADE
+        messages.success(request, "Your profile has been successfully deleted.")
+        return redirect("account_login")  # Redirect to login page after deletion
+    return render(request, "profiles/delete_profile.html")
