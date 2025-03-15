@@ -55,6 +55,8 @@ def save_order(request):
             order.order_number = order._generate_order_number()
             if "payment_intent_id" in data:
                 order.stripe_payment_intent_id = data["payment_intent_id"]
+            if request.user.is_authenticated:  # Set user_profile for logged-in users
+                order.user_profile = request.user.userprofile
             order.save()
             print(f"Order Created: {order.order_number}")
 
@@ -120,6 +122,8 @@ def checkout(request):
         if order_form.is_valid():
             order = order_form.save(commit=False)
             order.order_number = order._generate_order_number()
+            if request.user.is_authenticated:
+                order.user_profile = request.user.userprofile
             order.save()
 
             try:

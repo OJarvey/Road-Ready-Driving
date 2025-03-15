@@ -1,4 +1,5 @@
 {% extends "profiles/account.html" %}
+{% load static %}
 
 {% block account_content %}
 <div class="overlay"></div>
@@ -7,16 +8,24 @@
         <h1 class="mb-0" id="username">Update Username</h1>
         <hr class="w-25 mx-auto">
     </div>
+    <!-- Success message (hidden by default) -->
+    <div id="success-message" class="alert alert-success text-center" style="display: none;">
+        Username updated successfully!
+    </div>
     <div class="row justify-content-center">
         <div class="col-12 col-md-6">
-            <form method="POST">
+            <form method="POST" id="username-form">
                 {% csrf_token %}
                 {{ form.as_p }}
                 <div class="text-start">
-                    <button type="submit" class="btn btn-primary">Update Username</button>
+                    <button type="submit" class="btn btn-primary">Update</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'js/profile.js' %}" defer></script>
 {% endblock %}
