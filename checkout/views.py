@@ -10,6 +10,7 @@ from .models import Order, OrderLineItem
 from packages.models import Package
 from bag.contexts import bag_contents
 from django.db import models
+from profiles.models import UserProfile
 
 import json
 import stripe
@@ -74,6 +75,21 @@ def save_order(request):
 
             order.update_total()
             print(f"Final totals: order_total={order.order_total}, grand_total={order.grand_total}")
+            
+            # Update UserProfile with order details
+            if request.user.is_authenticated:
+                profile = request.user.userprofile
+                profile.default_full_name = order.full_name
+                profile.default_email = order.email
+                profile.default_phone_number = order.phone_number
+                profile.default_country = order.country
+                profile.default_street_address1 = order.street_address1
+                profile.default_street_address2 = order.street_address2
+                profile.default_town_or_city = order.town_or_city
+                profile.default_county = order.county
+                profile.default_postcode = order.postcode
+                profile.save()
+                print(f"Updated UserProfile for {request.user.username}")
 
             request.session["bag"] = {}
             return JsonResponse({"success": True, "order_number": order.order_number})
@@ -102,7 +118,24 @@ def checkout(request):
         amount=stripe_total,
         currency=settings.STRIPE_CURRENCY,
     )
-    order_form = OrderForm()
+    
+     # Prepopulate form with UserProfile data if authenticated
+    if request.user.is_authenticated:
+        profile = request.user.userprofile
+        initial_data = {
+            'full_name': profile.default_full_name,
+            'email': profile.default_email or request.user.email,  # Fallback to User email
+            'phone_number': profile.default_phone_number,
+            'country': profile.default_country,
+            'street_address1': profile.default_street_address1,
+            'street_address2': profile.default_street_address2,
+            'town_or_city': profile.default_town_or_city,
+            'county': profile.default_county,
+            'postcode': profile.default_postcode,
+        }
+        order_form = OrderForm(initial=initial_data)
+    else:
+        order_form = OrderForm()
 
     if request.method == "POST":
         # Get form data
@@ -145,6 +178,21 @@ def checkout(request):
 
             # Update totals
             order.update_total()
+            
+            # Update UserProfile with order details
+            if request.user.is_authenticated:
+                profile = request.user.userprofile
+                profile.default_full_name = order.full_name
+                profile.default_email = order.email
+                profile.default_phone_number = order.phone_number
+                profile.default_country = order.country
+                profile.default_street_address1 = order.street_address1
+                profile.default_street_address2 = order.street_address2
+                profile.default_town_or_city = order.town_or_city
+                profile.default_county = order.county
+                profile.default_postcode = order.postcode
+                profile.save()
+                print(f"Updated UserProfile for {request.user.username}")
 
             # Store save-info in session if requested
             if "save-info" in request.POST:

@@ -8,12 +8,12 @@ class OrderForm(forms.ModelForm):
             "full_name",
             "email",
             "phone_number",
-            "country",
-            "postcode",
-            "town_or_city",
             "street_address1",
             "street_address2",
+            "town_or_city",
             "county",
+            "postcode",
+            "country",
         )
         
     def __init__(self, *args, **kwargs):

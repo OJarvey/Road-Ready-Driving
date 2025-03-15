@@ -11,6 +11,7 @@ from .forms import UpdateUsernameForm, UserProfileForm
 from checkout.models import Order
 from .models import UserProfile
 
+
 class CustomLoginView(LoginView):
     template_name = "profiles/login.html"
     redirect_authenticated_user = True
@@ -24,9 +25,12 @@ class CustomLoginView(LoginView):
     def get(self, request, *args, **kwargs):
         if "next" not in request.GET:
             previous_page = request.META.get("HTTP_REFERER")
-            if previous_page and previous_page != request.build_absolute_uri(reverse_lazy("account_login")):
+            if previous_page and previous_page != request.build_absolute_uri(
+                reverse_lazy("account_login")
+            ):
                 request.session["previous_page"] = previous_page
         return super().get(request, *args, **kwargs)
+
 
 @method_decorator(login_required, name="dispatch")
 class UpdateUsernameView(FormView):
@@ -35,7 +39,10 @@ class UpdateUsernameView(FormView):
     success_url = reverse_lazy("profile_user")
 
     def get_form(self, form_class=None):
-        return self.form_class(self.request.POST if self.request.method == "POST" else None, instance=self.request.user)
+        return self.form_class(
+            self.request.POST if self.request.method == "POST" else None,
+            instance=self.request.user,
+        )
 
     def form_valid(self, form):
         form.save()
@@ -43,8 +50,11 @@ class UpdateUsernameView(FormView):
         return super().form_valid(form)
 
     def form_invalid(self, form):
-        messages.error(self.request, "There was an error updating your username. Please try again.")
+        messages.error(
+            self.request, "There was an error updating your username. Please try again."
+        )
         return super().form_invalid(form)
+
 
 @method_decorator(login_required, name="dispatch")
 class RedirectProfileView(RedirectView):
@@ -57,6 +67,7 @@ class RedirectProfileView(RedirectView):
             self.pattern_name = "profile"
         return super().get_redirect_url(*args, **kwargs)
 
+
 @method_decorator(login_required, name="dispatch")
 class ProfileView(FormView):
     template_name = "profiles/profile.html"
@@ -64,7 +75,10 @@ class ProfileView(FormView):
     success_url = reverse_lazy("profile")
 
     def get_form(self, form_class=None):
-        return self.form_class(instance=self.request.user.userprofile, **self.get_form_kwargs())
+        return self.form_class(
+            instance=self.request.user.userprofile,
+            data=self.request.POST if self.request.method == "POST" else None,
+        )
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -80,6 +94,7 @@ class ProfileView(FormView):
         messages.error(self.request, "Please correct the errors and try again.")
         return super().form_invalid(form)
 
+
 @method_decorator(login_required, name="dispatch")
 class OrderListView(FormView):
     template_name = "profiles/orders.html"
@@ -90,10 +105,13 @@ class OrderListView(FormView):
         context = super().get_context_data(**kwargs)
         try:
             user_profile = self.request.user.userprofile
-            context['orders'] = Order.objects.filter(user_profile=user_profile).order_by('-date')
+            context["orders"] = Order.objects.filter(
+                user_profile=user_profile
+            ).order_by("-date")
         except UserProfile.DoesNotExist:
-            context['orders'] = Order.objects.none()
+            context["orders"] = Order.objects.none()
         return context
+
 
 @method_decorator(login_required, name="dispatch")
 class OrderDetailView(FormView):

@@ -47,3 +47,14 @@ document.getElementById('username-form').addEventListener('submit', function(eve
         });
     }
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    const successAlerts = document.querySelectorAll('.alert-success');
+    successAlerts.forEach(alert => {
+        setTimeout(() => {
+            alert.classList.remove('show');
+            alert.classList.add('fade');
+            setTimeout(() => alert.remove(), 150); // Remove from DOM after fade
+        }, 3000);
+    });
+});
