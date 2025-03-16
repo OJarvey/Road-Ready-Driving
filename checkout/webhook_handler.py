@@ -2,6 +2,10 @@ from django.http import HttpResponse
 from .models import Order, OrderLineItem
 from packages.models import Package
 from profiles.models import UserProfile
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
+from django.conf import settings
+
 import json
 import time
 
@@ -10,6 +14,28 @@ class StripeWH_Handler:
 
     def __init__(self, request):
         self.request = request
+
+    def send_confirmation_email(self, order):
+        """Send the user a confirmation email"""
+        cust_email = order.email
+        subject = render_to_string(
+            'checkout/confirmation_emails/confirmation_email_subject.txt',
+            {'order': order}
+        ).strip()
+        body = render_to_string(
+            'checkout/confirmation_emails/confirmation_email_body.txt',
+            {
+                'order': order,
+                'contact_email': settings.DEFAULT_FROM_EMAIL,
+            }
+        )
+        send_mail(
+            subject,
+            body,
+            settings.DEFAULT_FROM_EMAIL,
+            [cust_email],
+            fail_silently=False,
+        )
 
     def handle_event(self, event):
         return HttpResponse(content=f'Unhandled webhook received: {event["type"]}', status=200)
@@ -42,7 +68,7 @@ class StripeWH_Handler:
                 profile.save()
 
             # Use shipping email if billing email is null, fallback to profile
-            email = billing_details.email or shipping_details.email or profile.default_email or self.request.user.email
+            email = billing_details.email or shipping_details.email or profile.default_email
 
             order_exists = False
             attempt = 1
@@ -68,6 +94,7 @@ class StripeWH_Handler:
                     time.sleep(1)
 
             if order_exists:
+                self.send_confirmation_email(order)
                 return HttpResponse(
                     content=f'Webhook received: {event["type"]} | SUCCESS: Verified driving lesson order already in database for {username}',
                     status=200
@@ -95,6 +122,7 @@ class StripeWH_Handler:
                         quantity=quantity,
                     )
                     order_line_item.save()
+                self.send_confirmation_email(order)
                 return HttpResponse(
                     content=f'Webhook received: {event["type"]} | SUCCESS: Created driving lesson order for {username}',
                     status=200

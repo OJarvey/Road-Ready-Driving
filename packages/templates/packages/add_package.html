@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load static crispy_forms_tags %}
+
+{% block page_header %}
+<div class="overlay"></div>
+    <div class="container header-container">
+        <div class="row">
+            <div class="col">
+                <h1 class="text-center my-4">Add a New Driving Package</h1>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-8 col-lg-6">
+                <form method="POST" action="{% url 'add_package' %}" class="form mb-5" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% crispy form %}
+                    <div class="text-center mt-3">
+                        <button type="submit" class="btn btn-primary btn-lg">Add Package</button>
+                        <a href="{% url 'packages' %}" class="btn btn-outline-secondary btn-lg">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
