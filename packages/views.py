@@ -91,3 +91,20 @@ def edit_package(request, package_id):
     }
 
     return render(request, template, context)
+
+def delete_package(request, package_id):
+    """Delete a package from the store"""
+    if not request.user.is_superuser:
+        messages.error(request, "Sorry, only store owners can do that.")
+        return redirect(reverse("home"))
+
+    package = get_object_or_404(Package, pk=package_id)
+    if request.method == "POST":
+        package.delete()
+        messages.success(request, "Package deleted successfully!")
+        return redirect(reverse("packages"))
+    
+    context = {
+        "package": package,
+    }
+    return render(request, "packages/delete_package.html", context)

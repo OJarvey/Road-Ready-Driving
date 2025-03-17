@@ -45,7 +45,10 @@
                 <div class="card-footer">
                     <small class="text-muted">Price: £{{ package.price }}</small>
                     {% if user.is_superuser %}
-                        <a href="{% url 'edit_package' package.id %}" class="btn btn-sm btn-warning float-right">Edit</a>
+                        <div class="float-right">
+                            <a href="{% url 'edit_package' package.id %}" class="btn btn-sm btn-warning">Edit</a>
+                            <a href="{% url 'delete_package' package.id %}" class="btn btn-sm btn-danger">Delete</a>
+                        </div>
                     {% endif %}
                 </div>
             </div>
