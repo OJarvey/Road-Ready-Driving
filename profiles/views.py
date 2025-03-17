@@ -24,11 +24,14 @@ class CustomLoginView(AllauthLoginView):
         self.user = form.user
         login(self.request, self.user)
 
-        messages.success(self.request, f"{self.user.username} has logged in successfully.")
+        messages.success(
+            self.request, f"{self.user.username} has logged in successfully."
+        )
         return redirect(self.get_success_url())
 
     def get_success_url(self):
         return reverse_lazy("profile")
+
 
 class CustomLogoutView(AllauthLogoutView):
     template_name = "allauth/logout.html"  # Reuse your styled template
@@ -43,6 +46,7 @@ class CustomLogoutView(AllauthLogoutView):
     def get_success_url(self):
         # Redirect to login page after logout
         return reverse_lazy("account_login")
+
 
 @method_decorator(login_required, name="dispatch")
 class UpdateUsernameView(FormView):
@@ -141,12 +145,12 @@ class OrderDetailView(FormView):
         context["order"] = order
         return context
 
+
 @login_required
 def delete_profile(request):
     if request.method == "POST":
-        # Confirm deletion and delete user + profile
         user = request.user
-        user.delete()  # This deletes the User and cascades to UserProfile if on_delete=CASCADE
+        user.delete()
         messages.success(request, "Your profile has been successfully deleted.")
-        return redirect("account_login")  # Redirect to login page after deletion
+        return redirect("account_login")
     return render(request, "profiles/delete_profile.html")

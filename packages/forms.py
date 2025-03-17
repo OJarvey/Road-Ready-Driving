@@ -33,7 +33,7 @@ class PackageForm(forms.ModelForm):
         self.helper.form_method = "post"
         submit_text = "Update Package" if kwargs.get("instance") else "Add Package"
         self.helper.add_input(
-            Submit("submit", submit_text, css_class="btn btn-primary btn-sm")
+            Submit("submit", submit_text, css_class="btn btn-outline-secondary btn-sm")
         )
         self.helper.add_input(
             Submit(

@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.urls import reverse
 from django.db.models import Q
 from .forms import PackageForm
+from django.contrib.auth.decorators import login_required
 
 def all_packages(request):
     """A view to return the packages page"""
@@ -38,6 +39,7 @@ def package_detail(request, package_id):
 
     return render(request, "packages/packages_detail.html", context)
 
+@login_required
 def add_package(request):
     """Add a package to the store"""
     if not request.user.is_superuser:
@@ -64,6 +66,7 @@ def add_package(request):
 
     return render(request, template, context)
 
+@login_required
 def edit_package(request, package_id):
     """Edit an existing package"""
     if not request.user.is_superuser:
@@ -92,6 +95,7 @@ def edit_package(request, package_id):
 
     return render(request, template, context)
 
+@login_required
 def delete_package(request, package_id):
     """Delete a package from the store"""
     if not request.user.is_superuser:
