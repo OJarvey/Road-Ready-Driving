@@ -69,8 +69,11 @@
                   <a class="dropdown-item menu-item" href="{% url 'profile' %}" aria-label="Manage">Profile</a>
                 </li>
                 {% if request.user.is_superuser %}
+                <li>
+                  <a class="dropdown-item menu-item" href="{% url 'add_package' %}" aria-label="Add Packages">Add</a>
+                </li>
                   <li>
-                    <a href="{% url 'admin:index' %}" class="dropdown-item menu-item" aria-label="Packages Management">Management</a>
+                    <a href="{% url 'admin:index' %}" class="dropdown-item menu-item" aria-label="Owners Admin">Admin</a>
                   </li>
                 {% endif %}
                 <li>

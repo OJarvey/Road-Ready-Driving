@@ -38,7 +38,7 @@
                         <img src="{{ booking.package.image.url }}" alt="{{ booking.package.name }}"
                              class="img-thumbnail">
                       {% else %}
-                        <img src="{{ MEDIA_URL }}noimage.png" alt="No Image"
+                        <img src="{% static 'media/noimage.png' %}" alt="No Image"
                              class="img-thumbnail">
                       {% endif %}
                     </td>

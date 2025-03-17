@@ -2,6 +2,7 @@
 {% load static %}
 
 {% block page_header %}
+<div class="overlay"></div>
   <div class="container header-container">
     <div class="row">
       <div class="col-12 text-center mt-5">
@@ -20,14 +21,16 @@
           {% if package.image %}
             <a href="{{ package.image.url }}" target="_blank"><img class="card-img-top img-fluid" src="{{ package.image.url }}" alt="{{ package.name }}" /></a>
           {% else %}
-            <img class="card-img-top img-fluid" src="{{ MEDIA_URL }}noimage.png" alt="{{ package.name }}" />
+            <img class="card-img-top" src="{% static 'media/noimage.png' %}" alt="{{ package.name }}">
           {% endif %}
         </div>
       </div>
       <div class="col-md-6">
         <div class="details-container mb-5 mt-md-5">
           <h5 class="card-title">{{ package.name }}</h5>
+          <hr>
           <p class="card-text">{{ package.description }}</p>
+          <hr>
           <div class="card-footer">
             <p class="lead mb-0 text-left font-weight-bold">Price: £{{ package.price }}</p>
           </div>
