@@ -1,7 +1,8 @@
 import uuid
 
 from django.db import models
-from packages.models import Package as ExternalPackage
+import packages
+from packages.models import Package
 from django.db.models import Sum
 from django.conf import settings
 from django_countries.fields import CountryField
@@ -52,7 +53,7 @@ class Order(models.Model):
 
 class OrderLineItem(models.Model):
     order = models.ForeignKey(Order, null=False, on_delete=models.CASCADE, related_name='lineitems')
-    package = models.ForeignKey(ExternalPackage, null=False, on_delete=models.CASCADE)
+    package = models.ForeignKey('packages.Package', null=True, blank=True, on_delete=models.SET_NULL, related_name='lineitems')
     quantity = models.IntegerField(null=False, blank=False, default=1)
     lineitem_total = models.DecimalField(max_digits=6, decimal_places=2, null=False, blank=False, editable=False)
 

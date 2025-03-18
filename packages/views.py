@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import Package
 from django.contrib import messages
 from django.urls import reverse
-from django.db.models import Q
+from django.db.models import Q, ProtectedError
 from .forms import PackageForm
 from django.contrib.auth.decorators import login_required
 
@@ -103,12 +103,21 @@ def delete_package(request, package_id):
         return redirect(reverse("home"))
 
     package = get_object_or_404(Package, pk=package_id)
-    if request.method == "POST":
-        package.delete()
-        messages.success(request, "Package deleted successfully!")
-        return redirect(reverse("packages"))
     
-    context = {
-        "package": package,
-    }
+    if request.method == "POST":
+        try:
+            # Remove package from all bags
+            bag = request.session.get('bag', {})
+            if str(package.id) in bag:
+                del bag[str(package.id)]
+                request.session['bag'] = bag
+                
+            package.delete()
+            messages.success(request, "Package deleted successfully!")
+            return redirect("packages")
+        except ProtectedError as e:
+            messages.error(request, f"Cannot delete {package.name} - it exists in order history.")
+            return redirect("packages")
+    
+    context = {"package": package}
     return render(request, "packages/delete_package.html", context)

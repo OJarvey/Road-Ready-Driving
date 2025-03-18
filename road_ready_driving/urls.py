@@ -28,7 +28,6 @@ urlpatterns = [
     path('bag/', include('bag.urls')),  # Bag URLs
     path('checkout/', include('checkout.urls')),  # Checkout URLs
     path('profiles/', include('profiles.urls')),  # Add this line
-    path('accounts/', include('allauth.urls')),
 ]
 
 if settings.DEBUG:

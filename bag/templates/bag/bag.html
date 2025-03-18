@@ -23,7 +23,9 @@
             <div class="table-responsive">
               <table class="table">
                 <thead>
-                  <tr>
+                  {% for booking in bookings %}
+                  {% if booking.package %}
+                  <tr data-item-id="{{ booking.package.id }}">
                     <th>Package</th>
                     <th>Details</th>
                     <th>Price</th>
@@ -31,6 +33,16 @@
                     <th>Total</th>
                     <th>Actions</th>
                   </tr>
+                  {% else %}
+                  <tr class="bg-warning">
+                    <td colspan="6">
+                      <div class="alert alert-warning mb-0">
+                        One or more packages are no longer available (removed from bag)
+                      </div>
+                    </td>
+                  </tr>
+                {% endif %}
+              {% endfor %}
                 </thead>
                 <tbody>
                   {% for booking in bookings %}
@@ -72,6 +84,7 @@
           <!-- Mobile View -->
           <div class="mobile-view">
             {% for booking in bookings %}
+            {% if booking.package %}
               <div class="mobile-booking-card mb-4 p-3 border rounded">
                 <div class="row">
                   <div class="col-12 text-center mb-3">
@@ -114,6 +127,11 @@
                   </div>
                 </div>
               </div>
+              {% else %}
+              <div class="alert alert-warning mb-4">
+                A package in your bag is no longer available
+              </div>
+            {% endif %}
             {% endfor %}
             
             <div class="text-center mt-4">

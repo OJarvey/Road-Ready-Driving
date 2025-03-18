@@ -6,7 +6,9 @@ def index(request):
     return render(request, 'home/index.html')
 
 def about(request):
+    """A view to render the about page"""
     return render(request, 'includes/about.html')
 
-def about(request):
+def contact(request):
+    """A view to render the contact page"""
     return render(request, 'includes/contact.html')

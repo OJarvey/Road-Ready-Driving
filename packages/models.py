@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib import messages
 
 class Category(models.Model):
     class Meta:
@@ -29,3 +30,21 @@ class Package(models.Model):
 
     def __str__(self):
         return f"{self.name} - {self.category.name}"
+    
+    def delete(self, *args, **kwargs):
+        """Override delete to handle existing bag items"""
+        # Clean up bags containing this package
+        from bag.contexts import bag_contents
+        from django.contrib.sessions.models import Session
+        from django.utils import timezone
+
+        active_sessions = Session.objects.filter(expire_date__gte=timezone.now())
+        for session in active_sessions:
+            if 'bag' in session.get_decoded():
+                bag = session.get_decoded()['bag']
+                if str(self.id) in bag:
+                    del bag[str(self.id)]
+                    session.session_data = Session.objects.encode(bag)
+                    session.save()
+
+        super().delete(*args, **kwargs)
