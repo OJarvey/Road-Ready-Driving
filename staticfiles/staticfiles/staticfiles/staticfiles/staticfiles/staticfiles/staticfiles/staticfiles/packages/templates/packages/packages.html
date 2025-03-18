@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page_header %}
+  <div class="container header-container">
+    <div class="row">
+      <div class="col text-center mt-5">
+        <h1 class="logo-font">CHOOSE A PACKAGE</h1>
+        <hr class="mx-auto w-50 mb-4" />
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <!-- Sorting Form -->
+    <form method="get" action="" class="sort-form">
+        <select name="sort" onchange="this.form.submit()">
+            <option value="">Sort by</option>
+            <option value="price_asc" {% if request.GET.sort == "price_asc" %}selected{% endif %}>Price (Low to High)</option>
+            <option value="price_desc" {% if request.GET.sort == "price_desc" %}selected{% endif %}>Price (High to Low)</option>
+            <option value="name_asc" {% if request.GET.sort == "name_asc" %}selected{% endif %}>Name (A - Z)</option>
+            <option value="name_desc" {% if request.GET.sort == "name_desc" %}selected{% endif %}>Name (Z - A)</option>
+        </select>
+    </form>
+
+    <div class="row justify-content-center">
+        {% for package in packages %}
+        <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
+            <div class="card h-100">
+                {% if package.image %}
+                    <a href="{% url 'package_detail' package_id=package.id %}">
+                        <img class="card-img-top" src="{{ package.image.url }}" alt="{{ package.name }}">
+                    </a>
+                {% else %}
+                    <a href="{% url 'package_detail' package_id=package.id %}">
+                        <img class="card-img-top" src="{% static 'media/noimage.png' %}" alt="{{ package.name }}">
+                    </a>
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ package.name }}</h5>
+                    <p class="card-text">{{ package.description }}</p>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">Price: £{{ package.price }}</small>
+                    {% if user.is_superuser %}
+                        <div class="float-right">
+                            <a href="{% url 'edit_package' package.id %}" class="btn btn-sm btn-warning">Edit</a>
+                            <a href="{% url 'delete_package' package.id %}" class="btn btn-sm btn-danger">Delete</a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col">
+            <p>No packages available.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<div class="btt-button shadow-sm rounded-0 border border-black">
+    <a href="#" class="btt-link d-flex h-100">
+        <i class="fas fa-arrow-up text-black mx-auto my-auto"></i>
+    </a>
+</div>
+{% endblock %}

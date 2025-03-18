@@ -1,29 +1,38 @@
-{% extends "account/base_entrance.html" %}
-{% load allauth %}
-{% load i18n %}
-{% block head_title %}
-    {% trans "Confirm Access" %}
-{% endblock head_title %}
-{% block content %}
-    {% element h1 %}
-        {% trans "Confirm Access" %}
-    {% endelement %}
-    {% element p %}
-        {% blocktranslate %}Please reauthenticate to safeguard your account.{% endblocktranslate %}
-    {% endelement %}
-    {% block reauthenticate_content %}{% endblock %}
-    {% if reauthentication_alternatives %}
-        {% element hr %}
-        {% endelement %}
-        {% element h2 %}
-            {% translate "Alternative options" %}
-        {% endelement %}
-        {% element button_group %}
-            {% for alt in reauthentication_alternatives %}
-                {% element button href=alt.url tags="primary,outline" %}
-                    {{ alt.description }}
-                {% endelement %}
+{% extends "profiles/account.html" %}
+{% load allauth i18n %}
+
+{% block account_content %}
+<div class="overlay"></div>
+<div role="main" aria-labelledby="confirm-access" class="page-container">
+    <h1 class="mb-5" id="confirm-access">{% trans "Confirm Access" %}</h1>
+    <hr>
+
+    {% if messages %}
+        <div class="messages mb-4">
+            {% for message in messages %}
+                <div class="alert {% if message.tags == 'success' %}alert-success{% elif message.tags == 'error' %}alert-danger{% endif %} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
             {% endfor %}
-        {% endelement %}
+        </div>
     {% endif %}
-{% endblock content %}
+
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-6">
+            <p>{% blocktranslate %}Please reauthenticate to safeguard your account.{% endblocktranslate %}</p>
+            {% block reauthenticate_content %}{% endblock %}
+
+            {% if reauthentication_alternatives %}
+                <hr>
+                <h2 class="mt-4">{% translate "Alternative options" %}</h2>
+                <div class="d-grid gap-2">
+                    {% for alt in reauthentication_alternatives %}
+                        <a href="{{ alt.url }}" class="btn btn-outline-primary">{{ alt.description }}</a>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

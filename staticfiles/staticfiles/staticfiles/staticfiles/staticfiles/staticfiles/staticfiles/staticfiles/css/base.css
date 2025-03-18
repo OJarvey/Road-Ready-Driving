@@ -1,0 +1,338 @@
+/* ====== Background Image ====== */
+html, body{
+    height: 100%;
+    font-family: 'Rubik', sans-serif;
+    color: #3E474F; /* Dark gray text */
+}
+
+body {
+    background: url("/static/media/background-image.jpg") no-repeat center center fixed;
+    background-size: cover;
+    height: calc(100vh - 164px);
+    padding-top: 100px;
+}
+
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Rubik', sans-serif;
+    font-weight: 700; /* Bold for headings */
+    color: #112130; /* Dark Navy for contrast */
+}
+
+/* Paragraphs */
+p {
+    font-weight: 400;
+    color: #3E474F; /* Dark Gray */
+}
+
+.icon {
+    align-items: center;
+    display: inline-flex;
+    justify-content: center;
+    height: 1.5rem;
+    width: 1.5rem;
+    color: #288AC1;
+}
+
+/* ====== HERO HEADING STYLING ====== */
+.logo-font {
+    color: #112130 !important; /* Primary Blue */
+    font-weight: 700; /* Make it bold */
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Add subtle shadow */
+}
+
+/* ====== NAVBAR ====== */
+.navbar {
+    background-color: #3E474F !important; /* Dark gray navbar */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    z-index: 1060; /* Bootstrap default navbar z-index */
+}
+
+.dropdown-menu {
+    z-index: 1050; /* Higher than navbar */
+}
+
+.navbar .nav-link {
+    color: #EBF2F3 !important; /* Off-white text */
+    font-weight: 500;
+    font-size: 1rem;
+}
+
+.navbar .nav-link:hover {
+    color: #288AC1 !important; /* Blue hover effect */
+}
+
+.navbar-brand img {
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+}
+
+.navbar .fa-user, 
+.navbar .fa-shopping-bag {
+    font-size: 30px; /* Larger icons */ 
+    color: #EBF2F3; /* Match navbar color */
+        position: relative; /* Keep it in place */
+    z-index: 1100; /* Ensure it's above other elements */
+}
+
+.navbar .fa-user:hover, 
+.navbar .fa-shopping-bag:hover {
+    color: #288AC1; /* Blue hover effect */
+    transition: color 0.3s ease-in-out;
+}
+
+
+/* ====== HAMBURGER ICON (MOBILE) ====== */
+.navbar-toggler-icon {
+    background-color: transparent;
+}
+
+/* ====== Search Bar ====== */
+.search-bar-container {
+    display: flex; /* Enable flex layout */
+    justify-content: center; /* Center content horizontally */
+    align-items: center; /* Center content vertically */
+    height: 100%; /* Fill container height */
+    position: relative; /* Position relative to page */
+    width: 100%; /* Full width */
+    margin-top: 10px; /* Add margin at the top */
+}
+
+.search-bar {
+    display: flex; /* Enable flex layout */
+    flex-direction: row; /* Arrange items in a row */
+    gap: 10px; /* Add spacing between elements */
+    margin-left: auto; /* Center the bar */
+    margin-right: auto; /* Center the bar */
+    flex: 1; /* Allow flexibility in resizing */
+    width: 50%; /* Set width as a percentage */
+    max-width: 400px; /* Constrain maximum width */
+    border-radius: 4px;
+    padding: 5px;
+}
+
+.search-bar input {
+    flex: 1; /* Allow input to grow and fill space */
+    padding: 8px; /* Add padding for better appearance */
+    border: 1px solid #919CA2; /* Add a border */
+    border-radius: 4px; /* Rounded corners */
+}
+
+.search-bar button {
+    padding: 8px 16px; /* Add padding */
+    background-color: #288AC1; /* Button background color */
+    color: white; /* Button text color */
+    border: none; /* Remove border */
+    border-radius: 4px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+}
+
+.search-bar button:hover {
+    background-color: #2179A5; /* Darker background on hover */
+}
+
+.overlay {
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    position: fixed;
+    background: white;
+    z-index: -1;
+}
+
+/* ====== BUTTON STYLES ====== */
+.btn {
+    font-family: 'Rubik', sans-serif;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.btn-primary {
+    background-color: #288AC1;
+    color: white;
+    border: none;
+    transition: 0.3s ease-in-out;
+}
+
+.browse-now-button {
+    background-color: #3E474F;
+    color: white !important;
+    font-weight: 600;
+    padding: 12px 24px;
+    border: 2px solid #288AC1;
+    border-radius: 12px;
+    transition: all 0.3s ease-in-out;
+    display: inline-block;
+    letter-spacing: 1px;
+    text-decoration: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.browse-now-button:hover {
+    background-color: #2179A5; /* Darker Blue */
+    border-color: #2179A5;
+    transform: translateY(-3px); /* Lift effect */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.browse-now-button:active {
+    transform: scale(0.98); /* Slight button press effect */
+}
+
+.btt-button {
+    position: fixed;
+    bottom: 20px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    z-index: 1000; /* High z-index to keep it on top of other content */
+    background-color: #288AC1;
+    border-color: #EBF2F3;
+    border-radius: 50%; /* Circular button */
+}
+
+.btt-link {
+    display: flex;
+    justify-content: center; /* Center the icon horizontally */
+    align-items: center; /* Center the icon vertically */
+    height: 100%; /* Full height of the container */
+    color: #EBF2F3; /* Off-white text to match navbar links */
+}
+
+.btt-button:hover {
+    background-color: #3E474F;
+    border: 2px solid #288AC1;
+}
+
+.fa-arrow-up {
+    font-size: 20px; /* Larger icon size for visibility */
+}
+
+.logo-font {
+    text-align: center; /* Ensures the header is centered */
+    font-weight: bold; /* Optional: Makes the text bold */
+    color: #333; /* Optional: Sets the color of the text */
+}
+
+.card {
+    margin: 0 auto; /* Centers the card in its column */
+    width: 100%; /* Makes sure the card uses all available width */
+}
+
+.header-container {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 1050; /* Ensure it is above other content */
+    margin-top: 0; /* Adds some space at the top of the page */
+    margin-bottom: 50px; /* Adds some space below the header before the cards start */
+}
+
+.container {
+    padding-top: 100px; /* Adjust the value based on the height of your navbar */
+}
+
+.sort-form {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.sort-form select {
+    padding: 8px;
+    margin: auto;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: white;
+    cursor: pointer;
+}
+
+.image-container img {
+    width: 70%;  /* Ensures it fits within the container */
+    max-height: 70%; /* Adjust height to make it smaller */
+    object-fit: cover; /* Ensures image is cropped proportionally */
+    border-radius: 10px; /* adds rounded corners */
+}
+
+.highlight-update {
+    animation: highlight 1s ease;
+    background-color: rgba(40, 167, 69, 0.1);
+}
+
+/* Toast Container */
+.message-container {
+    position: fixed;
+    top: 72px;
+    right: 15px;
+    z-index: 9999;
+}
+
+/* Custom Toast Styles */
+.custom-toast {
+    overflow: visible;
+    min-width: 250px;
+}
+
+/* Toast Capper */
+.toast-capper {
+    height: 2px;
+}
+
+.arrow-success { border-top-color: #28a745; }
+.arrow-error { border-top-color: #dc3545; }
+.arrow-warning { border-top-color: #ffc107; }
+
+@keyframes highlight {
+    0% { background-color: transparent; }
+    50% { background-color: rgba(40, 167, 69, 0.3); }
+    100% { background-color: transparent; }
+}
+
+.table img.img-thumbnail {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+/* ====== RESPONSIVENESS ====== */
+@media (max-width: 768px) {
+    .search-bar {
+        width: 80%;
+    }
+    .header-container {
+        margin-top: 10px;
+        margin-bottom: 30px;
+    }
+}
+
+/* Mobile Dropdown Fix */
+@media (max-width: 991px) {
+    .navbar-collapse {
+        position: relative;
+        z-index: 1000; /* Lower than dropdown z-index */
+    }  
+    
+    .dropdown-menu {
+        position: absolute;
+        right: 0;
+        left: auto;
+        width: 90vw;
+        margin-top: 0.5rem;
+    }
+    
+    .dropdown-toggle::after {
+        display: none;
+    }
+}
+
+/* Ensure dropdown stays on top */
+.dropdown-menu {
+    z-index: 2000 !important; /* Higher than navbar */
+}

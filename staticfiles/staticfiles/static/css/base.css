@@ -1,5 +1,5 @@
 /* ====== Background Image ====== */
-html, body{
+html, body {
     height: 100%;
     font-family: 'Rubik', sans-serif;
     color: #3E474F; /* Dark gray text */
@@ -12,6 +12,13 @@ body {
     padding-top: 100px;
 }
 
+.display-4.logo-font {
+    text-align: center;
+}
+
+.my-5 {
+    text-align: center;
+}
 
 /* Headings */
 h1, h2, h3, h4, h5, h6 {
@@ -37,7 +44,7 @@ p {
 
 /* ====== HERO HEADING STYLING ====== */
 .logo-font {
-    color: #112130 !important; /* Primary Blue */
+    color: #112130 !important;
     font-weight: 700; /* Make it bold */
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Add subtle shadow */
 }
@@ -74,7 +81,7 @@ p {
 .navbar .fa-shopping-bag {
     font-size: 30px; /* Larger icons */ 
     color: #EBF2F3; /* Match navbar color */
-        position: relative; /* Keep it in place */
+    position: relative; /* Keep it in place */
     z-index: 1100; /* Ensure it's above other elements */
 }
 
@@ -83,7 +90,6 @@ p {
     color: #288AC1; /* Blue hover effect */
     transition: color 0.3s ease-in-out;
 }
-
 
 /* ====== HAMBURGER ICON (MOBILE) ====== */
 .navbar-toggler-icon {
@@ -301,6 +307,19 @@ p {
     border-radius: 5px;
 }
 
+/* Ensure dropdown stays on top */
+.dropdown-menu {
+    z-index: 2000 !important; /* Higher than navbar */
+}
+
+.quantity-input {
+    width: 80px;
+}
+
+.desktop-view .img-thumbnail {
+    max-width: 100px;
+}
+
 /* ====== RESPONSIVENESS ====== */
 @media (max-width: 768px) {
     .search-bar {
@@ -310,15 +329,42 @@ p {
         margin-top: 10px;
         margin-bottom: 30px;
     }
+    .text-center {
+        text-align: center;
+        padding-top: 250px;
+    }
+    .desktop-view {
+        display: none;
+    }
+    .mobile-view {
+        display: block;
+    }
+    .mobile-booking-card {
+        background: white;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    .mobile-view .img-thumbnail {
+        max-width: 100%;
+        height: auto;
+    }
+    .mobile-view .quantity-input {
+        width: 100%;
+        max-width: 100px;
+    }
+    .mobile-view .btn {
+        width: 100%;
+    }
+    .mobile-view p {
+        margin-bottom: 1rem;
+    }
 }
 
-/* Mobile Dropdown Fix */
+/* Mobile Dropdown Fix and Desktop Styles */
 @media (max-width: 991px) {
     .navbar-collapse {
         position: relative;
         z-index: 1000; /* Lower than dropdown z-index */
     }  
-    
     .dropdown-menu {
         position: absolute;
         right: 0;
@@ -326,13 +372,16 @@ p {
         width: 90vw;
         margin-top: 0.5rem;
     }
-    
     .dropdown-toggle::after {
         display: none;
     }
 }
 
-/* Ensure dropdown stays on top */
-.dropdown-menu {
-    z-index: 2000 !important; /* Higher than navbar */
+@media (min-width: 769px) {
+    .mobile-view {
+        display: none;
+    }
+    .desktop-view {
+        display: block;
+    }
 }

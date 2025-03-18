@@ -166,35 +166,6 @@
     transform-origin: right;
 }
 
-/* Mobile Styles */
-@media (max-width: 767px) {
-    .desktop-view {
-        display: none;
-    }
-
-    .mobile-view {
-        display: block;
-    }
-
-    .mobile-booking-card {
-        background: white;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    .mobile-view .img-thumbnail {
-        max-width: 100%;
-        height: auto;
-    }
-
-    .mobile-view .quantity-input {
-        width: 100%;
-    }
-
-    .mobile-view .btn {
-        width: 100%;
-    }
-}
-
 /* Desktop Styles */
 @media (min-width: 768px) {
     .sidebar {
@@ -208,13 +179,9 @@
         padding-right: 15px;
     }
 
-    .sidebar.collapsed+.page-container {
+    .sidebar.collapsed + .page-container {
         margin-left: calc(50px + 15px);
         max-width: calc(100% - 50px - 30px);
-    }
-
-    .mobile-view {
-        display: none;
     }
 
     .desktop-view .img-thumbnail {
