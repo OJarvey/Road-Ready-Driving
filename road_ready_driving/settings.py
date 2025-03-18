@@ -33,7 +33,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
     "localhost",
     "127.0.0.1",
-    "road-ready-driving-62655dbfb1ed.herokuapp.com/",
+    "road-ready-driving-62655dbfb1ed.herokuapp.com",
 ]
 
 
