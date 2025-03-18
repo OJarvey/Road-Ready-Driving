@@ -2,6 +2,11 @@ document.addEventListener("DOMContentLoaded", function () {
     const sidebar = document.getElementById("sidebar");
     const toggleBtn = document.getElementById("toggle-btn");
 
+    if (window.innerWidth <= 768) {
+        sidebar.classList.add("collapsed");
+        toggleBtn.setAttribute("aria-expanded", "false");
+    }
+
     toggleBtn.addEventListener("click", function () {
         sidebar.classList.toggle("collapsed");
         toggleBtn.querySelector("i").classList.toggle("fa-arrow-left");

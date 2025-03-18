@@ -129,7 +129,7 @@
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
-    padding-left: 15px;
+    padding-left: 60px;
     padding-right: 15px;
 }
 
@@ -167,6 +167,8 @@
     .page-container {
         margin-left: calc(150px + 15px);
         max-width: calc(100% - 150px - 30px);
+        padding-left: 15px;
+        padding-right: 15px;
     }
     .sidebar.collapsed + .page-container {
         margin-left: calc(50px + 15px);

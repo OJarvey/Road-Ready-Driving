@@ -1,25 +1,35 @@
-{% extends "account/base_manage.html" %}
+{% extends "profiles/account.html" %}
 {% load allauth i18n %}
-{% block head_title %}
-    {% trans "Sign Out" %}
-{% endblock head_title %}
-{% block content %}
-    {% element h1 %}
-        {% trans "Sign Out" %}
-    {% endelement %}
-    {% element p %}
-        {% trans 'Are you sure you want to sign out?' %}
-    {% endelement %}
-    {% url 'account_logout' as action_url %}
-    {% element form method="post" action=action_url no_visible_fields=True %}
-        {% slot body %}
-            {% csrf_token %}
-            {{ redirect_field }}
-        {% endslot %}
-        {% slot actions %}
-            {% element button type="submit" %}
-                {% trans 'Sign Out' %}
-            {% endelement %}
-        {% endslot %}
-    {% endelement %}
-{% endblock content %}
+
+{% block account_content %}
+<div class="overlay"></div>
+<div role="main" aria-labelledby="signout" class="page-container">
+    <h1 class="mb-5" id="signout">{% trans "Sign Out" %}</h1>
+    <hr>
+
+    {% if messages %}
+        <div class="messages mb-4">
+            {% for message in messages %}
+                <div class="alert {% if message.tags == 'success' %}alert-success{% elif message.tags == 'error' %}alert-danger{% endif %} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-6">
+            <p>{% trans "Are you sure you want to sign out?" %}</p>
+            {% url 'account_logout' as action_url %}
+            <form method="post" action="{{ action_url }}" class="text-end">
+                {% csrf_token %}
+                {{ redirect_field }}
+                <button type="submit" class="btn btn-secondary">
+                    <span class="font-weight-bold">{% trans "Sign Out" %}</span>
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
