@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function () {
             } else if (isNaN(quantity) || quantity < 1) {
                 this.value = 1;
             } else if (quantity > 10) {
-                showToast('warning', "⚠ Maximum quantity allowed is 10.");
+                showToast('warning', "Maximum quantity allowed is 10.");
                 this.value = 10;
             }
         });
@@ -40,16 +40,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function validateQuantity(quantity, inputField) {
         if (!inputField.value) {
-            showToast('warning', "⚠ Please enter a valid quantity.");
+            showToast('warning', "Please enter a valid quantity.");
             inputField.value = 1;
             return false;
         }
         if (isNaN(quantity) || quantity < 1) {
-            showToast('warning', "⚠ Quantity must be at least 1.");
+            showToast('warning', "Quantity must be at least 1.");
             inputField.value = 1;
             return false;
         } else if (quantity > 10) {
-            showToast('warning', "⚠ Maximum quantity allowed is 10.");
+            showToast('warning', "Maximum quantity allowed is 10.");
             inputField.value = 10;
             return false;
         }
@@ -102,7 +102,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 const row = button.closest('tr');
                 row.remove();
                 document.getElementById("total").textContent = response.grand_total.toFixed(2);
-                // Update badge locally (remove window.updateBagBadge if not in script.js)
                 const bagBadge = document.querySelector('.shopping-bag .badge');
                 if (bagBadge) {
                     bagBadge.textContent = response.item_count;
