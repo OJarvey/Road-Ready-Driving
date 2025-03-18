@@ -2,6 +2,7 @@
 {% load static %}
 
 {% block page_header %}
+<div class="overlay"></div>
   <div class="container header-container">
     <div class="row">
       <div class="col-12 text-center mt-5">
@@ -20,14 +21,16 @@
           {% if package.image %}
             <a href="{{ package.image.url }}" target="_blank"><img class="card-img-top img-fluid" src="{{ package.image.url }}" alt="{{ package.name }}" /></a>
           {% else %}
-            <img class="card-img-top img-fluid" src="{{ MEDIA_URL }}noimage.png" alt="{{ package.name }}" />
+            <img class="card-img-top" src="{% static 'media/noimage.png' %}" alt="{{ package.name }}">
           {% endif %}
         </div>
       </div>
       <div class="col-md-6">
         <div class="details-container mb-5 mt-md-5">
           <h5 class="card-title">{{ package.name }}</h5>
+          <hr>
           <p class="card-text">{{ package.description }}</p>
+          <hr>
           <div class="card-footer">
             <p class="lead mb-0 text-left font-weight-bold">Price: £{{ package.price }}</p>
           </div>
@@ -37,7 +40,17 @@
             <input type="number" id="quantity" name="quantity" value="1" min="1" max="10" class="form-control mb-3" style="width:100px;" required />
             <div id="quantity-error" style="display:none; color:red;"></div>
             <input type="hidden" name="redirect_url" value="{{ request.path }}" />
-            <button type="submit" class="btn btn-primary">Add to Bag</button>
+            <a href="{% url 'packages' %}" class="btn btn-outline-secondary">
+              <i class="fas fa-arrow-left mr-2"></i> 
+            </a>
+            <button type="submit" class="btn btn-primary">
+              <i class="fas fa-shopping-bag mr-2"></i>
+            </button>
+            {% if user.is_superuser %}
+              <a href="{% url 'delete_package' package.id %}" class="btn btn-danger">
+                <i class="fas fa-trash mr-2"></i>
+              </a>
+            {% endif %}
           </form>
         </div>
       </div>

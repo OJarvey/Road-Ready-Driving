@@ -38,7 +38,7 @@
                         <img src="{{ booking.package.image.url }}" alt="{{ booking.package.name }}"
                              class="img-thumbnail">
                       {% else %}
-                        <img src="{{ MEDIA_URL }}noimage.png" alt="No Image"
+                        <img src="{% static 'media/noimage.png' %}" alt="No Image"
                              class="img-thumbnail">
                       {% endif %}
                     </td>
@@ -68,7 +68,7 @@
         {% else %}
           <div class="text-center my-5">
             <p class="lead">Your bookings are currently empty.</p>
-            <a href="{% url 'packages' %}" class="btn btn-outline-primary btn-lg"><i class="fas fa-chevron-left"></i> Book a Driving Package</a>
+            <a href="{% url 'packages' %}" class="btn btn-outline-secondary btn"><i class="fas fa-chevron-left"></i> Book a Driving Package</a>
           </div>
         {% endif %}
       </div>

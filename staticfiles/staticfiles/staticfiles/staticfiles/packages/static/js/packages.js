@@ -43,29 +43,29 @@ document.addEventListener("DOMContentLoaded", function () {
             },
             body: new URLSearchParams(new FormData(form)),
         })
-        .then(response => response.json())
-        .then(data => {
-            submitButton.disabled = false;
-            if (data.success) {
-                quantityError.style.display = "none";
-                showToast('success', data.message);
-                const bagBadge = document.querySelector('.shopping-bag .badge');
-                if (bagBadge) {
-                    bagBadge.textContent = data.item_count;
-                    bagBadge.style.display = data.item_count > 0 ? 'block' : 'none';
+            .then(response => response.json())
+            .then(data => {
+                submitButton.disabled = false;
+                if (data.success) {
+                    quantityError.style.display = "none";
+                    showToast('success', data.message);
+                    const bagBadge = document.querySelector('.shopping-bag .badge');
+                    if (bagBadge) {
+                        bagBadge.textContent = data.item_count;
+                        bagBadge.style.display = data.item_count > 0 ? 'block' : 'none';
+                    }
+                } else {
+                    quantityError.textContent = data.error;
+                    quantityError.style.display = "block";
+                    showToast('error', data.error);
                 }
-            } else {
-                quantityError.textContent = data.error;
+            })
+            .catch(error => {
+                submitButton.disabled = false;
+                quantityError.textContent = "Error adding to bag.";
                 quantityError.style.display = "block";
-                showToast('error', data.error);
-            }
-        })
-        .catch(error => {
-            submitButton.disabled = false;
-            quantityError.textContent = "Error adding to bag.";
-            quantityError.style.display = "block";
-            showToast('error', "Error adding to bag.");
-        });
+                showToast('error', "Error adding to bag.");
+            });
     });
 
     // Toast notification function (consistent with bag.js)
@@ -101,5 +101,8 @@ document.addEventListener("DOMContentLoaded", function () {
             toast.hide();
             setTimeout(() => toastEl.remove(), 300);
         }, 4000);
+    }
+    if (window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
     }
 });

@@ -19,7 +19,7 @@ class Order(models.Model):
     full_name = models.CharField(max_length=50, blank=False)
     email = models.EmailField(max_length=254, blank=False)
     phone_number = models.CharField(max_length=20, blank=False)
-    country = models.CharField(max_length=40, blank=False)
+    country = CountryField(blank_label='-- Select Country --*')
     street_address1 = models.CharField(max_length=80, blank=False)
     street_address2 = models.CharField(max_length=80, blank=True)
     town_or_city = models.CharField(max_length=40, blank=False)
@@ -29,6 +29,7 @@ class Order(models.Model):
     order_total = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     grand_total = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     stripe_payment_intent_id = models.CharField(max_length=255, null=True, blank=True)
+    user_profile = models.ForeignKey('profiles.UserProfile', on_delete=models.SET_NULL, null=True, blank=True, related_name='orders')
 
     def _generate_order_number(self):
         return uuid.uuid4().hex.upper()

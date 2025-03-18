@@ -1,22 +1,36 @@
-{% extends "account/base_reauthenticate.html" %}
-{% load allauth %}
-{% load i18n %}
+{% extends "profiles/account.html" %}
+{% load allauth i18n crispy_forms_tags %}
+
 {% block reauthenticate_content %}
-    {% element p %}
-        {% blocktranslate %}Enter your password:{% endblocktranslate %}
-    {% endelement %}
-    {% url 'account_reauthenticate' as action_url %}
-    {% element form form=form method="post" action=action_url %}
-        {% slot body %}
-            {% csrf_token %}
-            {% element fields form=form unlabeled=True %}
-            {% endelement %}
-            {{ redirect_field }}
-        {% endslot %}
-        {% slot actions %}
-            {% element button type="submit" tags="primary,reauthenticate" %}
-                {% trans "Confirm" %}
-            {% endelement %}
-        {% endslot %}
-    {% endelement %}
+<div class="overlay"></div>
+<div role="main" aria-labelledby="reauthenticate" class="page-container">
+    <h1 class="mb-5" id="reauthenticate">{% trans "Confirm Access" %}</h1>
+    <hr>
+
+    {% if messages %}
+        <div class="messages mb-4">
+            {% for message in messages %}
+                <div class="alert {% if message.tags == 'success' %}alert-success{% elif message.tags == 'error' %}alert-danger{% endif %} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-6">
+            <p>{% blocktranslate %}Enter your password:{% endblocktranslate %}</p>
+            {% url 'account_reauthenticate' as action_url %}
+            <form method="post" action="{{ action_url }}" class="mb-4">
+                {% csrf_token %}
+                {{ form|crispy }}
+                {{ redirect_field }}
+                <div class="text-end">
+                    <button type="submit" class="btn btn-primary">{% trans "Confirm" %}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 {% endblock %}
