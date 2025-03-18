@@ -1,1 +1,1 @@
-web: gunicorn road_ready_driving.wsgi.application
+web: gunicorn road_ready_driving.wsgi:application
