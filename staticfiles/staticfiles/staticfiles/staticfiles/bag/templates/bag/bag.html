@@ -139,43 +139,4 @@
     const packagesUrl = "{{ packages_url|escapejs }}";
   </script>
   <script src="{% static 'bag/bag.js' %}"></script>
-
-  <style>
-    /* Desktop Styles */
-    @media (min-width: 768px) {
-      .mobile-view {
-        display: none;
-      }
-      .desktop-view .img-thumbnail {
-        max-width: 100px;
-      }
-      .quantity-input {
-        width: 80px;
-      }
-    }
-
-    /* Mobile Styles */
-    @media (max-width: 767px) {
-      .desktop-view {
-        display: none;
-      }
-      .mobile-view {
-        display: block;
-      }
-      .mobile-booking-card {
-        background: white;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      }
-      .mobile-view .img-thumbnail {
-        max-width: 100%;
-        height: auto;
-      }
-      .mobile-view .quantity-input {
-        width: 100%;
-      }
-      .mobile-view .btn {
-        width: 100%;
-      }
-    }
-  </style>
 {% endblock %}

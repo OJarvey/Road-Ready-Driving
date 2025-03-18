@@ -58,12 +58,14 @@
     background-color: #dc3545;
 }
 
-.admin-access:hover, .admin-access.active {
+.admin-access:hover,
+.admin-access.active {
     background-color: #2179A5;
     color: #EBF2F3;
 }
 
-.logout-dashboard:hover, .logout-dashboard.active {
+.logout-dashboard:hover,
+.logout-dashboard.active {
     color: #EBF2F3;
 }
 
@@ -92,22 +94,26 @@
     margin-bottom: auto;
 }
 
-.top-menu-dashboard i, .bottom-menu-dashboard i {
+.top-menu-dashboard i,
+.bottom-menu-dashboard i {
     padding-left: 5px;
     padding-right: 5px;
 }
 
-.top-menu-dashboard li, .bottom-menu-dashboard li {
+.top-menu-dashboard li,
+.bottom-menu-dashboard li {
     margin: auto;
     width: 100%;
     text-align: right;
 }
 
-.top-menu-dashboard li a, .bottom-menu-dashboard li a {
+.top-menu-dashboard li a,
+.bottom-menu-dashboard li a {
     padding-right: 10px;
 }
 
-.top-menu-dashboard, .bottom-menu-dashboard {
+.top-menu-dashboard,
+.bottom-menu-dashboard {
     background-color: transparent;
     opacity: 1;
     border: none;
@@ -160,18 +166,62 @@
     transform-origin: right;
 }
 
+/* Mobile Styles */
+@media (max-width: 767px) {
+    .desktop-view {
+        display: none;
+    }
+
+    .mobile-view {
+        display: block;
+    }
+
+    .mobile-booking-card {
+        background: white;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .mobile-view .img-thumbnail {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .mobile-view .quantity-input {
+        width: 100%;
+    }
+
+    .mobile-view .btn {
+        width: 100%;
+    }
+}
+
+/* Desktop Styles */
 @media (min-width: 768px) {
     .sidebar {
         width: 150px;
     }
+
     .page-container {
         margin-left: calc(150px + 15px);
         max-width: calc(100% - 150px - 30px);
         padding-left: 15px;
         padding-right: 15px;
     }
-    .sidebar.collapsed + .page-container {
+
+    .sidebar.collapsed+.page-container {
         margin-left: calc(50px + 15px);
         max-width: calc(100% - 50px - 30px);
+    }
+
+    .mobile-view {
+        display: none;
+    }
+
+    .desktop-view .img-thumbnail {
+        max-width: 100px;
+    }
+
+    .quantity-input {
+        width: 80px;
     }
 }
