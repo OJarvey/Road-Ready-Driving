@@ -11,7 +11,21 @@ def all_packages(request):
     packages = Package.objects.all()
     query = None
     sort = request.GET.get("sort", "")
+    
+    # Sorting functionality
+    if sort:
+        sort_key = sort
+        if sort == "price_asc":
+            sort_key = "price"
+        elif sort == "price_desc":
+            sort_key = "-price"
+        elif sort == "name_asc":
+            sort_key = "name"
+        elif sort == "name_desc":
+            sort_key = "-name"
+        packages = packages.order_by(sort_key)
 
+    # Search functionality
     if request.GET:
         if "q" in request.GET:
             query = request.GET["q"]
@@ -25,6 +39,7 @@ def all_packages(request):
     context = {
         "packages": packages,
         "search_term": query,
+        "current_sorting": sort,
     }
 
     return render(request, "packages/packages.html", context)

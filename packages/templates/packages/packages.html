@@ -15,13 +15,13 @@
 {% block content %}
 <div class="container">
     <!-- Sorting Form -->
-    <form method="get" action="" class="sort-form">
-        <select name="sort" onchange="this.form.submit()">
+    <form method="get" action="{% url 'packages' %}" class="sort-form">
+        <select name="sort" id="sort-selector" onchange="this.form.submit()">
             <option value="">Sort by</option>
-            <option value="price_asc" {% if request.GET.sort == "price_asc" %}selected{% endif %}>Price (Low to High)</option>
-            <option value="price_desc" {% if request.GET.sort == "price_desc" %}selected{% endif %}>Price (High to Low)</option>
-            <option value="name_asc" {% if request.GET.sort == "name_asc" %}selected{% endif %}>Name (A - Z)</option>
-            <option value="name_desc" {% if request.GET.sort == "name_desc" %}selected{% endif %}>Name (Z - A)</option>
+            <option value="price_asc" {% if current_sorting == "price_asc" %}selected{% endif %}>Price (Low to High)</option>
+            <option value="price_desc" {% if current_sorting == "price_desc" %}selected{% endif %}>Price (High to Low)</option>
+            <option value="name_asc" {% if current_sorting == "name_asc" %}selected{% endif %}>Name (A - Z)</option>
+            <option value="name_desc" {% if current_sorting == "name_desc" %}selected{% endif %}>Name (Z - A)</option>
         </select>
     </form>
 
