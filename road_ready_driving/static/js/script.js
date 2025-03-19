@@ -1,4 +1,4 @@
-window.onscroll = function() {scrollFunction()};
+window.onscroll = function () { scrollFunction() };
 
 function scrollFunction() {
   if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
@@ -8,6 +8,6 @@ function scrollFunction() {
   }
 }
 
-document.querySelector('.btt-button').addEventListener('click', function(){
-  window.scrollTo({top: 0, behavior: 'smooth'});
+document.querySelector('.btt-button').addEventListener('click', function () {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 });
