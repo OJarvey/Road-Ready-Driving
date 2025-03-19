@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from .views import CustomLoginView, CustomLogoutView
 
 urlpatterns = [
     path("", views.RedirectProfileView.as_view(), name="profile_redirect"),
@@ -10,6 +11,6 @@ urlpatterns = [
         "orders/<str:order_number>/", views.OrderDetailView.as_view(), name="order_view"
     ),
     path("delete/", views.delete_profile, name="delete_profile"),
-    path("login/", views.CustomLoginView.as_view(), name="account_login"),
-    path("logout/", views.CustomLogoutView.as_view(), name="account_logout"),
+    path("login/", CustomLoginView.as_view(), name="profile_login"),
+    path("logout/", CustomLogoutView.as_view(), name="profile_logout"),
 ]
