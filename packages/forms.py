@@ -23,6 +23,8 @@ class PackageForm(forms.ModelForm):
                 "step": "0.01",
             }
         )
+        
+        self.fields["image"].widget.attrs.update({"accept": "image/*"})
 
         for field_name, field in self.fields.items():
             field.widget.attrs["class"] = "border-black rounded-2"

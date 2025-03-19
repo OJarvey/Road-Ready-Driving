@@ -96,9 +96,12 @@ def edit_package(request, package_id):
     if request.method == "POST":
         form = PackageForm(request.POST, request.FILES, instance=package)
         if form.is_valid():
-            form.save()
-            messages.success(request, "Successfully updated package!")
-            return redirect(reverse("package_detail", args=[package.id]))
+            try:
+                form.save()
+                messages.success(request, "Successfully updated package!")
+                return redirect(reverse("package_detail", args=[package.id]))
+            except Exception as e:
+                messages.error(request, f"Failed to update package: {str(e)}")
         else:
             messages.error(
                 request, "Failed to update package. Please ensure the form is valid."
