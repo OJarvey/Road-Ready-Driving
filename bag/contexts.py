@@ -1,11 +1,12 @@
 from django.contrib import messages
 from packages.models import Package
+from decimal import Decimal
 
 
 def bag_contents(request):
     """Context processor to include bag contents across the site."""
     bag_items = []
-    total = 0
+    total = Decimal("0.00")
     package_count = 0
     bag = request.session.get("bag", {})
     invalid_items = []
@@ -37,9 +38,15 @@ def bag_contents(request):
         request.session["bag"] = bag
         messages.error(request, "Some unavailable items were removed from your bag")
 
+    # Calculate processing fee (Takes 0.01% of total)
+    processing_fee = total * Decimal("0.01")
+    grand_total = total + processing_fee
+
     context = {
         "bag_items": bag_items,
         "total": total,
+        "processing_fee": processing_fee,
+        "grand_total": grand_total,
         "package_count": package_count,
     }
 

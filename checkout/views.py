@@ -114,8 +114,13 @@ def checkout(request):
     # Prepare Stripe PaymentIntent
     current_bag = bag_contents(request)
     total = current_bag["total"]
+    processing_fee = current_bag["processing_fee"]
+    grand_total = current_bag["grand_total"]
+
+    # Prepare Stripe PaymentIntent with grand_total
     stripe_total = round(total * 100)
     stripe.api_key = stripe_secret_key
+    stripe_total = round(grand_total * 100)
     profile = request.user.userprofile
     intent = stripe.PaymentIntent.create(
         amount=stripe_total,

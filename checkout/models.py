@@ -1,7 +1,7 @@
 import uuid
 
 from django.db import models
-import packages
+from decimal import Decimal
 from packages.models import Package
 from django.db.models import Sum
 from django.conf import settings
@@ -30,6 +30,7 @@ class Order(models.Model):
     postcode = models.CharField(max_length=20, blank=True)
     date = models.DateField(auto_now_add=True)
     order_total = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    processing_fee = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     grand_total = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     stripe_payment_intent_id = models.CharField(max_length=255, null=True, blank=True)
     user_profile = models.ForeignKey(
@@ -52,8 +53,9 @@ class Order(models.Model):
         )
         print(f"Line items count: {self.lineitems.count()}, Calculated total: {total}")
         self.order_total = total
-        self.grand_total = total
-        self.save(update_fields=["order_total", "grand_total"])
+        self.processing_fee = self.order_total * Decimal('0.10')
+        self.grand_total = self.order_total + self.processing_fee
+        self.save(update_fields=["order_total", "processing_fee", "grand_total"])
         print(
             f"Updated totals for order {self.order_number}: order_total={self.order_total}, grand_total={self.grand_total}"
         )
