@@ -1,6 +1,7 @@
 from django import forms
 from .models import Order
 
+
 class OrderForm(forms.ModelForm):
     class Meta:
         model = Order
@@ -15,7 +16,7 @@ class OrderForm(forms.ModelForm):
             "postcode",
             "country",
         )
-        
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         placeholders = {
@@ -29,17 +30,17 @@ class OrderForm(forms.ModelForm):
             "street_address2": "Street Address 2",
             "county": "County",
         }
-        
+
         self.fields["full_name"].widget.attrs["autofocus"] = True
         for field in self.fields:
-            if field != 'country':
+            if field != "country":
                 if self.fields[field].required:
-                    placeholder = f'{placeholders[field]} *'
+                    placeholder = f"{placeholders[field]} *"
                 else:
                     placeholder = placeholders[field]
                 self.fields[field].widget.attrs["placeholder"] = placeholder
             self.fields[field].widget.attrs["class"] = "stripe-style-input"
             self.fields[field].label = False
 
-        self.fields['country'].widget.attrs['class'] = 'stripe-style-input'
-        self.fields['country'].label = False
+        self.fields["country"].widget.attrs["class"] = "stripe-style-input"
+        self.fields["country"].label = False

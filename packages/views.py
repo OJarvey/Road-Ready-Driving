@@ -6,12 +6,13 @@ from django.db.models import Q, ProtectedError
 from .forms import PackageForm
 from django.contrib.auth.decorators import login_required
 
+
 def all_packages(request):
     """A view to return the packages page"""
     packages = Package.objects.all()
     query = None
     sort = request.GET.get("sort", "")
-    
+
     # Sorting functionality
     if sort:
         sort_key = sort
@@ -44,6 +45,7 @@ def all_packages(request):
 
     return render(request, "packages/packages.html", context)
 
+
 def package_detail(request, package_id):
     """A view to return the package detail page"""
     package = get_object_or_404(Package, pk=package_id)
@@ -53,6 +55,7 @@ def package_detail(request, package_id):
     }
 
     return render(request, "packages/packages_detail.html", context)
+
 
 @login_required
 def add_package(request):
@@ -80,6 +83,7 @@ def add_package(request):
     }
 
     return render(request, template, context)
+
 
 @login_required
 def edit_package(request, package_id):
@@ -110,6 +114,7 @@ def edit_package(request, package_id):
 
     return render(request, template, context)
 
+
 @login_required
 def delete_package(request, package_id):
     """Delete a package from the store"""
@@ -118,21 +123,23 @@ def delete_package(request, package_id):
         return redirect(reverse("home"))
 
     package = get_object_or_404(Package, pk=package_id)
-    
+
     if request.method == "POST":
         try:
             # Remove package from all bags
-            bag = request.session.get('bag', {})
+            bag = request.session.get("bag", {})
             if str(package.id) in bag:
                 del bag[str(package.id)]
-                request.session['bag'] = bag
-                
+                request.session["bag"] = bag
+
             package.delete()
             messages.success(request, "Package deleted successfully!")
             return redirect("packages")
         except ProtectedError as e:
-            messages.error(request, f"Cannot delete {package.name} - it exists in order history.")
+            messages.error(
+                request, f"Cannot delete {package.name} - it exists in order history."
+            )
             return redirect("packages")
-    
+
     context = {"package": package}
     return render(request, "packages/delete_package.html", context)

@@ -9,6 +9,7 @@ from django.conf import settings
 import json
 import time
 
+
 class StripeWH_Handler:
     """Handle Stripe webhooks for Road Ready Driving"""
 
@@ -19,15 +20,15 @@ class StripeWH_Handler:
         """Send the user a confirmation email"""
         cust_email = order.email
         subject = render_to_string(
-            'checkout/confirmation_emails/confirmation_email_subject.txt',
-            {'order': order}
+            "checkout/confirmation_emails/confirmation_email_subject.txt",
+            {"order": order},
         ).strip()
         body = render_to_string(
-            'checkout/confirmation_emails/confirmation_email_body.txt',
+            "checkout/confirmation_emails/confirmation_email_body.txt",
             {
-                'order': order,
-                'contact_email': settings.DEFAULT_FROM_EMAIL,
-            }
+                "order": order,
+                "contact_email": settings.DEFAULT_FROM_EMAIL,
+            },
         )
         send_mail(
             subject,
@@ -38,7 +39,9 @@ class StripeWH_Handler:
         )
 
     def handle_event(self, event):
-        return HttpResponse(content=f'Unhandled webhook received: {event["type"]}', status=200)
+        return HttpResponse(
+            content=f'Unhandled webhook received: {event["type"]}', status=200
+        )
 
     def handle_payment_intent_succeeded(self, event):
         intent = event.data.object
@@ -68,7 +71,9 @@ class StripeWH_Handler:
                 profile.save()
 
             # Use shipping email if billing email is null, fallback to profile
-            email = billing_details.email or shipping_details.email or profile.default_email
+            email = (
+                billing_details.email or shipping_details.email or profile.default_email
+            )
 
             order_exists = False
             attempt = 1
@@ -97,7 +102,7 @@ class StripeWH_Handler:
                 self.send_confirmation_email(order)
                 return HttpResponse(
                     content=f'Webhook received: {event["type"]} | SUCCESS: Verified driving lesson order already in database for {username}',
-                    status=200
+                    status=200,
                 )
             else:
                 order = Order.objects.create(
@@ -125,12 +130,11 @@ class StripeWH_Handler:
                 self.send_confirmation_email(order)
                 return HttpResponse(
                     content=f'Webhook received: {event["type"]} | SUCCESS: Created driving lesson order for {username}',
-                    status=200
+                    status=200,
                 )
         except Exception as e:
             return HttpResponse(
-                content=f'Webhook received: {event["type"]} | ERROR: {e}',
-                status=500
+                content=f'Webhook received: {event["type"]} | ERROR: {e}', status=500
             )
 
     def handle_payment_intent_payment_failed(self, event):
@@ -138,5 +142,5 @@ class StripeWH_Handler:
         username = intent.metadata.get("username")
         return HttpResponse(
             content=f'Webhook received: {event["type"]} | Payment failed for driving lesson order by {username}',
-            status=200
+            status=200,
         )
