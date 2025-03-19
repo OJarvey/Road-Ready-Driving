@@ -1,1 +1,0 @@
-Road Ready Driving: Order Confirmation {{ order_number }}
