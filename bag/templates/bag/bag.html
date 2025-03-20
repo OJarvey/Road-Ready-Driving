@@ -50,7 +50,7 @@
                         <input type="number" name="quantity" class="form-control quantity-input"
                             value="{{ booking.quantity }}" min="1" max="10" data-item-id="{{ booking.package.id }}">
                       </td>
-                      <td><span class="line-total">{{ booking.line_total|floatformat:2 }}</span></td>
+                      <td><span class="line-total">£{{ booking.line_total|floatformat:2 }}</span></td>
                       <td>
                         <div class="d-flex gap-2">
                           <button type="button" class="btn btn-sm btn-success update-link w-100">Update</button>
