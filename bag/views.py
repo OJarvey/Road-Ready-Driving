@@ -39,9 +39,14 @@ def add_to_bag(request, item_id):
 
     # Validate quantity input
     if not quantity or not quantity.isdigit():
-        error_message = "Invalid quantity. Please enter a number between 1 and 10."
+        error_message = (
+            "Invalid quantity. Please enter a number between 1 and 10."
+        )
         if is_ajax:
-            return JsonResponse({"success": False, "error": error_message}, status=400)
+            return JsonResponse(
+                {"success": False, "error": error_message},
+                status=400
+            )
         messages.error(request, error_message)
         return redirect("view_bag")
 
@@ -51,7 +56,10 @@ def add_to_bag(request, item_id):
     if quantity < 1 or quantity > 10:
         error_message = "You can only add up to 10 per item."
         if is_ajax:
-            return JsonResponse({"success": False, "error": error_message}, status=400)
+            return JsonResponse(
+                {"success": False, "error": error_message},
+                status=400
+            )
         messages.error(request, error_message)
         return redirect("view_bag")
 
@@ -62,7 +70,9 @@ def add_to_bag(request, item_id):
 
     if item_id_str in bag:
         if bag[item_id_str] + quantity > 10:
-            error_message = f"Total quantity for {package.name} cannot exceed 10."
+            error_message = (
+                f"Total quantity for {package.name} cannot exceed 10."
+            )
             if is_ajax:
                 return JsonResponse(
                     {"success": False, "error": error_message}, status=400
@@ -116,7 +126,10 @@ def update_bag(request, item_id):
 
         subtotal = float(package.price * quantity) if quantity > 0 else 0
         grand_total = float(
-            sum(Package.objects.get(id=int(k)).price * v for k, v in bag.items())
+            sum(
+                Package.objects.get(id=int(k)).price * v
+                for k, v in bag.items()
+            )
         )
         package_count = sum(bag.values())
 
@@ -146,11 +159,20 @@ def remove_from_bag(request, item_id):
         success_message = f"Removed {package.name} from your bag"
     else:
         return JsonResponse(
-            {"success": False, "error": f"{package.name} not found in bag"}, status=400
+            {
+                "success": False,
+                "error": f"{package.name} not found in bag"
+            },
+            status=400
         )
 
     total = (
-        float(sum(Package.objects.get(id=int(k)).price * v for k, v in bag.items()))
+        float(
+            sum(
+                Package.objects.get(id=int(k)).price * v
+                for k, v in bag.items()
+            )
+        )
         if bag
         else 0
     )

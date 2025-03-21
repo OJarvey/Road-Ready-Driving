@@ -28,7 +28,10 @@ def bag_contents(request):
             )
         except Package.DoesNotExist:
             invalid_items.append(item_id)
-            messages.error(request, f"A package in your bag is no longer available")
+            messages.error(
+                request, 
+                f"A package in your bag is no longer available"
+            )
 
     # Remove invalid items from the bag
     for item_id in invalid_items:
@@ -36,7 +39,10 @@ def bag_contents(request):
 
     if invalid_items:
         request.session["bag"] = bag
-        messages.error(request, "Some unavailable items were removed from your bag")
+        messages.error(
+            request, 
+            "Some unavailable items were removed from your bag"
+        )
 
     # Calculate processing fee (Takes 0.01% of total)
     processing_fee = total * Decimal("0.01")

@@ -57,13 +57,16 @@ document.addEventListener("DOMContentLoaded", function () {
         .then(data => {
             if (data.success) {
                 // Update line total
-                card.querySelector(".line-total").textContent = `£${data.subtotal.toFixed(2)}`;
+                card.querySelector(
+                    ".line-total").textContent = `£${data.subtotal.toFixed(2)}`;
                 // Update grand total
-                document.querySelectorAll("#total, #total-mobile").forEach(el => {
+                document.querySelectorAll(
+                    "#total, #total-mobile").forEach(el => {
                     el.textContent = `£${data.grand_total.toFixed(2)}`;
                 });
                 // Update item count
-                document.querySelectorAll(".bag-counter, .bag-counter-mobile").forEach(el => {
+                document.querySelectorAll(
+                    ".bag-counter, .bag-counter-mobile").forEach(el => {
                     el.textContent = data.item_count;
                 });
                 showToast('success', data.message);
@@ -91,20 +94,26 @@ document.addEventListener("DOMContentLoaded", function () {
                 // Remove item from UI
                 card.remove();
                 // Update totals
-                document.querySelectorAll("#total, #total-mobile").forEach(el => {
+                document.querySelectorAll(
+                    "#total, #total-mobile").forEach(el => {
                     el.textContent = `£${data.grand_total.toFixed(2)}`;
                 });
                 // Update item count
-                document.querySelectorAll(".bag-counter, .bag-counter-mobile").forEach(el => {
+                document.querySelectorAll(
+                    ".bag-counter, .bag-counter-mobile").forEach(el => {
                     el.textContent = data.item_count;
                 });
                 // Show empty state if needed
                 if (data.item_count === 0) {
                     bagContainer.innerHTML = `
                         <div class="text-center my-5">
-                            <p class="lead">Your bookings are currently empty.</p>
-                            <a href="${packagesUrl}" class="btn btn-outline-secondary">
-                                <i class="fas fa-chevron-left"></i> Book a Driving Package
+                            <p class="lead">
+                            Your bookings are currently empty.</p>
+                            <a href="
+                            ${packagesUrl}" class="btn btn-outline-secondary"
+                            >
+                                <i class="
+                                fas fa-chevron-left"></i> Book a Driving Package
                             </a>
                         </div>
                     `;
@@ -125,6 +134,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function showToast(type, message) {
-        // Toast implementation remains the same
+        $('.toast').toast('show');
     }
 });

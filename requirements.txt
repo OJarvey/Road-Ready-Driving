@@ -2,6 +2,7 @@ asgiref==3.8.1
 certifi==2025.1.31
 charset-normalizer==3.4.1
 cloudinary==1.43.0
+colorama==0.4.6
 crispy-bootstrap4==2024.10
 dj-database-url==0.5.0
 dj3-cloudinary-storage==0.0.6
@@ -11,11 +12,18 @@ django-cloudinary-storage==0.3.0
 django-countries==7.6.1
 django-crispy-forms==2.3
 django-extensions==3.2.3
+flake8==7.1.2
 gunicorn==23.0.0
 idna==3.10
+iniconfig==2.1.0
+mccabe==0.7.0
 packaging==24.2
 pillow==11.1.0
+pluggy==1.5.0
 psycopg2==2.9.10
+pycodestyle==2.12.1
+pyflakes==3.2.0
+pytest==8.3.5
 requests==2.32.3
 six==1.17.0
 sqlparse==0.5.3
