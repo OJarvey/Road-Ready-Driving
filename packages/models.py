@@ -51,7 +51,8 @@ class Package(models.Model):
         from django.utils import timezone
 
         # Clean up bags containing this package
-        active_sessions = Session.objects.filter(expire_date__gte=timezone.now())
+        active_sessions = Session.objects.filter(
+            expire_date__gte=timezone.now())
         for session in active_sessions:
             if "bag" in session.get_decoded():
                 bag = session.get_decoded()["bag"]

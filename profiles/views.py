@@ -1,5 +1,4 @@
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.views import LoginView
 from django.contrib.auth import login
 from django.utils.decorators import method_decorator
 from django.views.generic.edit import FormView
@@ -12,6 +11,7 @@ from checkout.models import Order
 from .models import UserProfile
 from allauth.account.forms import LoginForm
 from django.contrib.auth import logout
+from django.http import JsonResponse
 from allauth.account.views import LoginView as AllauthLoginView
 from allauth.account.views import LogoutView as AllauthLogoutView
 
@@ -62,12 +62,27 @@ class UpdateUsernameView(FormView):
 
     def form_valid(self, form):
         form.save()
-        messages.success(self.request, "Your username has been updated successfully!")
+        if self.request.headers.get("X-Requested-With") == "XMLHttpRequest":
+            messages.success(
+                self.request, "Your username has been updated successfully!"
+            )
+            return JsonResponse({"success": True})
+        messages.success(self.request,
+                         "Your username has been updated successfully!")
         return super().form_valid(form)
 
     def form_invalid(self, form):
+        if self.request.headers.get("X-Requested-With") == "XMLHttpRequest":
+            return JsonResponse(
+                {
+                    "success": False,
+                    "error": form.errors.get("username", ["Unknown error"])[0],
+                },
+                status=400,
+            )
         messages.error(
-            self.request, "There was an error updating your username. Please try again."
+            self.request,
+            "There was an error updating your username. Please try again."
         )
         return super().form_invalid(form)
 
@@ -107,7 +122,8 @@ class ProfileView(FormView):
         return super().form_valid(form)
 
     def form_invalid(self, form):
-        messages.error(self.request, "Please correct the errors and try again.")
+        messages.error(self.request,
+                       "Please correct the errors and try again.")
         return super().form_invalid(form)
 
 
@@ -151,6 +167,7 @@ def delete_profile(request):
     if request.method == "POST":
         user = request.user
         user.delete()
-        messages.success(request, "Your profile has been successfully deleted.")
+        messages.success(request,
+                         "Your profile has been successfully deleted.")
         return redirect("account_login")
     return render(request, "profiles/delete_profile.html")

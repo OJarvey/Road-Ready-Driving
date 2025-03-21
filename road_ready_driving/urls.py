@@ -22,15 +22,38 @@ from django.conf.urls.static import static
 
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
-    path("accounts/", include("allauth.urls")),  # Allauth URLs
-    path("", include("home.urls")),  # Home URLs
-    path("packages/", include("packages.urls")),  # Packages URLs
-    path("bag/", include("bag.urls")),  # Bag URLs
-    path("checkout/", include("checkout.urls")),  # Checkout URLs
-    path("profiles/", include("profiles.urls")),  # Add this line
+    path(
+        "admin/",
+        admin.site.urls
+        ),
+    path(
+        "accounts/",
+        include("allauth.urls")
+        ),  # Allauth URLs
+    path(
+        "",
+        include("home.urls")
+        ),  # Home URLs
+    path(
+        "packages/",
+        include("packages.urls")
+        ),  # Packages URLs
+    path(
+        "bag/",
+        include("bag.urls")
+        ),  # Bag URLs
+    path(
+        "checkout/",
+        include("checkout.urls")
+        ),  # Checkout URLs
+    path(
+        "profiles/",
+        include("profiles.urls")
+        ),  # Add this line
 ]
 
 if settings.DEBUG:
-    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.STATIC_URL,
+                          document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL,
+                          document_root=settings.MEDIA_ROOT)

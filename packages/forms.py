@@ -33,9 +33,12 @@ class PackageForm(forms.ModelForm):
 
         self.helper = FormHelper()
         self.helper.form_method = "post"
-        submit_text = "Update Package" if kwargs.get("instance") else "Add Package"
+        submit_text = "Update Package" if kwargs.get(
+            "instance") else "Add Package"
         self.helper.add_input(
-            Submit("submit", submit_text, css_class="btn btn-outline-secondary btn-sm")
+            Submit("submit",
+                   submit_text, 
+                   css_class="btn btn-outline-secondary btn-sm")
         )
         self.helper.add_input(
             Submit(
@@ -43,7 +46,8 @@ class PackageForm(forms.ModelForm):
                 "Cancel",
                 css_class="btn btn-outline-secondary btn-sm",
                 formnovalidate="formnovalidate",
-                onclick="window.location='{% url 'packages' %}'; return false;",
+                onclick=
+                "window.location='{% url 'packages' %}'; return false;",
             )
         )
 

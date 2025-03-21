@@ -33,7 +33,8 @@ def cache_checkout_data(request):
     except Exception as e:
         messages.error(
             request,
-            "Sorry, your payment cannot be processed right now. Please try again later.",
+            "Sorry, your payment cannot be processed right now. "
+            "Please try again later."
         )
         return HttpResponse(content=str(e), status=400)
 
@@ -48,7 +49,8 @@ def save_order(request):
         print("Bag contents:", bag)
 
         if not bag:
-            return JsonResponse({"success": False, "error": "Bag is empty"}, status=400)
+            return JsonResponse({"success": False,
+                                 "error": "Bag is empty"}, status=400)
 
         order_form = OrderForm(data)
         if order_form.is_valid():
@@ -67,12 +69,16 @@ def save_order(request):
                 )
                 order_line_item.save()
                 print(
-                    f"Line item added: {package.name}, Qty: {quantity}, Total: {order_line_item.lineitem_total}"
+                    f"Line item added: {package.name}, "
+                    f"Qty: {quantity}, "
+                    f"Total: {order_line_item.lineitem_total}"
                 )
 
             order.update_total()
             print(
-                f"Final totals: order_total={order.order_total}, grand_total={order.grand_total}"
+                f"Final totals: " \
+                f"order_total={order.order_total}, " \
+                f"grand_total={order.grand_total}"
             )
 
             # Update UserProfile with order details
@@ -90,11 +96,13 @@ def save_order(request):
             print(f"Updated UserProfile for {request.user.username}")
 
             request.session["bag"] = {}
-            return JsonResponse({"success": True, "order_number": order.order_number})
+            return JsonResponse({"success": True,
+                                 "order_number": order.order_number})
         else:
             print("Order form errors:", order_form.errors)
             return JsonResponse(
-                {"success": False, "error": order_form.errors.as_json()}, status=400
+                {"success": False, "error": order_form.errors.as_json()},
+                status=400
             )
     except Exception as e:
         print("Error saving order:", str(e))
@@ -207,7 +215,9 @@ def checkout(request):
             except Package.DoesNotExist:
                 messages.error(
                     request,
-                    "One of the packages in your bag wasn't found in our database. Please try again or contact support.",
+                "One of the packages in your bag wasn't found in our database."
+                \
+                "Please try again or contact support."
                 )
                 order.delete()
                 return redirect(reverse("view_bag"))
@@ -230,11 +240,13 @@ def checkout(request):
 
             request.session["save_info"] = bool(request.POST.get("save-info"))
             request.session["bag"] = {}
-            return redirect(reverse("checkout_success", args=[order.order_number]))
+            return redirect(reverse("checkout_success",
+                                    args=[order.order_number]))
         else:
             messages.error(
                 request,
-                "There was an error with your form. Please check your details and try again.",
+                "There was an error with your form. "
+                "Please check your details and try again."
             )
 
     context = {

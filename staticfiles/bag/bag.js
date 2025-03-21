@@ -1,3 +1,7 @@
+/* jshint esversion: 6 */
+/* global packagesUrl */
+/* global packagesUrl, bootstrap */
+
 document.addEventListener("DOMContentLoaded", function () {
     const bagContainer = document.querySelector(".col-12.col-lg-8");
 
@@ -45,6 +49,10 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function updateBag(itemId, quantity, card) {
+        if (!card || !card.querySelector) {
+            console.error('Invalid card element');
+            return;
+        }
         fetch(`/bag/update/${itemId}/`, {
             method: "POST",
             headers: {
@@ -53,22 +61,27 @@ document.addEventListener("DOMContentLoaded", function () {
             },
             body: new URLSearchParams({ 'quantity': quantity }),
         })
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) throw new Error('Server error: ' + response.status);
+            return response.json();
+        })
         .then(data => {
             if (data.success) {
-                // Update line total
-                card.querySelector(".line-total").textContent = `£${data.subtotal.toFixed(2)}`;
-                // Update grand total
+                const lineTotal = card.querySelector(".line-total");
+                if (lineTotal) lineTotal.textContent = `£${data.subtotal.toFixed(2)}`;
+    
                 document.querySelectorAll("#total, #total-mobile").forEach(el => {
                     el.textContent = `£${data.grand_total.toFixed(2)}`;
                 });
-                // Update item count
-                document.querySelectorAll(".bag-counter, .bag-counter-mobile").forEach(el => {
+    
+                document.querySelectorAll(".shopping-bag .badge").forEach(el => {
                     el.textContent = data.item_count;
+                    el.style.display = data.item_count > 0 ? 'block' : 'none';
                 });
-                showToast('success', data.message);
+    
+                showToast('success', data.message, 'Item updated successfully');
             } else {
-                showToast('error', data.error);
+                showToast('error', data.error, 'Failed to update item');
             }
         })
         .catch(error => {
@@ -91,20 +104,26 @@ document.addEventListener("DOMContentLoaded", function () {
                 // Remove item from UI
                 card.remove();
                 // Update totals
-                document.querySelectorAll("#total, #total-mobile").forEach(el => {
+                document.querySelectorAll(
+                    "#total, #total-mobile").forEach(el => {
                     el.textContent = `£${data.grand_total.toFixed(2)}`;
                 });
                 // Update item count
-                document.querySelectorAll(".bag-counter, .bag-counter-mobile").forEach(el => {
+                document.querySelectorAll(
+                    ".shopping-bag .badge").forEach(el => {
                     el.textContent = data.item_count;
                 });
                 // Show empty state if needed
                 if (data.item_count === 0) {
                     bagContainer.innerHTML = `
                         <div class="text-center my-5">
-                            <p class="lead">Your bookings are currently empty.</p>
-                            <a href="${packagesUrl}" class="btn btn-outline-secondary">
-                                <i class="fas fa-chevron-left"></i> Book a Driving Package
+                            <p class="lead">
+                            Your bookings are currently empty.</p>
+                            <a href="
+                            ${packagesUrl}" class="btn btn-outline-secondary"
+                            >
+                                <i class="
+                                fas fa-chevron-left"></i> Book a Driving Package
                             </a>
                         </div>
                     `;
@@ -125,6 +144,33 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function showToast(type, message) {
-        // Toast implementation remains the same
+        const toastContainer = document.querySelector('.message-container') || document.createElement('div');
+        if (!toastContainer.classList.contains('message-container')) {
+            toastContainer.classList.add('message-container');
+            document.body.appendChild(toastContainer);
+        }
+        const toastHTML = `
+            <div class="toast custom-toast rounded-0 border-top-0" data-bs-autohide="false">
+                <div class="arrow-up arrow-${type}"></div>
+                <div class="w-100 toast-capper bg-${type}"></div>
+                <div class="toast-header bg-white text-dark">
+                    <strong class="mr-auto">${type.charAt(0).toUpperCase() + type.slice(1)}!</strong>
+                    <button type="button" class="ml-2 mb-1 close text-dark" data-bs-dismiss="toast" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="toast-body bg-white">
+                    ${message}
+                </div>
+            </div>
+        `;
+        toastContainer.innerHTML += toastHTML;
+        const toastEl = toastContainer.lastElementChild;
+        const toast = new bootstrap.Toast(toastEl, { autohide: false });
+        toast.show();
+        setTimeout(() => {
+            toast.hide();
+            setTimeout(() => toastEl.remove(), 300);
+        }, 4000);
     }
 });

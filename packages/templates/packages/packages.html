@@ -18,10 +18,21 @@
     <form method="get" action="{% url 'packages' %}" class="sort-form">
         <select name="sort" id="sort-selector" onchange="this.form.submit()">
             <option value="">Sort by</option>
-            <option value="price_asc" {% if current_sorting == "price_asc" %}selected{% endif %}>Price (Low to High)</option>
-            <option value="price_desc" {% if current_sorting == "price_desc" %}selected{% endif %}>Price (High to Low)</option>
-            <option value="name_asc" {% if current_sorting == "name_asc" %}selected{% endif %}>Name (A - Z)</option>
-            <option value="name_desc" {% if current_sorting == "name_desc" %}selected{% endif %}>Name (Z - A)</option>
+            <option value="price_asc"
+            {% if current_sorting == "price_asc" %}selected{% endif %}>
+                Price (Low to High)
+            </option>
+            <option value="price_desc"
+            {% if current_sorting == "price_desc" %}selected{% endif %}>
+            Price (High to Low)
+            </option>
+            <option value="name_asc"
+            {% if current_sorting == "name_asc" %}selected{% endif %}>
+            Name (A - Z)
+            </option>
+            <option value="name_desc"
+            {% if current_sorting == "name_desc" %}selected{% endif %}>
+            Name (Z - A)</option>
         </select>
     </form>
 
@@ -31,11 +42,14 @@
             <div class="card h-100">
                 {% if package.image %}
                     <a href="{% url 'package_detail' package_id=package.id %}">
-                        <img class="card-img-top" src="{{ package.image.url }}" alt="{{ package.name }}">
+                        <img class="card-img-top" src="{{ package.image.url }}"
+                        alt="{{ package.name }}">
                     </a>
                 {% else %}
                     <a href="{% url 'package_detail' package_id=package.id %}">
-                        <img class="card-img-top" src="{% static 'media/noimage.png' %}" alt="{{ package.name }}">
+                        <img class="card-img-top"
+                        src="{% static 'media/noimage.png' %}"
+                        alt="{{ package.name }}">
                     </a>
                 {% endif %}
                 <div class="card-body">
@@ -43,11 +57,14 @@
                     <p class="card-text">{{ package.description }}</p>
                 </div>
                 <div class="card-footer">
-                    <small class="text-muted">Price: £{{ package.price }}</small>
+                    <small class="text-muted">
+                        Price: £{{ package.price }}</small>
                     {% if user.is_superuser %}
                         <div class="float-right">
-                            <a href="{% url 'edit_package' package.id %}" class="btn btn-sm btn-warning">Edit</a>
-                            <a href="{% url 'delete_package' package.id %}" class="btn btn-sm btn-danger">Delete</a>
+                            <a href="{% url 'edit_package' package.id %}"
+                            class="btn btn-sm btn-warning">Edit</a>
+                            <a href="{% url 'delete_package' package.id %}"
+                            class="btn btn-sm btn-danger">Delete</a>
                         </div>
                     {% endif %}
                 </div>

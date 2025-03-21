@@ -17,7 +17,8 @@
         <div class="row justify-content-center">
             <div class="col-12 col-md-8 col-lg-6">
                 {% if form.errors %}
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <div class="alert alert-danger alert-dismissible fade show"
+                    role="alert">
                         <ul>
                             {% for field in form %}
                                 {% for error in field.errors %}
@@ -28,22 +29,28 @@
                                 <li>{{ error }}</li>
                             {% endfor %}
                         </ul>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <button type="button" class="close"
+                        data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                 {% endif %}
                 {% if messages %}
                     {% for message in messages %}
-                        <div class="alert {% if message.tags == 'error' %}alert-danger{% else %}alert-success{% endif %} alert-dismissible fade show" role="alert">
+                        <div class="alert {% if message.tags == 'error' %}
+                        alert-danger{% else %}alert-success{% endif %}
+                        alert-dismissible fade show" role="alert">
                             {{ message }}
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <button type="button" class="close"
+                            data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                     {% endfor %}
                 {% endif %}
-                <form method="POST" action="{% url 'edit_package' package.id %}" class="form mb-5" enctype="multipart/form-data">
+                <form method="POST"
+                action="{% url 'edit_package' package.id %}"
+                class="form mb-5" enctype="multipart/form-data">
                     {% csrf_token %}
                     {% crispy form %}
                 </form>

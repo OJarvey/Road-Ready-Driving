@@ -18,7 +18,8 @@
             {% endif %} alert-dismissible fade show"
             role="alert">
             {{ message }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            <button type="button" class="btn-close"
+            data-bs-dismiss="alert" aria-label="Close"></button>
           </div>
         {% endfor %}
       </div>
@@ -53,7 +54,8 @@
             {{ profile_form.default_country|as_crispy_field }}
           </fieldset>
           <div class="submit-button mt-5 mb-2 px-3 text-end">
-            <button type="submit" class="btn btn-secondary"><span class="font-weight-bold">Save</span></button>
+            <button type="submit" class="btn btn-secondary"><span
+            class="font-weight-bold">Save</span></button>
           </div>
         </form>
       </div>

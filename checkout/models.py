@@ -11,7 +11,8 @@ from django_countries.fields import CountryField
 class Package(models.Model):
     name = models.CharField(max_length=50, blank=False)
     description = models.TextField(blank=True)
-    price = models.DecimalField(max_digits=6, decimal_places=2, blank=False, null=False)
+    price = models.DecimalField(max_digits=6, decimal_places=2,
+                                blank=False, null=False)
 
     def __str__(self):
         return self.name
@@ -29,10 +30,14 @@ class Order(models.Model):
     county = models.CharField(max_length=80, blank=True)
     postcode = models.CharField(max_length=20, blank=True)
     date = models.DateField(auto_now_add=True)
-    order_total = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    processing_fee = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    grand_total = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    stripe_payment_intent_id = models.CharField(max_length=255, null=True, blank=True)
+    order_total = models.DecimalField(max_digits=10,
+                                      decimal_places=2, default=0)
+    processing_fee = models.DecimalField(max_digits=10, decimal_places=2,
+                                         default=0)
+    grand_total = models.DecimalField(max_digits=10, decimal_places=2,
+                                      default=0)
+    stripe_payment_intent_id = models.CharField(max_length=255, null=True,
+                                                blank=True)
     user_profile = models.ForeignKey(
         "profiles.UserProfile",
         on_delete=models.SET_NULL,
@@ -51,13 +56,19 @@ class Order(models.Model):
             ]
             or 0
         )
-        print(f"Line items count: {self.lineitems.count()}, Calculated total: {total}")
+        print(
+            f"Line items count: {self.lineitems.count()}, Calculated total: {
+                total}"
+                )
         self.order_total = total
         self.processing_fee = self.order_total * Decimal('0.10')
         self.grand_total = self.order_total + self.processing_fee
-        self.save(update_fields=["order_total", "processing_fee", "grand_total"])
+        self.save(update_fields=["order_total", "processing_fee",
+                                 "grand_total"])
         print(
-            f"Updated totals for order {self.order_number}: order_total={self.order_total}, grand_total={self.grand_total}"
+            f"Updated totals for order {self.order_number}: "
+            f"order_total={self.order_total}, "
+            f"grand_total={self.grand_total}"
         )
 
     def save(self, *args, **kwargs):
@@ -93,7 +104,10 @@ class OrderLineItem(models.Model):
 
         self.lineitem_total = self.package.price * self.quantity
         print(
-            f"Calculating lineitem_total: {self.package.name}, Price={self.package.price}, Qty={self.quantity}, Total={self.lineitem_total}"
+            f"Calculating lineitem_total: {self.package.name}, "
+            f"Price={self.package.price}, "
+            f"Qty={self.quantity}, "
+            f"Total={self.lineitem_total}"
         )
         super().save(*args, **kwargs)
         self.order.update_total()

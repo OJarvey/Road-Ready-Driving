@@ -181,7 +181,6 @@ p {
 
 .browse-now-button:hover {
     background-color: #2179A5; /* Darker Blue */
-    border-color: #2179A5;
     transform: translateY(-3px); /* Lift effect */
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
@@ -241,7 +240,7 @@ p {
 }
 
 .container {
-    padding-top: 100px; /* Adjust the value based on the height of your navbar */
+    padding-top: 100px;
 }
 
 .sort-form {

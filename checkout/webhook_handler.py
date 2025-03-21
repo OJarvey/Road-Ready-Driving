@@ -72,7 +72,8 @@ class StripeWH_Handler:
 
             # Use shipping email if billing email is null, fallback to profile
             email = (
-                billing_details.email or shipping_details.email or profile.default_email
+                billing_details.email 
+                or shipping_details.email or profile.default_email
             )
 
             order_exists = False
@@ -101,7 +102,10 @@ class StripeWH_Handler:
             if order_exists:
                 self.send_confirmation_email(order)
                 return HttpResponse(
-                    content=f'Webhook received: {event["type"]} | SUCCESS: Verified driving lesson order already in database for {username}',
+                    content=
+                    f'Webhook received: {event["type"]} | SUCCESS: '
+                    'Verified driving lesson order already in database '
+                    f'for {username}',
                     status=200,
                 )
             else:
@@ -129,18 +133,27 @@ class StripeWH_Handler:
                     order_line_item.save()
                 self.send_confirmation_email(order)
                 return HttpResponse(
-                    content=f'Webhook received: {event["type"]} | SUCCESS: Created driving lesson order for {username}',
+                    content=(
+                        f'Webhook received: {event["type"]} | SUCCESS: '
+                        f'Created driving lesson order for {username}'
+                    ),
                     status=200,
                 )
         except Exception as e:
             return HttpResponse(
-                content=f'Webhook received: {event["type"]} | ERROR: {e}', status=500
+                content=(
+                    f'Webhook received: {event["type"]} | ERROR: {e}'
+                ), 
+                status=500
             )
 
     def handle_payment_intent_payment_failed(self, event):
         intent = event.data.object
         username = intent.metadata.get("username")
         return HttpResponse(
-            content=f'Webhook received: {event["type"]} | Payment failed for driving lesson order by {username}',
+            content=(
+                f'Webhook received: {event["type"]} | '
+                f'Payment failed for driving lesson order by {username}'
+            ),
             status=200,
         )

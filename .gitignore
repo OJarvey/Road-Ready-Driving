@@ -3,6 +3,8 @@ core.mongo*
 core.python*
 env.py
 __pycache__/
+.vscode/
+*.pyc
 *.py[cod]
 node_modules/
 .github/

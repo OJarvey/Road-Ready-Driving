@@ -6,7 +6,8 @@ import sys
 
 def main():
     """Run administrative tasks."""
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "road_ready_driving.settings")
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE",
+                          "road_ready_driving.settings")
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:

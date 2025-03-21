@@ -37,7 +37,8 @@ document.addEventListener("DOMContentLoaded", function () {
         fetch(form.action, {
             method: "POST",
             headers: {
-                "X-CSRFToken": document.querySelector('[name=csrfmiddlewaretoken]').value,
+                "X-CSRFToken": document.querySelector(
+                    '[name=csrfmiddlewaretoken]').value,
                 "Content-Type": "application/x-www-form-urlencoded",
                 "X-Requested-With": "XMLHttpRequest"
             },
@@ -49,10 +50,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (data.success) {
                     quantityError.style.display = "none";
                     showToast('success', data.message);
-                    const bagBadge = document.querySelector('.shopping-bag .badge');
+                    const bagBadge = document.querySelector(
+                        '.shopping-bag .badge');
                     if (bagBadge) {
                         bagBadge.textContent = data.item_count;
-                        bagBadge.style.display = data.item_count > 0 ? 'block' : 'none';
+                        bagBadge.style.display = data.item_count > 0 ?
+                        'block' : 'none';
                     }
                 } else {
                     quantityError.textContent = data.error;
@@ -70,19 +73,23 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Toast notification function (consistent with bag.js)
     function showToast(type, message) {
-        const toastContainer = document.querySelector('.message-container') || document.createElement('div');
+        const toastContainer = document.querySelector(
+            '.message-container') || document.createElement('div');
         if (!toastContainer.classList.contains('message-container')) {
             toastContainer.classList.add('message-container');
             document.body.appendChild(toastContainer);
         }
 
         const toastHTML = `
-            <div class="toast custom-toast rounded-0 border-top-0" data-bs-autohide="false">
+            <div class="toast custom-toast rounded-0 border-top-0"
+            data-bs-autohide="false">
                 <div class="arrow-up arrow-${type}"></div>
                 <div class="w-100 toast-capper bg-${type}"></div>
                 <div class="toast-header bg-white text-dark">
-                    <strong class="mr-auto">${type.charAt(0).toUpperCase() + type.slice(1)}!</strong>
-                    <button type="button" class="ml-2 mb-1 close text-dark" data-bs-dismiss="toast" aria-label="Close">
+                    <strong class="mr-auto">${type.charAt(0).toUpperCase() +
+                        type.slice(1)}!</strong>
+                    <button type="button" class="ml-2 mb-1 close text-dark"
+                    data-bs-dismiss="toast" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>

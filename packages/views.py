@@ -31,7 +31,8 @@ def all_packages(request):
         if "q" in request.GET:
             query = request.GET["q"]
             if not query:
-                messages.error(request, "You didn't enter any search criteria!")
+                messages.error(request,
+                               "You didn't enter any search criteria!")
                 return redirect(reverse("packages"))
 
             query = Q(name__icontains=query) | Q(description__icontains=query)
@@ -72,7 +73,8 @@ def add_package(request):
             return redirect(reverse("package_detail", args=[package.id]))
         else:
             messages.error(
-                request, "Failed to add package. Please ensure the form is valid."
+                request,
+                "Failed to add package. Please ensure the form is valid."
             )
     else:
         form = PackageForm()
@@ -104,7 +106,8 @@ def edit_package(request, package_id):
                 messages.error(request, f"Failed to update package: {str(e)}")
         else:
             messages.error(
-                request, "Failed to update package. Please ensure the form is valid."
+                request,
+                "Failed to update package. Please ensure the form is valid."
             )
     else:
         form = PackageForm(instance=package)
@@ -140,7 +143,8 @@ def delete_package(request, package_id):
             return redirect("packages")
         except ProtectedError as e:
             messages.error(
-                request, f"Cannot delete {package.name} - it exists in order history."
+                request,
+                f"Cannot delete {package.name} - it exists in order history."
             )
             return redirect("packages")
 

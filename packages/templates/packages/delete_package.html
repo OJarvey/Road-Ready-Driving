@@ -18,9 +18,12 @@
             <div class="col-12 col-md-8 col-lg-6">
                 {% if messages %}
                     {% for message in messages %}
-                        <div class="alert {% if message.tags == 'error' %}alert-danger{% else %}alert-success{% endif %} alert-dismissible fade show" role="alert">
+                        <div class="alert {% if message.tags == 'error' %}
+                        alert-danger{% else %}alert-success{% endif %}
+                        alert-dismissible fade show" role="alert">
                             {{ message }}
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <button type="button" class="close"
+                            data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">×</span>
                             </button>
                         </div>
@@ -28,12 +31,16 @@
                 {% endif %}
                 <div class="card">
                     <div class="card-body text-center">
-                        <p>Are you sure you want to delete the package "<strong>{{ package.name }}</strong>"?</p>
+                        <p>Are you sure you want to delete the package
+                            "<strong>{{ package.name }}</strong>"?</p>
                         <p>This action cannot be undone.</p>
-                        <form method="POST" action="{% url 'delete_package' package.id %}">
+                        <form method="POST"
+                        action="{% url 'delete_package' package.id %}">
                             {% csrf_token %}
-                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                            <a href="{% url 'packages' %}" class="btn btn-outline-secondary btn-sm">Cancel</a>
+                            <button type="submit"
+                            class="btn btn-danger btn-sm">Delete</button>
+                            <a href="{% url 'packages' %}"
+                            class="btn btn-outline-secondary btn-sm">Cancel</a>
                         </form>
                     </div>
                 </div>

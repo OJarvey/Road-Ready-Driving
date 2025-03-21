@@ -1,3 +1,5 @@
+/* jshint esversion: 6 */
+
 document.addEventListener("DOMContentLoaded", function () {
     const sidebar = document.getElementById("sidebar");
     const toggleBtn = document.getElementById("toggle-btn");
@@ -11,55 +13,68 @@ document.addEventListener("DOMContentLoaded", function () {
         sidebar.classList.toggle("collapsed");
         toggleBtn.querySelector("i").classList.toggle("fa-arrow-left");
         toggleBtn.querySelector("i").classList.toggle("fa-arrow-right");
-        toggleBtn.setAttribute("aria-expanded", sidebar.classList.contains("collapsed") ? "false" : "true");
+        toggleBtn.setAttribute("aria-expanded", sidebar.classList.contains(
+            "collapsed") ? "false" : "true"
+        );
     });
 });
 
-document.getElementById('username-form').addEventListener('submit', function(event) {
-    event.preventDefault(); // Prevent default form submission
+const form = document.getElementById('username-form');
+if (!form) {
+    console.error('Username form not found');
+} else {
+    form.addEventListener('submit', function(event) {
+        event.preventDefault();
 
-    // Show confirmation dialog
-    if (confirm('Are you sure you want to update your username?')) {
-        // If confirmed, submit the form via fetch
-        const form = this;
-        const formData = new FormData(form);
+        if (confirm('Are you sure you want to update your username?')) {
+            const formData = new FormData(this);
 
-        fetch(form.action, {
-            method: 'POST',
-            body: formData,
-            headers: {
-                'X-Requested-With': 'XMLHttpRequest' // For Django to recognize AJAX
-            }
-        })
-        .then(response => {
-            if (response.ok) {
-                // Show success message
-                const successMsg = document.getElementById('success-message');
-                successMsg.style.display = 'block';
-                // Hide after 3 seconds
-                setTimeout(() => {
-                    successMsg.style.display = 'none';
-                }, 3000);
-                // Reset form or update UI
-                form.querySelector('input[name="username"]').value = formData.get('username');
-            } else {
-                alert('Error updating username. Please try again.');
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('An error occurred. Please try again.');
-        });
+            fetch(form.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'X-CSRFToken': getCSRFToken()
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Server returned ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.success) {
+                    window.location.reload();
+                } else {
+                    alert('Error: ' + data.error);
+                }
+            })
+            .catch(error => {
+                console.error('Fetch error:', error);
+                alert('An error occurred: ' + error.message);
+            });
+        }
+    });
+}
+
+function getCSRFToken() {
+    const token = document.querySelector('input[name="csrfmiddlewaretoken"]');
+    if (!token) {
+        console.error('CSRF token not found');
+        return '';
     }
-});
+    return token.value;
+}
 
 document.addEventListener('DOMContentLoaded', function() {
     const successAlerts = document.querySelectorAll('.alert-success');
     successAlerts.forEach(alert => {
+        alert.classList.add('show');
         setTimeout(() => {
             alert.classList.remove('show');
             alert.classList.add('fade');
-            setTimeout(() => alert.remove(), 150); // Remove from DOM after fade
+            setTimeout(() => alert.remove(), 150);
         }, 3000);
     });
 });

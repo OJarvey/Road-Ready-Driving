@@ -19,10 +19,22 @@
     <div class="row">
         <div class="col-12 col-lg-6">
             <h5 class="text-muted">Your Details</h5>
-            <p><strong>Name:</strong> {{ order.full_name }}</p>
-            <p><strong>Email:</strong> {{ order.email }}</p>
-            <p><strong>Phone:</strong> {{ order.phone_number }}</p>
-            <p><strong>Address:</strong> {{ order.street_address1 }}, {{ order.street_address2 }}, {{ order.town_or_city }}, {{ order.country }}, {{ order.postcode }}</p>
+            <p><strong>Name:</strong>
+                {{ order.full_name }}
+            </p>
+            <p><strong>Email:</strong>
+                {{ order.email }}
+            </p>
+            <p><strong>Phone:</strong>
+                {{ order.phone_number }}
+            </p>
+            <p><strong>Address:</strong>
+                {{ order.street_address1 }},
+                {{ order.street_address2 }},
+                {{ order.town_or_city }},
+                {{ order.country }},
+                {{ order.postcode }}
+            </p>
         </div>
         <div class="col-12 col-lg-6">
             <h5 class="text-muted">Order Summary</h5>
@@ -30,7 +42,9 @@
                 <div class="row">
                     <!-- Stack columns on mobile -->
                     <div class="col-12 col-md-8">
-                        <p>{{ item.package.name }} (Qty: {{ item.quantity }})</p>
+                        <p>
+                            {{ item.package.name }} (Qty: {{ item.quantity }})
+                        </p>
                     </div>
                     <div class="col-12 col-md-4 text-md-right">
                         <p>£{{ item.lineitem_total|floatformat:2 }}</p>
@@ -44,13 +58,16 @@
                     <p><strong>Grand Total:</strong></p>
                 </div>
                 <div class="col-12 col-md-4 text-md-right">
-                    <p><strong>£{{ order.grand_total|floatformat:2 }}</strong></p>
+                    <p>
+                        <strong>£{{ order.grand_total|floatformat:2 }}</strong>
+                    </p>
                 </div>
             </div>
         </div>
         <!-- Full width button on mobile -->
         <div class="text-center mt-4 col-12">
-            <a href="{% url 'profile_orders' %}" class="btn btn-primary d-block d-md-inline-block">
+            <a href="{% url 'profile_orders' %}"
+            class="btn btn-primary d-block d-md-inline-block">
                 <i class="fas fa-arrow-left"></i> Return to Orders
             </a>
         </div>

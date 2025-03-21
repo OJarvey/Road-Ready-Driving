@@ -179,7 +179,7 @@
 
 .order-card .order-number {
     font-size: 13px;
-    word-break: break-word;
+    word-break: break-all;
     overflow-wrap: break-word;
     white-space: normal;
 }
@@ -191,7 +191,7 @@
 
 .order-header-wrapper .order-number {
     font-size: 20px;
-    word-break: break-word;
+    word-break: break-all;
     overflow-wrap: break-word;
     white-space: normal;
 }

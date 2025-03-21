@@ -14,7 +14,8 @@ class UpdateUsernameForm(forms.ModelForm):
 
     def clean_username(self):
         username = self.cleaned_data.get("username")
-        if User.objects.filter(username=username).exclude(pk=self.instance.pk).exists():
+        if User.objects.filter(
+            username=username).exclude(pk=self.instance.pk).exists():
             raise forms.ValidationError(
                 "This username is already taken. Please choose another one."
             )
