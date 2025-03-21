@@ -11,25 +11,24 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>Order Number</th>
-                            <th>Date</th>
-                            <th>Total</th>
-                            <th>Actions</th>
+                            <th>Order Details</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for order in orders %}
                             <tr>
                                 <td>
-                                    <span class="order-number d-inline-block d-md-inline" 
-                                          style="font-size: 11px; word-break: break-all; overflow-wrap: break-word; white-space: normal;">
-                                        {{ order.order_number }}
-                                    </span>
-                                </td>
-                                <td>{{ order.date }}</td>
-                                <td>£{{ order.grand_total|floatformat:2 }}</td>
-                                <td>
-                                    <a href="{% url 'order_view' order.order_number %}" class="btn btn-sm btn-primary">View</a>
+                                    <div class="order-card">
+                                        <span class="order-number">
+                                            <strong>Order Number:</strong> {{ order.order_number }}
+                                        </span>
+                                        <span><strong>Date:</strong> {{ order.date }}</span>
+                                        <span><strong>Total:</strong> £{{ order.grand_total|floatformat:2 }}</span>
+                                        <span class="order-buttons">
+                                            <a href="{% url 'home' %}" class="btn btn-sm btn-primary">Go Home</a>
+                                            <a href="{% url 'order_view' order.order_number %}" class="btn btn-sm btn-primary">View Order</a>
+                                        </span>
+                                    </div>
                                 </td>
                             </tr>
                         {% endfor %}

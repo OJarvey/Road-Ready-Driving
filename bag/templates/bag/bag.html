@@ -37,20 +37,19 @@
                     <tr data-item-id="{{ booking.package.id }}">
                       <td>
                         {% if booking.package.image %}
-                          <img src="{{ booking.package.image.url }}" alt="{{ booking.package.name }}"
-                               class="img-thumbnail w-100">
+                          <a href="{% url 'package_detail' booking.package.id %}"><img src="{{ booking.package.image.url }}" alt="{{ booking.package.name }}" class="img-thumbnail w-100" /></a>
                         {% else %}
-                          <img src="{% static 'media/noimage.png' %}" alt="No Image"
-                               class="img-thumbnail w-100">
+                          <a href="{% url 'package_detail' booking.package.id %}"><img src="{% static 'media/noimage.png' %}" alt="No Image" class="img-thumbnail w-100" /></a>
                         {% endif %}
                       </td>
                       <td>{{ booking.package.description }}</td>
                       <td>£{{ booking.package.price }}</td>
                       <td>
-                        <input type="number" name="quantity" class="form-control quantity-input"
-                            value="{{ booking.quantity }}" min="1" max="10" data-item-id="{{ booking.package.id }}">
+                        <input type="number" name="quantity" class="form-control quantity-input" value="{{ booking.quantity }}" min="1" max="10" data-item-id="{{ booking.package.id }}" />
                       </td>
-                      <td><span class="line-total">£{{ booking.line_total|floatformat:2 }}</span></td>
+                      <td>
+                        <span class="line-total">£{{ booking.line_total|floatformat:2 }}</span>
+                      </td>
                       <td>
                         <div class="d-flex gap-2">
                           <button type="button" class="btn btn-sm btn-success update-link w-100">Update</button>
@@ -64,7 +63,9 @@
             </div>
             <div class="text-right">
               <h4>Total: <span id="total">£{{ total }}</span></h4>
-              <p>Items: <span class="bag-counter">{{ bookings|length }}</span></p>
+              <p>
+                Items: <span class="bag-counter">{{ bookings|length }}</span>
+              </p>
               <a href="{% url 'checkout' %}" class="btn btn-primary mt-2">Proceed to Checkout</a>
             </div>
           </div>
@@ -76,37 +77,33 @@
                 <div class="row">
                   <div class="col-12 text-center mb-3">
                     {% if booking.package.image %}
-                      <img src="{{ booking.package.image.url }}" alt="{{ booking.package.name }}"
-                          class="img-thumbnail" style="max-width: 150px;">
+                      <a href="{% url 'package_detail' booking.package.id %}"><img src="{{ booking.package.image.url }}" alt="{{ booking.package.name }}" class="img-thumbnail" style="max-width: 150px;" /></a>
                     {% else %}
-                      <img src="{% static 'media/noimage.png' %}" alt="No Image"
-                          class="img-thumbnail" style="max-width: 150px;">
+                      <a href="{% url 'package_detail' booking.package.id %}"><img src="{% static 'media/noimage.png' %}" alt="No Image" class="img-thumbnail" style="max-width: 150px;" /></a>
                     {% endif %}
                   </div>
-                  
+
                   <div class="col-12">
                     <div class="d-flex justify-content-between mb-2">
                       <span class="font-weight-bold">Details:</span>
                       <span>{{ booking.package.description }}</span>
                     </div>
-                    
+
                     <div class="d-flex justify-content-between mb-2">
                       <span class="font-weight-bold">Price:</span>
                       <span>£{{ booking.package.price }}</span>
                     </div>
-                    
+
                     <div class="d-flex justify-content-between mb-2">
                       <span class="font-weight-bold">Quantity:</span>
-                      <input type="number" name="quantity" class="form-control quantity-input"
-                          value="{{ booking.quantity }}" min="1" max="10" 
-                          data-item-id="{{ booking.package.id }}" style="width: 80px;">
+                      <input type="number" name="quantity" class="form-control quantity-input" value="{{ booking.quantity }}" min="1" max="10" data-item-id="{{ booking.package.id }}" style="width: 80px;" />
                     </div>
-                    
+
                     <div class="d-flex justify-content-between mb-3">
                       <span class="font-weight-bold">Total:</span>
                       <span class="line-total">£{{ booking.line_total|floatformat:2 }}</span>
                     </div>
-                    
+
                     <div class="d-grid gap-2">
                       <button type="button" class="btn btn-sm btn-success update-link w-100">Update</button>
                       <button class="btn btn-sm btn-danger remove-item w-100" data-item-id="{{ booking.package.id }}">Remove</button>
@@ -115,14 +112,15 @@
                 </div>
               </div>
             {% endfor %}
-            
+
             <div class="text-center mt-4">
               <h4>Total: <span id="total-mobile">£{{ total }}</span></h4>
-              <p>Items: <span class="bag-counter-mobile">{{ bookings|length }}</span></p>
+              <p>
+                Items: <span class="bag-counter-mobile">{{ bookings|length }}</span>
+              </p>
               <a href="{% url 'checkout' %}" class="btn btn-primary btn-block">Proceed to Checkout</a>
             </div>
           </div>
-
         {% else %}
           <div class="text-center my-5">
             <p class="lead">Your bookings are currently empty.</p>
@@ -134,11 +132,9 @@
   </div>
 
   <!-- Include CSRF Token -->
-  <input type="hidden" id="csrf_token" value="{{ csrf_token }}">
+  <input type="hidden" id="csrf_token" value="{{ csrf_token }}" />
   <script>
-    const packagesUrl = "{{ packages_url|escapejs }}";
+    const packagesUrl = '{{ packages_url|escapejs }}'
   </script>
   <script src="{% static 'bag/bag.js' %}"></script>
-
-
 {% endblock %}

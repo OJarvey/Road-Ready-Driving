@@ -6,8 +6,14 @@
 {% block account_content %}
 <div class="overlay"></div>
 <div role="main" aria-labelledby="order-detail" class="page-container">
-    <h4 class="mb-5" id="order-detail">Order: <span class="order-number d-inline-block d-md-inline" style="font-size: 11px; word-break: break-all; overflow-wrap: break-word; white-space: normal;">{{ order.order_number }}</span>
-    </h4>
+    <div class="order-header-wrapper">
+        <h4 class="mb-5" id="order-detail">
+            Order: 
+            <span class="order-number d-inline-block d-md-inline">
+                {{ order.order_number }}
+            </span>
+        </h4>
+    </div>
     
     <hr>
     <div class="row">
@@ -22,30 +28,32 @@
             <h5 class="text-muted">Order Summary</h5>
             {% for item in order.lineitems.all %}
                 <div class="row">
-                    <div class="col-8">
+                    <!-- Stack columns on mobile -->
+                    <div class="col-12 col-md-8">
                         <p>{{ item.package.name }} (Qty: {{ item.quantity }})</p>
                     </div>
-                    <div class="col-4 text-right">
+                    <div class="col-12 col-md-4 text-md-right">
                         <p>£{{ item.lineitem_total|floatformat:2 }}</p>
                     </div>
                 </div>
             {% endfor %}
             <hr>
-            <div class="row text-right">
-                <div class="col-8">
+            <!-- Stack grand total on mobile -->
+            <div class="row">
+                <div class="col-12 col-md-8">
                     <p><strong>Grand Total:</strong></p>
                 </div>
-                <div class="col-4">
+                <div class="col-12 col-md-4 text-md-right">
                     <p><strong>£{{ order.grand_total|floatformat:2 }}</strong></p>
                 </div>
             </div>
         </div>
-        <div class="text-center mt-4">
-            <a href="{% url 'profile_orders' %}" class="btn btn-primary">
+        <!-- Full width button on mobile -->
+        <div class="text-center mt-4 col-12">
+            <a href="{% url 'profile_orders' %}" class="btn btn-primary d-block d-md-inline-block">
                 <i class="fas fa-arrow-left"></i> Return to Orders
             </a>
         </div>
-        
     </div>
 </div>
 {% endblock %}

@@ -28,7 +28,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get("DEVELOPMENT", "False") == "True"
+DEBUG = True
 
 ALLOWED_HOSTS = [
     "localhost",
@@ -181,10 +181,7 @@ USE_TZ = True
 STATIC_URL = "static/"
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
-if DEBUG:  # Use default storage in development
-    STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
-else:  # Use WhiteNoise in production
-    STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
 
 # Media files
 MEDIA_URL = "/media/"
@@ -192,7 +189,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 # Cloudinary
 DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
-CLOUDINARY_URL = os.environ.get('CLOUDINARY_URL')
+CLOUDINARY_URL = os.environ.get("CLOUDINARY_URL")
 CLOUDINARY_STORAGE = {
     "CLOUDINARY_URL": CLOUDINARY_URL,
 }
@@ -207,9 +204,9 @@ DEFAULT_FROM_EMAIL = "roadreadydriving@co.uk"
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
-if 'DEVELOPMENT' in os.environ:
+if "DEVELOPMENT" in os.environ:
     EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-    DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+    DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 else:
     EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
     EMAIL_USE_TLS = True
@@ -218,4 +215,3 @@ else:
     EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
     EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASS")
     DEFAULT_AUTO_FIELD = os.environ.get("EMAIL_HOST_USER")
-    
