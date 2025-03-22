@@ -25,7 +25,7 @@
             <form method="post" action="{{ action_url }}" class="text-end">
                 {% csrf_token %}
                 {{ redirect_field }}
-                <button type="submit" class="btn btn-secondary">
+                <button type="submit" class="btn btn-danger">
                     <span class="font-weight-bold">{% trans "Sign Out" %}</span>
                 </button>
             </form>
