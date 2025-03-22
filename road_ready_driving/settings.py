@@ -204,9 +204,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 # Cloudinary
 DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
 CLOUDINARY_URL = os.environ.get("CLOUDINARY_URL")
-CLOUDINARY_STORAGE = {
-    "CLOUDINARY_URL": CLOUDINARY_URL,
-}
+CLOUDINARY_STORAGE = { "CLOUDINARY_URL": CLOUDINARY_URL, }
 
 # Stripe
 STRIPE_CURRENCY = "gbp"
@@ -228,4 +226,4 @@ else:
     EMAIL_HOST = "smtp.gmail.com"
     EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
     EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASS")
-    DEFAULT_AUTO_FIELD = os.environ.get("EMAIL_HOST_USER")
+    DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"

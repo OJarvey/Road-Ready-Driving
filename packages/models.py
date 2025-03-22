@@ -33,11 +33,21 @@ class Package(models.Model):
     price = models.DecimalField(max_digits=6, decimal_places=2)
     description = models.TextField()
     image = CloudinaryField(
-        "image", blank=True, null=True, folder="packages"
-    )  # Stores Cloudinary public_id
-    image_url = models.URLField(
-        max_length=500, blank=True, null=True
-    )  # Stores Cloudinary image URL
+        "image",
+        blank=True,
+        null=True,
+        folder="packages",
+        transformation={
+            "width": 1024,
+            "height": 1024,
+            "crop": "fill",
+            "gravity": "auto",
+            "fetch_format": "auto",
+            "quality": "auto",
+        },)
+    # Stores Cloudinary public_id
+    image_url = models.URLField( max_length=500, blank=True, null=True )
+    # Stores Cloudinary image URL
 
     def __str__(self):
         return f"{self.name} - {self.category.name}"
