@@ -49,7 +49,7 @@ urlpatterns = [
     path(
         "profiles/",
         include("profiles.urls")
-        ),  # Add this line
+        ),  # Profiles URLs
 ]
 
 if settings.DEBUG:
@@ -57,3 +57,5 @@ if settings.DEBUG:
                           document_root=settings.STATIC_ROOT)
     urlpatterns += static(settings.MEDIA_URL,
                           document_root=settings.MEDIA_ROOT)
+    
+handler404 = "road_ready_driving.views.handler404"

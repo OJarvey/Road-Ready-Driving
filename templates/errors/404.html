@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="overlay"></div>
+  <div class="container text-center py-5">
+    <h1 class="display-1">404</h1>
+    <h2>Oops! Page Not Found</h2>
+    <p class="lead">It looks like we’ve hit a dead end.
+        The page you’re looking for doesn’t exist or has been moved.
+    </p>
+    <a href="{% url 'home' %}" class="btn btn-primary mt-3">
+        Return to Home
+    </a>
+  </div>
+{% endblock %}
