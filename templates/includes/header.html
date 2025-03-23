@@ -11,12 +11,6 @@
         {% static 'web_elements/favicon/android-chrome-512x512.png' %}"
         alt="Road Ready Driving logo" /></a>
 
-        <!-- Mobile Search Button -->
-        <div class="search-menu menu-icon d-block d-lg-none"
-        id="mobileSearchButton">
-          <i class="fa-solid fa-magnifying-glass menu-item"></i>
-        </div>
-
         <!-- Navbar Toggle Button (For Mobile) -->
         <button class="navbar-toggler mobile-menu-toggle"
         type="button" data-bs-toggle="collapse"
@@ -51,6 +45,24 @@
             <button class="btn btn-secondary" type="submit">GO</button>
           </form>
         </div>
+
+        <!-- Mobile Search Button -->
+        <div class="mobile-search-container d-block d-lg-none">
+          <div class="search-menu menu-icon" id="mobileSearchButton">
+              <i class="fa-solid fa-magnifying-glass menu-item"></i>
+          </div>
+          <div class="mobile-search-form" id="mobileSearchForm" style="display: none;">
+              <form class="search-bar" method="GET" action="{% url 'packages' %}">
+                  {% csrf_token %}
+                  <input class="form-control" 
+                         type="search" 
+                         name="q" 
+                         placeholder="Search" 
+                         aria-label="Search" />
+                  <button class="btn btn-secondary" type="submit">GO</button>
+              </form>
+          </div>
+      </div>
 
         <!-- Shopping Bag -->
         <div class="d-flex align-items-center">
