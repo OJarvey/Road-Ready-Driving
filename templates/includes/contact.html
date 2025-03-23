@@ -1,21 +1,60 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 {% load static %}
-
-{% block page_header %}
-    <div class="container header-container">
-        <div class="row">
-            <div class="col">
-            </div>
-        </div>
-    </div>
-{% endblock %}
+{% load widget_tweaks %}
 
 {% block content %}
-    <div class="container">
-        <div class="row">
-            <div class="col ">
-                {{ packages }}
-            </div>
+  <div class="overlay"></div>
+  <div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+      <div class="col-md-8 col-lg-6">
+        <div class="card shadow-sm border-0 rounded-4">
+          <div class="card-body p-4 p-md-5">
+            <h2 class="text-center mb-4">Contact Us</h2>
+            <p class="text-muted text-center mb-4">
+              Have questions or need help? Fill out the form below and we’ll get back to you shortly.
+            </p>
+
+            {% if messages %}
+              {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} text-center rounded-3">
+                  {{ message }}
+                </div>
+              {% endfor %}
+            {% endif %}
+
+            <form method="post" novalidate>
+              {% csrf_token %}
+              
+              <div class="mb-3">
+                <label for="{{ form.name.id_for_label }}" class="form-label">Name</label>
+                {{ form.name|add_class:"form-control form-control-lg shadow-sm" }}
+              </div>
+
+              <div class="mb-3">
+                <label for="{{ form.email.id_for_label }}" class="form-label">Email</label>
+                {{ form.email|add_class:"form-control form-control-lg shadow-sm" }}
+              </div>
+
+              <div class="mb-3">
+                <label for="{{ form.subject.id_for_label }}" class="form-label">Subject</label>
+                {{ form.subject|add_class:"form-control form-control-lg shadow-sm" }}
+              </div>
+
+              <div class="mb-3">
+                <label for="{{ form.message.id_for_label }}" class="form-label">Message</label>
+                {{ form.message|add_class:"form-control form-control-lg shadow-sm" }}
+              </div>
+
+              <div class="text-end">
+                <button type="submit" class="btn btn-primary btn-lg rounded-3 px-4 shadow">
+                  <i class="fas fa-paper-plane me-2"></i> Send Message
+                </button>
+              </div>
+            </form>
+
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 {% endblock %}
