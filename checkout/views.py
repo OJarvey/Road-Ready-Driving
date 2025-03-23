@@ -11,6 +11,8 @@ from .models import Order, OrderLineItem
 from packages.models import Package
 from bag.contexts import bag_contents
 from profiles.models import UserProfile
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
 
 import json
 import stripe
@@ -263,11 +265,40 @@ def checkout_success(request, order_number):
     """
     save_info = request.session.get("save_info", False)
     order = get_object_or_404(Order, order_number=order_number)
+    subject = render_to_string(
+        'checkout/confirmation_emails/confirmation_email_subject.txt',
+        {'order_number': order.order_number}
+    ).strip()
+
+    body = render_to_string(
+        'checkout/confirmation_emails/confirmation_email_body.txt',
+        {
+            'full_name': order.full_name,
+            'order_number': order.order_number,
+            'date': order.date,
+            'grand_total': order.grand_total,
+            'lineitems': order.lineitems.all(),
+            'street_address1': order.street_address1,
+            'street_address2': order.street_address2,
+            'town_or_city': order.town_or_city,
+            'county': order.county,
+            'postcode': order.postcode,
+            'country': order.country,
+        }
+    )
+
+    send_mail(
+        subject,
+        body,
+        settings.DEFAULT_FROM_EMAIL,
+        [order.email],
+        fail_silently=False,
+    )
+
     messages.success(
         request,
-        f"Order successfully processed! \
-        Your order number is {order_number}. A confirmation \
-        email will be sent to {order.email}.",
+        f"Order successfully processed! Your order number is {order_number}. "
+        f"A confirmation email has been sent to {order.email}.",
     )
 
     if "bag" in request.session:
