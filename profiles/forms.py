@@ -39,7 +39,13 @@ class UserProfileForm(forms.ModelForm):
         )
 
     def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user', None)
         super().__init__(*args, **kwargs)
+
+        if self.fields.get("default_email") and user:
+                self.fields["default_email"].initial = user.email
+                self.fields["default_email"].widget.attrs["readonly"] = True
+
         placeholders = {
             "default_full_name": "Full Name",
             "default_email": "Email Address",
@@ -54,11 +60,14 @@ class UserProfileForm(forms.ModelForm):
         self.fields["default_full_name"].widget.attrs["autofocus"] = True
         for field in self.fields:
             if field != "default_country":
-                placeholder = (
-                    f"{placeholders[field]} *"
-                    if self.fields[field].required
-                    else placeholders[field]
-                )
+                if field == "default_email" and user:
+                    placeholder = user.email
+                else:
+                    placeholder = (
+                        f"{placeholders[field]} *"
+                        if self.fields[field].required
+                        else placeholders[field]
+                    )
                 self.fields[field].widget.attrs["placeholder"] = placeholder
             self.fields[field].widget.attrs["class"] = "stripe-style-input"
             self.fields[field].label = False

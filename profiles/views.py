@@ -109,6 +109,7 @@ class ProfileView(FormView):
         return self.form_class(
             instance=self.request.user.userprofile,
             data=self.request.POST if self.request.method == "POST" else None,
+            user=self.request.user,
         )
 
     def get_context_data(self, **kwargs):
@@ -117,7 +118,17 @@ class ProfileView(FormView):
         return context
 
     def form_valid(self, form):
-        form.save()
+        profile = form.save(commit=False)
+        user = self.request.user
+
+        if profile.default_email and profile.default_email != user.email:
+            user.email = profile.default_email
+            user.save()
+
+        elif user.email != profile.default_email != user.email:
+            profile.default_email = user.email
+
+        profile.save()
         messages.success(self.request, "Your profile has been updated.")
         return super().form_valid(form)
 

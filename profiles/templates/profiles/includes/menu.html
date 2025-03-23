@@ -32,8 +32,7 @@
       <li>
         <a href="{% url 'account_email' %}"
         class="menu-item nav-link
-        {% if request.path == 'account_email'|get_url_path %}
-        active{% endif %}" aria-label="Email">
+        {% if request.resolver_match.url_name == 'account_email' %}active{% endif %}" aria-label="Email">
           <span class="menu-text">Email</span>
           <i class="fa-solid fa-envelope"></i>
         </a>
