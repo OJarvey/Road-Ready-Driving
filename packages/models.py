@@ -45,7 +45,8 @@ class Package(models.Model):
             "fetch_format": "auto",
             "quality": "auto",
         },)
-    # Stores Cloudinary public_id
+    # Stores Cloudinary public_id and resizes image to 1024x1024
+
     image_url = models.URLField( max_length=500, blank=True, null=True )
     # Stores Cloudinary image URL
 

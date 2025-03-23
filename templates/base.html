@@ -7,6 +7,10 @@
       <meta http-equiv="X-UA-Compatible" content="IE=edge" />
       <meta charset="utf-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+      <!-- SEO Meta Tags -->
+      <meta name="description" content="Road Ready Driving offers expert driving lessons with flexible packages to help you gain confidence behind the wheel. Choose from Bronze, Silver, or Gold levels. Start your journey today!" />
+      <meta name="keywords" content="driving lessons, Road Ready Driving, learn to drive, driving school, driving instructor, beginner driving, safe driving, Bronze Silver Gold driving packages" />
+      <meta name="author" content="Road Ready Driving" />
     {% endblock %}
 
     {% block extra_meta %}
@@ -18,6 +22,7 @@
       <link rel="icon" type="image/png" sizes="32x32" href="{% static 'web_elements/favicon/favicon-32x32.png' %}" />
       <link rel="icon" type="image/png" sizes="16x16" href="{% static 'web_elements/favicon/favicon-16x16.png' %}" />
       <link rel="mask-icon" href="{% static 'web_elements/favicon/safari-pinned-tab.svg' %}" color="#5bbad5" />
+      <link href="//cdn-images.mailchimp.com/embedcode/classic-061523.css" rel="stylesheet" type="text/css">
     {% endblock %}
 
     {% block corecss %}
@@ -29,7 +34,7 @@
     {% endblock %}
 
     {% block extra_css %}
-
+    <link rel="stylesheet" href="{% static 'css/footer.css' %}" />
     {% endblock %}
 
     {% block corejs %}
@@ -53,39 +58,36 @@
     </title>
   </head>
   <body>
+    <div class="site-wrapper d-flex flex-column min-vh-100">
+
     <!-- Include Header -->
     {% include 'includes/header.html' %}
 
-    {% block content %}
+    <!-- Main Content Area -->
+    <main class="content-wrapper flex-grow-1">
+      {% block page_header %}{% endblock %}
+      {% block content %}{% endblock %}
 
-    {% endblock %}
+      {% if messages %}
+        <div class="message-container">
+          {% for message in messages %}
+            {% if message.tags == 'success' %}
+              {% include 'includes/toasts/toast_success.html' with message=message %}
+            {% elif message.tags == 'warning' %}
+              {% include 'includes/toasts/toast_warning.html' with message=message %}
+            {% elif message.tags == 'info' %}
+              {% include 'includes/toasts/toast_info.html' with message=message %}
+            {% elif message.tags == 'error' %}
+              {% include 'includes/toasts/toast_error.html' with message=message %}
+            {% endif %}
+          {% endfor %}
+        </div>
+      {% endif %}
+    </main>
 
-    {% if messages %}
-      <div class="message-container">
-        {% for message in messages %}
-          {% if message.tags == 'success' %}
-            {% include 'includes/toasts/toast_success.html'
-            with message=message %}
-          {% elif message.tags == 'warning' %}
-            {% include 'includes/toasts/toast_warning.html'
-            with message=message %}
-          {% elif message.tags == 'info' %}
-            {% include 'includes/toasts/toast_info.html'
-            with message=message %}
-          {% elif message.tags == 'error' %}
-            {% include 'includes/toasts/toast_error.html'
-            with message=message %}
-          {% endif %}
-        {% endfor %}
-      </div>
-    {% endif %}
-
-    {% block page_header %}
-
-    {% endblock %}
-
+    <!-- Footer -->
     {% block footer %}
-
+    {% include 'includes/footer/footer.html' %}
     {% endblock %}
 
     {% block postloadjs %}

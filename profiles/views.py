@@ -34,7 +34,7 @@ class CustomLoginView(AllauthLoginView):
 
 
 class CustomLogoutView(AllauthLogoutView):
-    template_name = "allauth/logout.html"  # Reuse your styled template
+    template_name = "allauth/logout.html"
 
     def post(self, request, *args, **kwargs):
         # Log the user out

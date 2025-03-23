@@ -1,0 +1,111 @@
+{% load static %}
+
+<div class="pt-4 pt-lg-5 pb-3 bg-dark text-white-90">
+  <div class="container">
+    <hr class="bg-opacity-25 d-none d-lg-block" style="border-color: rgba(255,255,255,0.3);" />
+
+    <div class="row g-4 g-lg-5 align-items-start">
+      <!-- About Section -->
+      <div class="col-lg-3 col-md-6 order-1 order-lg-1">
+        <div class="pe-lg-3 h-100">
+          <h3 class="text-uppercase h5 mb-3 text-white">About Us</h3>
+          <p class="text-white-70 small mb-3">Road Ready Driving offers expert driving lessons across all skill levels. Choose from our Bronze, Silver, or Gold packages and get confident behind the wheel with certified instructors.</p>
+          <p class="text-warning small mb-0">Please note: This is a demonstration website for educational purposes.</p>
+        </div>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="col-lg-2 col-md-6 order-3 order-lg-2">
+        <div class="h-100">
+          <h3 class="text-uppercase h5 mb-3 text-white">Quick Links</h3>
+          <ul class="list-unstyled">
+            <li class="mb-2">
+              <a href="{% url 'packages' %}" class="text-decoration-none menu-item link-light hover-orange small">Packages</a>
+            </li>
+            <li class="mb-2">
+              <a href="{% url 'about' %}" class="text-decoration-none menu-item link-light hover-orange small">About</a>
+            </li>
+            <li class="mb-2">
+              <a href="{% url 'contact' %}" class="text-decoration-none menu-item link-light hover-orange small">Contact</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Newsletter Signup -->
+      <div class="col-lg-4 col-md-6 order-2 order-lg-3">
+        <div class="h-100">
+          <h3 class="text-uppercase h5 mb-3 text-white">Stay Road Ready Newsletter</h3>
+          <div id="mc_embed_signup">
+            <form action="https://github.us14.list-manage.com/subscribe/post?u=45161ea90ad2f9c8971c03c2c&id=1b4ce01aed&f_id=00b99ce1f0" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank">
+              <div id="mc_embed_signup_scroll">
+                <div class="mc-field-group">
+                  <label for="mce-EMAIL" class="form-label small text-white-70">Email Address <span class="text-danger">*</span></label>
+                  <div class="input-group">
+                    <input type="email" name="EMAIL" class="form-control bg-dark text-white border-secondary focus-ring focus-ring-light required email" id="mce-EMAIL" required autocomplete="email" placeholder="Enter your email" value="" />
+                    <button type="submit" name="subscribe" id="mc-embedded-subscribe" class="btn btn-warning btn-sm px-4 rounded-pill fw-bold ms-2">Subscribe</button>
+                  </div>
+                </div>
+                <div id="mce-responses" class="clear foot">
+                  <div class="response" id="mce-error-response" style="display: none;"></div>
+                  <div class="response" id="mce-success-response" style="display: none;"></div>
+                </div>
+                <div aria-hidden="true" style="position: absolute; left: -5000px;">
+                  <input type="text" name="b_45161ea90ad2f9c8971c03c2c_1b4ce01aed" tabindex="-1" value="" />
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Social Media -->
+      <div class="col-lg-3 col-md-6 order-4 order-lg-4">
+        <div class="h-100 d-flex flex-column">
+          <h3 class="text-uppercase h5 mb-3 text-white">Follow Us</h3>
+          <ul class="list-inline mb-0 mt-auto">
+            <li class="list-inline-item me-3">
+              <a href="https://www.facebook.com/profile.php?id=61574159534242" class="text-decoration-none social-link"><i class="fa-brands fa-facebook fa-lg"></i></a>
+            </li>
+            <li class="list-inline-item me-3">
+              <a href="https://www.instagram.com/" aria-label="Instagram" target="_blank" rel="noopener" class="text-decoration-none social-link"><i class="fa-brands fa-instagram fa-lg"></i></a>
+            </li>
+            <li class="list-inline-item">
+              <a href="http://linkedin.com/" aria-label="LinkedIn" target="_blank" rel="noopener" class="text-decoration-none social-link"><i class="fa-brands fa-linkedin fa-lg"></i></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <hr class="bg-opacity-25 mt-3 mt-lg-4" style="border-color: rgba(255,255,255,0.3);" />
+
+    <!-- Copyright -->
+    <div class="row">
+      <div class="col text-center">
+        <p class="mb-0 small text-white-70">
+          &copy; {{ current_year|default:2024 }} Road Ready Driving. All rights reserved.<br class="d-lg-none" />
+          <span class="d-none d-lg-inline">|</span>
+          <a href="#" class="text-decoration-none link-light hover-orange small">Privacy Policy</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Mailchimp Signup Form script -->
+<script type="text/javascript" src="//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js"></script>
+<script type="text/javascript">
+(function($) {
+  window.fnames = new Array(); 
+  window.ftypes = new Array();
+  fnames[0]='EMAIL';ftypes[0]='email';
+  fnames[1]='FNAME';ftypes[1]='text';
+  fnames[2]='LNAME';ftypes[2]='text';
+  fnames[3]='ADDRESS';ftypes[3]='address';
+  fnames[4]='PHONE';ftypes[4]='phone';
+  fnames[5]='BIRTHDAY';ftypes[5]='birthday';
+  fnames[6]='COMPANY';ftypes[6]='text';
+}(jQuery));
+var $mcj = jQuery.noConflict(true);
+</script>

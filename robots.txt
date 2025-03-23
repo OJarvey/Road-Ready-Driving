@@ -1,0 +1,10 @@
+User-agent: *
+Disallow: /accounts/
+Disallow: /profile/
+Disallow: /admin/
+Disallow: /checkout/
+Disallow: /bag/
+Disallow: /login/
+Disallow: /logout/
+Disallow: /404/
+Sitemap: https://road-ready-driving-62655dbfb1ed.herokuapp.com/sitemap.xml
