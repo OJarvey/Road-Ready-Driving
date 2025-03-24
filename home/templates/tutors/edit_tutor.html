@@ -5,6 +5,23 @@
 {% block content %}
 <div class="overlay"></div>
 <div class="container mt-5">
+  {% if messages %}
+  <div class="messages mb-4">
+    {% for message in messages %}
+      <div class="alert {% if message.tags == 'success' %}
+          alert-success
+        {% elif message.tags == 'error' %}
+          alert-danger
+        {% endif %} alert-dismissible fade show"
+        role="alert">
+        {{ message }}
+        <button type="button" class="btn-close"
+        data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}
+</div>
   <h2 class="text-center logo-font mb-4">Edit Tutor</h2>
   <p class="lead text-center text-muted">Update tutor details below to keep your tutor directory up to date.</p>
 
@@ -39,6 +56,13 @@
             </div>
             <div class="col-12">
               <label for="{{ form.image.id_for_label }}" class="form-label">Profile Image</label>
+              <div class="current-image mb-3">
+                <small>Current Image:</small>
+                <img src="{{ tutor.image.url }}" 
+                     class="img-thumbnail" 
+                     style="max-width: 200px;"
+                     alt="Current tutor image">
+              </div>
               {{ form.image|add_class:"form-control shadow-sm" }}
             </div>
 

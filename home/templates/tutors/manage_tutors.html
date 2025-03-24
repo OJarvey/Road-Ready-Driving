@@ -7,6 +7,24 @@
   <h2 class="text-center mb-4 display-5 fw-bold text-primary">Manage Tutors</h2>
   <p class="lead text-center text-muted mb-5">Add, edit, or remove tutors from your team with ease.</p>
 
+  {% if messages %}
+  <div class="messages mb-4">
+    {% for message in messages %}
+      <div class="alert {% if message.tags == 'success' %}
+          alert-success
+        {% elif message.tags == 'error' %}
+          alert-danger
+        {% endif %} alert-dismissible fade show"
+        role="alert">
+        {{ message }}
+        <button type="button" class="btn-close"
+        data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}
+</div>
+
   <!-- Add Tutor Form -->
   <div class="card mb-5 shadow-lg border-0">
     <div class="card-header bg-primary text-white">
@@ -50,11 +68,10 @@
       <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
         <div class="card h-100 shadow-lg border-0 rounded-4 tutor-card">
           <div class="tutor-card-img-container rounded-top overflow-hidden">
-            {% if tutor.image %}
-              <img src="{{ tutor.image.url }}" class="card-img-top object-fit-cover" alt="{{ tutor.name }}">
-            {% else %}
-              <img src="{{ tutor.image.url }}" class="card-img-top object-fit-cover" alt="{{ tutor.name }}">
-            {% endif %}
+            <img src="{{ tutor.image.url|default:'https://res.cloudinary.com/dm7js6xmg/image/upload/notutor_bzsagz.png' }}" 
+            class="card-img-top object-fit-cover" 
+            alt="{{ tutor.name }}"
+            loading="lazy">
           </div>
           <div class="card-body text-center">
             <h5 class="card-title fw-bold text-dark">{{ tutor.name }}</h5>
