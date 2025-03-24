@@ -99,7 +99,8 @@ class OrderLineItem(models.Model):
     def save(self, *args, **kwargs):
         print("Saving OrderLineItem")
         print(f"Type of package inside save: {type(self.package)}")
-        print(f"Insance check inside save: {isinstance(self.package, Package)}")
+        f"Instance check inside save: "
+        f"{isinstance(self.package, Package)}"
         print(f"Package ID inside save: {self.package.id}")
 
         self.lineitem_total = self.package.price * self.quantity
@@ -113,4 +114,7 @@ class OrderLineItem(models.Model):
         self.order.update_total()
 
     def __str__(self):
-        return f"Package {self.package.name} on order {self.order.order_number}"
+        return (
+            f"Package {self.package.name} on order "
+            f"{self.order.order_number}"
+        )

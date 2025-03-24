@@ -47,7 +47,7 @@ class Package(models.Model):
         },)
     # Stores Cloudinary public_id and resizes image to 1024x1024
 
-    image_url = models.URLField( max_length=500, blank=True, null=True )
+    image_url = models.URLField(max_length=500, blank=True, null=True)
     # Stores Cloudinary image URL
 
     def __str__(self):

@@ -12,4 +12,6 @@ class ContactForm(forms.Form):
 class TutorForm(forms.ModelForm):
     class Meta:
         model = Tutor
-        fields = ["name", "age", "experience", "qualification", "success_rate", "image"]
+        fields = [
+            "name", "age", "experience",
+            "qualification", "success_rate", "image"]

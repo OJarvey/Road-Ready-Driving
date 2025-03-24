@@ -36,7 +36,7 @@ def cache_checkout_data(request):
         messages.error(
             request,
             "Sorry, your payment cannot be processed right now. "
-            "Please try again later."
+            "Please try again later.",
         )
         return HttpResponse(content=str(e), status=400)
 
@@ -51,8 +51,8 @@ def save_order(request):
         print("Bag contents:", bag)
 
         if not bag:
-            return JsonResponse({"success": False,
-                                 "error": "Bag is empty"}, status=400)
+            return JsonResponse({
+                "success": False, "error": "Bag is empty"}, status=400)
 
         order_form = OrderForm(data)
         if order_form.is_valid():
@@ -78,8 +78,8 @@ def save_order(request):
 
             order.update_total()
             print(
-                f"Final totals: " \
-                f"order_total={order.order_total}, " \
+                f"Final totals: "
+                f"order_total={order.order_total}, "
                 f"grand_total={order.grand_total}"
             )
 
@@ -98,13 +98,13 @@ def save_order(request):
             print(f"Updated UserProfile for {request.user.username}")
 
             request.session["bag"] = {}
-            return JsonResponse({"success": True,
-                                 "order_number": order.order_number})
+            return JsonResponse({
+                "success": True, "order_number": order.order_number})
         else:
             print("Order form errors:", order_form.errors)
             return JsonResponse(
-                {"success": False, "error": order_form.errors.as_json()},
-                status=400
+                {"success": False,
+                    "error": order_form.errors.as_json()}, status=400
             )
     except Exception as e:
         print("Error saving order:", str(e))
@@ -217,9 +217,8 @@ def checkout(request):
             except Package.DoesNotExist:
                 messages.error(
                     request,
-                "One of the packages in your bag wasn't found in our database."
-                \
-                "Please try again or contact support."
+                    "One of the packages in your bag wasn't found",
+                    "Please try again or contact support.",
                 )
                 order.delete()
                 return redirect(reverse("view_bag"))
@@ -248,7 +247,7 @@ def checkout(request):
             messages.error(
                 request,
                 "There was an error with your form. "
-                "Please check your details and try again."
+                "Please check your details and try again.",
             )
 
     context = {
@@ -266,25 +265,25 @@ def checkout_success(request, order_number):
     save_info = request.session.get("save_info", False)
     order = get_object_or_404(Order, order_number=order_number)
     subject = render_to_string(
-        'checkout/confirmation_emails/confirmation_email_subject.txt',
-        {'order_number': order.order_number}
+        "checkout/confirmation_emails/confirmation_email_subject.txt",
+        {"order_number": order.order_number},
     ).strip()
 
     body = render_to_string(
-        'checkout/confirmation_emails/confirmation_email_body.txt',
+        "checkout/confirmation_emails/confirmation_email_body.txt",
         {
-            'full_name': order.full_name,
-            'order_number': order.order_number,
-            'date': order.date,
-            'grand_total': order.grand_total,
-            'lineitems': order.lineitems.all(),
-            'street_address1': order.street_address1,
-            'street_address2': order.street_address2,
-            'town_or_city': order.town_or_city,
-            'county': order.county,
-            'postcode': order.postcode,
-            'country': order.country,
-        }
+            "full_name": order.full_name,
+            "order_number": order.order_number,
+            "date": order.date,
+            "grand_total": order.grand_total,
+            "lineitems": order.lineitems.all(),
+            "street_address1": order.street_address1,
+            "street_address2": order.street_address2,
+            "town_or_city": order.town_or_city,
+            "county": order.county,
+            "postcode": order.postcode,
+            "country": order.country,
+        },
     )
 
     send_mail(

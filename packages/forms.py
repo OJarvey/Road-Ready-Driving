@@ -23,7 +23,7 @@ class PackageForm(forms.ModelForm):
                 "step": "0.01",
             }
         )
-        
+
         self.fields["image"].widget.attrs.update({"accept": "image/*"})
 
         for field_name, field in self.fields.items():
@@ -33,12 +33,14 @@ class PackageForm(forms.ModelForm):
 
         self.helper = FormHelper()
         self.helper.form_method = "post"
-        submit_text = "Update Package" if kwargs.get(
-            "instance") else "Add Package"
+        is_instance = kwargs.get("instance")
+        submit_text = "Update Package" if is_instance else "Add Package"
         self.helper.add_input(
-            Submit("submit",
-                   submit_text, 
-                   css_class="btn btn-outline-secondary btn-sm")
+            Submit(
+                "submit",
+                submit_text,
+                css_class="btn btn-outline-secondary btn-sm"
+                )
         )
         self.helper.add_input(
             Submit(
@@ -46,8 +48,11 @@ class PackageForm(forms.ModelForm):
                 "Cancel",
                 css_class="btn btn-outline-secondary btn-sm",
                 formnovalidate="formnovalidate",
-                onclick=
-                "window.location='{% url 'packages' %}'; return false;",
+                onclick=(
+                    "window.location='"
+                    "{% url 'packages' %}"
+                    "'; return false;"
+                )
             )
         )
 

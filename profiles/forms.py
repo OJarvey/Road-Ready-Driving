@@ -15,7 +15,7 @@ class UpdateUsernameForm(forms.ModelForm):
     def clean_username(self):
         username = self.cleaned_data.get("username")
         if User.objects.filter(
-            username=username).exclude(pk=self.instance.pk).exists():
+                username=username).exclude(pk=self.instance.pk).exists():
             raise forms.ValidationError(
                 "This username is already taken. Please choose another one."
             )
@@ -43,8 +43,8 @@ class UserProfileForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
 
         if self.fields.get("default_email") and user:
-                self.fields["default_email"].initial = user.email
-                self.fields["default_email"].widget.attrs["readonly"] = True
+            self.fields["default_email"].initial = user.email
+            self.fields["default_email"].widget.attrs["readonly"] = True
 
         placeholders = {
             "default_full_name": "Full Name",

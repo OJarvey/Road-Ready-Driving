@@ -29,7 +29,7 @@ def bag_contents(request):
         except Package.DoesNotExist:
             invalid_items.append(item_id)
             messages.error(
-                request, 
+                request,
                 f"A package in your bag is no longer available"
             )
 
@@ -40,7 +40,7 @@ def bag_contents(request):
     if invalid_items:
         request.session["bag"] = bag
         messages.error(
-            request, 
+            request,
             "Some unavailable items were removed from your bag"
         )
 

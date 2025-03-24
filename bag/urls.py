@@ -4,7 +4,7 @@ from . import views
 
 urlpatterns = [
     path(
-        "", 
+        "",
         views.view_bag,
         name="view_bag"
         ),
@@ -14,13 +14,13 @@ urlpatterns = [
         name="add_to_bag"
         ),
     path(
-        "update/<int:item_id>/", 
+        "update/<int:item_id>/",
         views.update_bag,
         name="update_bag"
         ),
     path(
-        "remove/<int:item_id>/", 
-        views.remove_from_bag, 
+        "remove/<int:item_id>/",
+        views.remove_from_bag,
         name="remove_from_bag"
-    ),
+        ),
 ]
