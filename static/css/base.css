@@ -193,6 +193,24 @@ p {
     z-index: -1;
 }
 
+.tutor-card-img-container {
+    height: 200px;
+    overflow: hidden;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .tutor-card-img-container img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .tutor-card-img-container img:hover {
+    transform: scale(1.05);
+  }
+  
+
 /* ====== Button Styles ====== */
 .btn {
     font-family: 'Rubik', sans-serif;

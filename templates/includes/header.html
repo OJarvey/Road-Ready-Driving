@@ -102,9 +102,14 @@
                 </li>
                 {% if request.user.is_superuser %}
                   <li>
+                    <a href="{% url 'manage_tutors' %}"
+                      class="dropdown-item menu-item"
+                      aria-label="Manage Tutors">Manage Tutors</a>
+                  </li>
+                  <li>
                     <a class="dropdown-item menu-item"
                     href="{% url 'add_package' %}"
-                    aria-label="Add Packages">Add</a>
+                    aria-label="Add Packages">Add Packages</a>
                   </li>
                   <li>
                     <a href="{% url 'admin:index' %}"

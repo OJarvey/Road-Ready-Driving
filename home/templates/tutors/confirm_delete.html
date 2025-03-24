@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="card shadow-sm p-4">
+    <h2 class="text-center text-danger">Confirm Delete</h2>
+    <p class="lead text-center">Are you sure you want to delete <strong>{{ tutor.name }}</strong>?</p>
+    
+    <form method="post" class="text-center">
+      {% csrf_token %}
+      <a href="{% url 'manage_tutors' %}" class="btn btn-secondary">Cancel</a>
+      <button type="submit" class="btn btn-danger">Yes, Delete</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

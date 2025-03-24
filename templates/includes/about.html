@@ -1,21 +1,40 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 {% load static %}
 
-{% block page_header %}
-    <div class="container header-container">
-        <div class="row">
-            <div class="col">
-            </div>
-        </div>
-    </div>
-{% endblock %}
-
 {% block content %}
-    <div class="container">
-        <div class="row">
-            <div class="col ">
-                {{ packages }}
-            </div>
+<div class="overlay"></div>
+
+<div class="container my-5">
+  <h2 class="text-center mb-4">About Road Ready Driving</h2>
+  <p class="lead text-center">
+    At Road Ready Driving, we are passionate about preparing drivers for real-world road conditions with confidence and skill.
+    Our team of certified instructors ensures every learner gets top-quality tuition tailored to their pace and goals.
+  </p>
+
+  <hr class="my-5" />
+
+  <h3 class="text-center mb-4">Meet Our Tutors</h3>
+
+  <div class="row g-4 justify-content-center">
+    {% for tutor in tutors %}
+    <!-- Tutor Card -->
+      <div class="col-md-5 col-lg-4" data-aos="fade-up" data-aos-delay="200">
+        <div class="card h-100 shadow-sm">
+          <img src="{{ tutor.image.url }}" class="card-img-top" alt="{{ tutor.name }}">
+          <div class="card-body">
+            <h5 class="card-title">{{ tutor.name }}</h5>
+            <ul class="list-unstyled mb-0">
+              <li><strong>Age:</strong> {{ tutor.age }}</li>
+              <li><strong>Experience:</strong> {{ tutor.experience }} years</li>
+              <li><strong>Qualification:</strong> {{ tutor.qualification }}</li>
+              <li><strong>Success Rate:</strong> {{ tutor.success_rate }}%</li>
+            </ul>
+          </div>
         </div>
-    </div>
+      </div>
+    {% empty %}
+      <p class="text-center">No tutors available yet. Check back soon!</p>
+    {% endfor %}
+  </div>
+</div>
 {% endblock %}

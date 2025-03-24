@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="overlay"></div>
+<div class="container my-5">
+  <h2 class="text-center mb-4 display-5 fw-bold text-primary">Manage Tutors</h2>
+  <p class="lead text-center text-muted mb-5">Add, edit, or remove tutors from your team with ease.</p>
+
+  <!-- Add Tutor Form -->
+  <div class="card mb-5 shadow-lg border-0">
+    <div class="card-header bg-primary text-white">
+      <h5 class="mb-0"><i class="fas fa-user-plus me-2"></i>Add New Tutor</h5>
+    </div>
+    <div class="card-body">
+      <form method="post" enctype="multipart/form-data" class="p-3">
+        {% csrf_token %}
+        <div class="row g-3">
+          <div class="col-md-6">
+            {{ form.name|as_crispy_field }}
+          </div>
+          <div class="col-md-6">
+            {{ form.age|as_crispy_field }}
+          </div>
+          <div class="col-md-6">
+            {{ form.experience|as_crispy_field }}
+          </div>
+          <div class="col-md-6">
+            {{ form.qualification|as_crispy_field }}
+          </div>
+          <div class="col-md-6">
+            {{ form.success_rate|as_crispy_field }}
+          </div>
+          <div class="col-md-6">
+            {{ form.image|as_crispy_field }}
+          </div>
+        </div>
+        <div class="text-end mt-4">
+          <button type="submit" class="btn btn-primary px-4 py-2">
+            <i class="fas fa-plus-circle me-2"></i>Add Tutor
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <!-- Tutor List -->
+  <div class="row">
+    <h4 class="text-center mb-4 fw-semibold text-secondary">Current Tutors</h4>
+    {% for tutor in tutors %}
+      <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
+        <div class="card h-100 shadow-lg border-0 rounded-4 tutor-card">
+          <div class="tutor-card-img-container rounded-top overflow-hidden">
+            {% if tutor.image %}
+              <img src="{{ tutor.image.url }}" class="card-img-top object-fit-cover" alt="{{ tutor.name }}">
+            {% else %}
+              <img src="{{ tutor.image.url }}" class="card-img-top object-fit-cover" alt="{{ tutor.name }}">
+            {% endif %}
+          </div>
+          <div class="card-body text-center">
+            <h5 class="card-title fw-bold text-dark">{{ tutor.name }}</h5>
+            <ul class="list-unstyled text-start small text-muted">
+              <li><strong>Age:</strong> {{ tutor.age }}</li>
+              <li><strong>Experience:</strong> {{ tutor.experience }} years</li>
+              <li><strong>Qualification:</strong> {{ tutor.qualification }}</li>
+              <li><strong>Success Rate:</strong> {{ tutor.success_rate }}%</li>
+            </ul>
+          </div>
+          <div class="card-footer bg-white border-0 text-center pb-3">
+            <a href="{% url 'edit_tutor' tutor.pk %}" class="btn btn-outline-warning btn-sm me-2 shadow-sm">
+              <i class="fas fa-edit"></i> Edit
+            </a>
+            <a href="{% url 'delete_tutor' tutor.pk %}" class="btn btn-outline-danger btn-sm shadow-sm">
+              <i class="fas fa-trash-alt"></i> Delete
+            </a>
+          </div>
+        </div>
+      </div>
+    {% empty %}
+      <p class="text-center text-muted">No tutors available to manage.</p>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

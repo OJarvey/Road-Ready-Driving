@@ -1,20 +1,55 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 from django.core.mail import send_mail
 from django.conf import settings
 from django.contrib import messages
-from .forms import ContactForm
-
+from .forms import ContactForm, TutorForm
+from .models import Tutor
 
 def index(request):
     """A view to return the index page"""
-
     return render(request, "home/index.html")
-
 
 def about(request):
     """A view to render the about page"""
-    return render(request, "includes/about.html")
+    tutors = Tutor.objects.all()
+    return render(request, "includes/about.html", {"tutors": tutors})
 
+def manage_tutors(request):
+    tutors = Tutor.objects.all()
+    form = TutorForm()
+
+    if request.method == "POST":
+        form = TutorForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Tutor added successfully.")
+            return redirect("manage_tutors")
+
+    context = {
+        "tutors": tutors,
+        "form": form,
+    }
+    return render(request, "tutors/manage_tutors.html", context)
+
+def edit_tutor(request, pk):
+    tutor = get_object_or_404(Tutor, pk=pk)
+    if request.method == "POST":
+        form = TutorForm(request.POST, request.FILES, instance=tutor)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Tutor updated successfully.")
+            return redirect("manage_tutors")
+    else:
+        form = TutorForm(instance=tutor)
+    return render(request, "tutors/edit_tutor.html", {"form": form, "tutor": tutor})
+
+def delete_tutor(request, pk):
+    tutor = get_object_or_404(Tutor, pk=pk)
+    if request.method == "POST":
+        tutor.delete()
+        messages.success(request, "Tutor deleted.")
+        return redirect("manage_tutors")
+    return render(request, "tutors/confirm_delete.html", {"tutor": tutor})
 
 def contact(request):
     """A view to render the contact page and handle form submissions"""

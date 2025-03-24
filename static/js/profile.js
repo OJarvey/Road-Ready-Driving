@@ -20,10 +20,9 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 const form = document.getElementById('username-form');
-if (!form) {
-    console.error('Username form not found');
-} else {
-    form.addEventListener('submit', function(event) {
+
+if (form) {
+    form.addEventListener('submit', function (event) {
         event.preventDefault();
 
         if (confirm('Are you sure you want to update your username?')) {
@@ -37,12 +36,7 @@ if (!form) {
                     'X-CSRFToken': getCSRFToken()
                 }
             })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`Server returned ${response.status}`);
-                }
-                return response.json();
-            })
+            .then(response => response.json())
             .then(data => {
                 if (data.success) {
                     window.location.reload();
@@ -67,7 +61,7 @@ function getCSRFToken() {
     return token.value;
 }
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const successAlerts = document.querySelectorAll('.alert-success');
     successAlerts.forEach(alert => {
         alert.classList.add('show');

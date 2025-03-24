@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block content %}
+<div class="overlay"></div>
+<div class="container mt-5">
+  <h2 class="text-center logo-font mb-4">Edit Tutor</h2>
+  <p class="lead text-center text-muted">Update tutor details below to keep your tutor directory up to date.</p>
+
+  <div class="row justify-content-center">
+    <div class="col-md-10 col-lg-8">
+      <div class="card shadow rounded-4 border-0">
+        <div class="card-header bg-primary text-white rounded-top-4">
+          <h5 class="mb-0">Tutor Information</h5>
+        </div>
+        <div class="card-body bg-light rounded-bottom-4">
+          <form method="post" enctype="multipart/form-data" class="row g-3">
+            {% csrf_token %}
+            <div class="col-md-6">
+              <label for="{{ form.name.id_for_label }}" class="form-label">Name</label>
+              {{ form.name|add_class:"form-control form-control-lg shadow-sm" }}
+            </div>
+            <div class="col-md-3">
+              <label for="{{ form.age.id_for_label }}" class="form-label">Age</label>
+              {{ form.age|add_class:"form-control form-control-lg shadow-sm" }}
+            </div>
+            <div class="col-md-3">
+              <label for="{{ form.experience.id_for_label }}" class="form-label">Experience (Years)</label>
+              {{ form.experience|add_class:"form-control form-control-lg shadow-sm" }}
+            </div>
+            <div class="col-md-6">
+              <label for="{{ form.qualification.id_for_label }}" class="form-label">Qualification</label>
+              {{ form.qualification|add_class:"form-control form-control-lg shadow-sm" }}
+            </div>
+            <div class="col-md-6">
+              <label for="{{ form.success_rate.id_for_label }}" class="form-label">Success Rate (%)</label>
+              {{ form.success_rate|add_class:"form-control form-control-lg shadow-sm" }}
+            </div>
+            <div class="col-12">
+              <label for="{{ form.image.id_for_label }}" class="form-label">Profile Image</label>
+              {{ form.image|add_class:"form-control shadow-sm" }}
+            </div>
+
+            <div class="d-flex justify-content-between mt-4">
+              <a href="{% url 'manage_tutors' %}" class="btn btn-outline-secondary px-4">
+                <i class="fas fa-chevron-left"></i> Cancel
+              </a>
+              <button type="submit" class="btn btn-success px-4">
+                <i class="fas fa-save"></i> Save Changes
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
