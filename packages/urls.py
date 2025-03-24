@@ -3,7 +3,7 @@ from . import views
 
 urlpatterns = [
     path(
-        "packages/",
+        "",
         views.all_packages,
         name="packages"
         ),
