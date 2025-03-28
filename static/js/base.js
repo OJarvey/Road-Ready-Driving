@@ -1,3 +1,5 @@
+/* jshint esversion: 6 */
+
 document.addEventListener('DOMContentLoaded', function() {
     const mobileSearchButton = document.getElementById('mobileSearchButton');
     const mobileSearchForm = document.getElementById('mobileSearchForm');

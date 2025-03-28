@@ -1,3 +1,6 @@
+/* jshint esversion: 6 */
+/* global bootstrap */
+
 document.addEventListener("DOMContentLoaded", function () {
     const quantityInput = document.getElementById("quantity");
     const quantityError = document.getElementById("quantity-error");

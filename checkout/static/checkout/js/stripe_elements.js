@@ -1,3 +1,6 @@
+/* jshint esversion: 6 */
+/* global $, Stripe */
+
 $(document).ready(function () {
     var stripePublicKey = $('#stripe-public-key').text().slice(1, -1);
     var clientSecret = $('#client-secret').text().slice(1, -1);
