@@ -4,6 +4,8 @@ Welcome to Road Ready Driving — a responsive, full-stack web application desig
 
 ![amiresponsive screenshot](documentation/responsiveness/viewallscreens.png)
 
+## Live Website: [Road Ready Driving](https://road-ready-driving-62655dbfb1ed.herokuapp.com/)
+
 ## Introduction
 
 Road Ready Driving is more than just a booking platform; it's a dynamic educational tool designed to empower aspiring and experienced drivers alike. This full-featured, responsive application provides an immersive, real-world simulation of booking professional driving lessons, offering users access to curated driving packages, efficient booking management, and in-depth instructor profiles. Built with a commitment to modern development principles, Road Ready Driving showcases the power of full-stack technologies in creating engaging and practical educational experiences.
@@ -16,17 +18,17 @@ The main objective of Road Ready Driving is to provide a clear, convenient, and 
 
 Our primary audience includes:
 
-New drivers looking for structured, affordable, and reliable driving lessons
+* New drivers looking for structured, affordable, and reliable driving lessons
 
-Parents booking lessons for teenagers
+* Parents booking lessons for teenagers
 
-Individuals seeking refresher courses or advanced driving packages
+* Individuals seeking refresher courses or advanced driving packages
 
-Educators, developers, or hiring managers reviewing educational projects
+* Educators, developers, or hiring managers reviewing educational projects
 
 ## Solution
 
-Road Ready Driving brings together an intuitive lesson-booking system, instructor management tools, and secure Stripe-powered payments. With real-time cart updates, mobile responsiveness, and admin-controlled tutor management, the platform is a comprehensive solution for both customers and site administrators.
+Road Ready Driving brings together an intuitive lesson-booking system, instructor management tools, and secure Stripe-powered payments. With real-time bag updates, mobile responsiveness, and admin-controlled tutor management, the platform is a comprehensive solution for both customers and site administrators.
 
 ## Scope
 
@@ -48,86 +50,248 @@ Road Ready Driving brings together an intuitive lesson-booking system, instructo
 
 ⚠️ This platform was developed for educational purposes only and is not intended for commercial use.
 
-### Business and Marketing Plan
+## Business and Marketing Plan
 
-Road Ready Driving is a fictional but realistically designed web platform tailored for individuals seeking expert driving lessons in the UK. The platform simulates a full-service digital experience — allowing users to book driving packages, manage their profiles, contact instructors, and stay informed.
-
-## Business Objectives
+### Business Objectives
 
 * Provide an intuitive online platform for scheduling and managing driving lessons.
 
 * Offer tiered packages to cater to beginner, intermediate, and advanced learners.
 
-* Build brand trust with professional tutors and verified reviews.
-
 * Streamline admin operations like profile management and order history.
 
-## User Experience (UX) Strategy
+### User Experience (UX) Strategy
 
-The platform has been designed with clarity, responsiveness, and convenience in mind:
+* User-Centric Navigation: Clean sidebar and profile/dashboard access.
 
-* User-Centric Navigation: Clean sidebar for profile/dashboard access; mobile and desktop responsiveness.
+* Accessible Forms: Clearly labeled inputs with validation and toast feedback.
 
-* Accessible Forms: Contact, login, signup, profile, and booking forms have clear labels, validation, and toast notifications for feedback.
+* Custom Toasters: Display contextual success, warning, error, and info messages.
 
-* Custom Toasters: Feedback messages are delivered in an elegant toast format for enhanced interaction.
+* Search-First Interface: Dynamic search for package listings.
 
-* Search-First Interface: Integrated search across packages for ease of access.
+* Mobile-First Design: Responsive layouts with touch-friendly interactions.
 
-* Mobile-First Design: Optimized layouts for smaller screens including collapsible nav, mobile search, and touch-friendly inputs.
-
-## Target Market
+### Target Market
 
 * Primary: Teens and young adults (17-25) preparing for UK driving tests.
 
-* Secondary: Adults returning to driving or seeking confidence on UK roads.
+* Secondary: Adults seeking confidence or returning to driving.
 
-* Tertiary: Parents or guardians purchasing lessons for their children.
+* Tertiary: Parents purchasing for children.
 
-* Geographic focus is local or regional (e.g., driving school in Greater London), but the web platform is scalable for national coverage.
+* Location: Initially regional (Hampshire).
 
-## Revenue Model
+### Revenue Model
 
-The platform simulates a real-world monetization model:
+Tiered Package System:
 
-Package Tiers (Bronze, Silver, Gold):
+* Bronze: Entry-level lessons.
 
-* Bronze: Entry-level — a few driving hours.
+* Silver: Mid-range with theory support.
 
-* Silver: Intermediate — additional practice and theory prep.
+* Gold: Full, intensive programs.
 
-* Gold: Premium — most hours, mock tests, intensive tuition.
+### Marketing Strategy
 
-* Online Checkout: Stripe integration for secure payments.
+* SEO with dynamic meta tags and URL-based page titles
 
-* Add-ons Potential: Future ability to upsell theory test prep, refresher courses, or insurance deals.
+* Social Media page on Facebook
 
-## Marketing Strategy
+* Mailchimp-powered newsletter
 
-* To attract users, a mix of digital and local outreach strategies can be applied:
+* Real tutor profiles.
 
-* Social Media Ads: Targeted Facebook & Instagram ads towards learner drivers.
+### Design
 
-* SEO Strategy: Rich meta tags, keyword-optimized content (e.g., “learn to drive in London”).
+#### Color Scheme
 
-* Email Marketing: Newsletter (via Mailchimp) to retain interest and promote offers.
+The brand uses a professional and calming color palette:
 
-* Partnerships: Collaborate with secondary schools, colleges, and universities.
+* Primary: Steel Gray (#3E474F)
 
-* Trust Building: Tutor bios, success rates, and customer reviews help build credibility.
+* Accent: Sky Blue (#288AC1)
 
-## Growth Opportunities
+* Contrast: White (#EBF2F3)
 
-This project is scalable and can be expanded with:
+#### Typography
 
-* Instructor Booking System: Real-time availability slots and bookings.
+* Font: Rubik — chosen for its modern, rounded style
 
-* User Reviews & Ratings: Trust-driven model for tutors.
+* Used across all headings, body text, buttons, and forms
 
-* Lesson Reminders: SMS/email integration for lesson reminders.
+#### Wireframes
 
-* Mobile App: Native iOS/Android versions.
+Initial mockups were created to ensure:
 
-* Live chat system: Allow users to chat with a tutur live.
+* Clear information hierarchy
 
-* Franchise Dashboard: Allow multiple driving schools to register and operate independently under the platform.
+* Mobile-first design decisions
+
+* Sidebar and header consistency
+
+### Data Structure
+
+* User: Django's built-in User model extended with a UserProfile
+
+* Tutor: Name, age, experience, qualifications, success rate, image
+
+* Package: Tier (Bronze, Silver, Gold), price, description
+
+* Order: User profile, order number, billing info, package info
+
+### Features
+
+Existing Features and How to Use
+
+General Features
+
+* Home, About, Contact pages
+
+* Custom 404 error page
+
+* Footer with newsletter and social links
+
+#### Packages
+
+* List view with search and sorting
+
+* Detailed package descriptions
+
+#### Bag
+
+* Add, update, and remove packages
+
+* Cart total and summary view
+
+#### Account Management
+
+* Sign up with email confirmation (via Django Allauth)
+
+* Login/logout
+
+* Profile editing (username and email)
+
+* Delete account functionality
+
+#### End-User Features
+
+* Mobile-friendly navigation and interface
+
+* Toast notifications for success/errors
+
+* Package purchase via Stripe
+
+* Contact form with email integration
+
+#### Staff/Admin Features
+
+* Add/edit/delete packages (admin panel)
+
+* Manage tutor profiles (custom frontend interface)
+
+* View order history
+
+#### Developer/Tester Features
+
+* Toast system designed using Django messages + includes
+
+* AJAX form submissions with JSON responses
+
+* Custom form validation
+
+* Mobile search toggle script
+
+## SEO and Marketing Features
+
+### Sitemap.xml
+
+* Served as a static file, the sitemap helps search engines crawl and index content more efficiently.
+
+### Robots.txt
+
+* Configured to allow access to relevant pages and block redundant query paths.
+
+### Unique & Dynamic Page Titles
+
+* Utilizes Django's templating engine to dynamically render relevant titles for each page.
+
+### Meta Tags
+
+* base.html includes default meta tags with dynamic override support.
+
+### Facebook Business Page
+
+* The site encourages social integration via Facebook to drive engagement.
+
+### Demo
+
+#### Newsletter Email Subscription
+
+Mailchimp integration allows users to subscribe to the newsletter from the footer.
+
+* Email field and submission button styled for clarity.
+
+* Hosted with Mailchimp’s free tier.
+
+## Future Features
+
+* Real-time instructor availability system.
+
+* Customer ratings and feedback system.
+
+* Booking management calendar.
+
+* Google Maps integration to show tutor coverage.
+
+* Mobile app development.
+
+* Live chat functionality.
+
+* Franchise support (multi-school system).
+
+## Technology Used
+
+### Languages
+
+* HTML5
+
+* CSS3 (with Bootstrap 5)
+
+* JavaScript (ES6)
+
+* Python 3
+
+### Frameworks, Libraries, and Tools
+
+* Django 4.2.16
+
+* Django Allauth
+
+* Crispy Forms + Bootstrap4
+
+* Stripe.js for payments
+
+* jQuery (for toast and AJAX)
+
+* AOS (Animate on Scroll)
+
+* Cloudinary for media storage
+
+* Mailchimp for newsletter
+
+* Git & GitHub
+
+## License
+
+This project is licensed for educational use only.
+
+## Credits
+
+* Django Documentation
+
+* Stripe Docs
+
+* Mailchimp Signup Forms
+
+* Code Institute for project inspiration

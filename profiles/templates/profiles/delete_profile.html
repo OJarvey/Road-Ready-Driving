@@ -29,8 +29,8 @@
     <div class="row justify-content-center">
       <div class="col-12 col-md-6">
         <p>
-        {% trans 'Are you sure you want to delete your profile?
-        This action cannot be undone.' %}
+        Are you sure you want to delete your profile?
+        This action cannot be undone.
         </p>
         <form method="POST" action="{% url 'delete_profile' %}">
           {% csrf_token %}
