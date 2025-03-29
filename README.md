@@ -1190,9 +1190,6 @@ This site is deployed via Heroku, and the live link can be found here: [Road Rea
     DEFAULT_FROM_EMAIL=<your_default_from_email>
     EMAIL_HOST_PASS=<your_email_host_password>
     EMAIL_HOST_USER=<your_email_host_user>
-    MAILCHIMP_API_KEY=<your_mailchimp_api_key>
-    MAILCHIMP_AUDIENCE_ID=<your_mailchimp_audience_id>
-    MAILCHIMP_REGION=<your_mailchimp_region>
     STRIPE_PUBLIC_KEY=<your_stripe_public_key>
     STRIPE_SECRET_KEY=<your_stripe_secret_key>
     STRIPE_WH_SECRET=<your_stripe_webhook_secret>
