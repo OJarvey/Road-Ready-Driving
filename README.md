@@ -165,10 +165,10 @@ The chosen color palette helps reinforce a professional yet friendly tone for th
 These favicon images represent the "Road Ready Driving" brand across various devices and browsers, ensuring consistent visual identity.
 
 - **Android Chrome 192x192**  
-  <img src="documentation/favicon_images/android-chrome-192x192.png" alt="Android Chrome 192x192" width="192"/>
+  <img src="documentation/favicon_images/android-chrome-192x192.png" alt="Android Chrome 192x192" width="150"/>
 
 - **Android Chrome 512x512**  
-  <img src="documentation/favicon_images/android-chrome-512x512.png" alt="Android Chrome 512x512" width="512"/>
+  <img src="documentation/favicon_images/android-chrome-512x512.png" alt="Android Chrome 512x512" width="190"/>
 
 - **Apple Touch Icon**  
   <img src="documentation/favicon_images/apple-touch-icon.png" alt="Apple Touch Icon" width="180"/>
@@ -1401,7 +1401,7 @@ Or
 
 - 4242424242424242
 
-And any expire date in the future and any three digit ccv can be used
+Expiry date up to year 75 in the future and any three digit ccv can be used
 
 #### Cloudinary Media
 
@@ -1660,11 +1660,13 @@ This project is intended for **educational use only**.
 ## 🙌 Credits
 
 - Django Documentation
+- Bootstrap Documentation
 - Stripe Docs
 - Mailchimp Forms and Newsletter
 - Code Institute for inspiration and Setup from Boutique Ado project
 - ChatGPT: For text reviews, background and tutor images, troubleshooting errors and copywriting assistance.
-- Coolors for generating the website’s color palette.
+- [Coolers](https://coolors.co/) for generating the website’s color palette.
+- [Tempmail.org](https://temp-mail.org/en/) and [Adguard](https://adguard.com/en/adguard-temp-mail/overview.html) for temporary email for testing.
 
 ## Acknowledgements
 

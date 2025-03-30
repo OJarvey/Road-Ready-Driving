@@ -4,47 +4,45 @@
 <html lang="en">
   <head>
     {% block meta %}
-      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-      <meta charset="utf-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
       <!-- SEO Meta Tags -->
-      <meta name="description" content="Road Ready Driving offers expert driving lessons with flexible packages to help you gain confidence behind the wheel. Choose from Bronze, Silver, or Gold levels. Start your journey today!" />
-      <meta name="keywords" content="driving lessons, Road Ready Driving, learn to drive, driving school, driving instructor, beginner driving, safe driving, Bronze Silver Gold driving packages" />
-      <meta name="author" content="Road Ready Driving" />
+      <meta name="description" content="Road Ready Driving offers expert driving lessons with flexible packages to help you gain confidence behind the wheel. Choose from Bronze, Silver, or Gold levels. Start your journey today!">
+      <meta name="keywords" content="driving lessons, Road Ready Driving, learn to drive, driving school, driving instructor, beginner driving, safe driving, Bronze Silver Gold driving packages">
+      <meta name="author" content="Road Ready Driving">
     {% endblock %}
 
     {% block extra_meta %}
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
     {% endblock %}
 
     {% block favicon %}
-      <link rel="apple-touch-icon" sizes="180x180" href="{% static 'web_elements/favicon/apple-touch-icon.png' %}" />
-      <link rel="icon" type="image/png" sizes="32x32" href="{% static 'web_elements/favicon/favicon-32x32.png' %}" />
-      <link rel="icon" type="image/png" sizes="16x16" href="{% static 'web_elements/favicon/favicon-16x16.png' %}" />
-      <link rel="mask-icon" href="{% static 'web_elements/favicon/safari-pinned-tab.svg' %}" color="#5bbad5" />
+      <link rel="apple-touch-icon" sizes="180x180" href="{% static 'web_elements/favicon/apple-touch-icon.png' %}">
+      <link rel="icon" type="image/png" sizes="32x32" href="{% static 'web_elements/favicon/favicon-32x32.png' %}">
+      <link rel="icon" type="image/png" sizes="16x16" href="{% static 'web_elements/favicon/favicon-16x16.png' %}">
+      <link rel="mask-icon" href="{% static 'web_elements/favicon/safari-pinned-tab.svg' %}" color="#5bbad5">
       <link href="//cdn-images.mailchimp.com/embedcode/classic-061523.css" rel="stylesheet" type="text/css">
     {% endblock %}
 
     {% block corecss %}
       <!-- Bootstrap CSS -->
-      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
-      <link rel="stylesheet" href="{% static 'css/base.css' %}" />
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;700&display=swap" />
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+      <link rel="stylesheet" href="{% static 'css/base.css' %}">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;700&display=swap">
     {% endblock %}
 
     {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'css/footer.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/footer.css' %}">
     <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
     {% endblock %}
 
     {% block corejs %}
       <!-- Bootstrap JavaScript -->
       <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-pzjw8f+ua7Kw1TIqaeSgqwXGr8ndwNIMq8jKw5CMne5h2GptF5N9zibib5Bf6F00"
-      crossorigin="anonymous"></script>
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
       <script src="https://js.stripe.com/v3/"></script>
     {% endblock %}
 
