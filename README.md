@@ -770,26 +770,28 @@ These screenshots demonstrate the validation and testing performed on the applic
 ## 📈 SEO and Marketing Features
 
 ### Sitemap.xml
-- Submitted as a static file
-- Helps bots index the site efficiently
+
+- The sitemap is like a roadmap for search engines, listing all the important pages on your site so they can be indexed quickly and efficiently. It works hand-in-hand with the robots.txt file to guide search engine crawlers to the right places. For simplicity, this file is served as a static resource.
 
 ### Robots.txt
-- Soft-blocks non-relevant paths
-- Links to sitemap for crawler guidance
+
+- The robots.txt file helps manage how search engine crawlers interact with your site. It points them to the sitemap and politely asks them to avoid certain areas, like search results pages, to prevent unnecessary crawling. While it's not a strict rule (crawlers can choose to ignore it), it provides helpful guidance for optimizing how your site is indexed. Like the sitemap, this file is also served as a static resource.
 
 ### Dynamic Page Titles
+
 - Every page has context-aware `<title>` blocks via Django templates
 
 ### Meta Tags
+
 - Default and override tags set in `base.html`
 
 ### Facebook Business Page
-- Promotes trust and reach
+
+- The Facebook page helps build trust and gives the brand a real presence online. It’s a place to share updates, post driving tips, connect with learners, and promote special offers. It also boosts visibility in search engines and adds a personal touch through photos and reviews.
 
 ### Newsletter Subscription
-- Mailchimp integration
-- Double opt-in setup
-- Shown in site footer
+
+- The newsletter lets users stay in the loop with updates, offers, and tips. It’s powered by Mailchimp with double opt-in for GDPR compliance. The sign-up form is always visible in the footer, making it easy for users to subscribe from any page.
 
 ---
 
@@ -806,12 +808,14 @@ These screenshots demonstrate the validation and testing performed on the applic
 ## 🧰 Technology Used
 
 ### Languages
+
 - HTML
 - CSS
 - JavaScript
 - Python
 
 ### Frameworks, Libraries, and Tools
+
 - Django
 - Django Allauth
 - Crispy Forms
@@ -830,7 +834,7 @@ These screenshots demonstrate the validation and testing performed on the applic
 <details>
 <summary>📋 Agile Methodology</summary>
 
-The project was managed using Agile practices, with GitHub serving as the central hub for tracking tasks and progress. The development process was driven by iterative sprints, where user stories were defined, prioritized, and implemented to meet the needs of users and stakeholders. These user stories, detailed below, guided the creation of features, ensuring a user-centric and incremental approach to building the "Road Ready Driving" website.
+The project followed Agile methodology, with GitHub used to track tasks and progress. Development was driven by user stories, which were carefully prioritized and implemented to meet real user needs. These stories shaped the feature set and ensured the build remained user-focused and iterative throughout. These user stories, detailed below, guided the creation of features, ensuring a user-centric and incremental approach to building the "Road Ready Driving" website.
 
 - **GitHub Agile Workflow**  
   <img src="documentation/agile/github-agile.png" alt="GitHub Agile Workflow" width="500"/>
@@ -1297,10 +1301,10 @@ Testing was carried out across multiple platforms, browsers, and screen sizes to
 
 * Google Chrome DevTools – Responsive views and device simulation.
 * Firefox, Safari, Microsoft Edge – Cross-browser checks.
-* W3C Validator – HTML validation.
 * Lighthouse Audits – Performance, Best Practices, SEO, and Accessibility.
-* JSHint – JavaScript code linting.
+* W3C Validator – HTML validation.
 * W3C CSS Validator – CSS validation.
+* JSHint – JavaScript code linting.
 * PEP8 Online Validator – Python code quality.
 
 ### ✅ Validation Summary
@@ -1403,14 +1407,17 @@ And any expire date in the future and any three digit ccv can be used
 
 * Image upload, retrieval, and fallback logic tested.
 * Default tutor and package images show correctly when no image uploaded.
+* All images are hosted from Cloudinary.
 
 #### Emails
 
-* Email flows tested:
-* Signup confirmation
-* Password reset
-* Order confirmation
-* All major user stories and edge cases were manually tested. Site performs reliably across all scenarios.
+* Signup confirmation emails tested and working ✅
+
+* Password reset functionality verified ✅
+
+* Order confirmation emails sent successfully ✅
+
+* All major email flows passed testing ✅
 
 ## 🐞 Bugs Encountered & Solutions
 
@@ -1640,8 +1647,9 @@ And any expire date in the future and any three digit ccv can be used
         ```
 
 ### 🛠️ Known Bugs
-* When add packages to bag, the bag icon does not update the items in bag until refresh.
-* On a specific device (iPhone 12 or S21) the use cannot increase or decrease items they want to add in bag nor the items in bag.
+
+* When packages are added to the bag, the bag icon does not update the item count until the page is refreshed.
+* On specific devices (iPhone 12 and Samsung S21), users cannot increase or decrease the quantity of items in the bag or when adding them.
 
 ## 📜 License
 
@@ -1655,8 +1663,8 @@ This project is intended for **educational use only**.
 - Stripe Docs
 - Mailchimp Forms and Newsletter
 - Code Institute for inspiration and Setup from Boutique Ado project
-- ChatGPT: For text reviews, home page images, troubleshooting errors and copywriting assistance.
-- Coolers for colors for the website.
+- ChatGPT: For text reviews, background and tutor images, troubleshooting errors and copywriting assistance.
+- Coolors for generating the website’s color palette.
 
 ## Acknowledgements
 
