@@ -11,61 +11,50 @@ Welcome to **Road Ready Driving** a responsive, full-stack web application desig
 
 ## 📚 Table of Contents
 
-1. [Introduction](#introduction)
-   - [Objective](#objective)
-   - [Audience](#audience)
-   - [Solution](#solution)
-   - [Scope](#scope)
-
-2. [Business and Marketing Plan](#business-and-marketing-plan)
-   - [Business Objectives](#business-objectives)
-   - [User Experience (UX) Strategy](#user-experience-ux-strategy)
-   - [Target Market](#target-market)
-   - [Revenue Model](#revenue-model)
-   - [Marketing Strategy](#marketing-strategy)
-   - [Growth Opportunities](#growth-opportunities)
-
-3. [Design](#design)
-   - [Color Scheme](#color-scheme)
-   - [Typography](#typography)
-   - [Favicons](#favicons)
-   - [Background Image](#background-image)
-   - [Wireframes](#wireframes)
-   - [Data Structure](#data-structure)
-
-4. [Features](#features)
-   - [General Features](#general-features)
-   - [Packages](#packages)
-   - [Bag](#bag)
-   - [Account Management](#account-management)
-   - [End-User Features](#end-user-features)
-   - [Staff/Admin Features](#staffadmin-features)
-   - [Developer/Tester Features](#developertester-features)
-   - [User Flow Confirmations & Notifications](#user-flow-confirmations--notifications)
-
-5. [Testing and Validation](#testing-and-validation)
-
-6. [SEO and Marketing Features](#seo-and-marketing-features)
-   - [Sitemap.xml](#sitemapxml)
-   - [Robots.txt](#robotstxt)
-   - [Dynamic Page Titles](#dynamic-page-titles)
-   - [Meta Tags](#meta-tags)
-   - [Facebook Business Page](#facebook-business-page)
-   - [Newsletter Subscription](#newsletter-subscription)
-
-7. [Future Features](#future-features)
-
-8. [Technology Used](#technology-used)
-   - [Languages](#languages)
-   - [Frameworks, Libraries, and Tools](#frameworks-libraries-and-tools)
-
-9. [Development Process](#development-process)
-
-10. [License](#license)
-
-11. [Credits](#credits)
-
----
+   * [🧭 Introduction](#-introduction)
+      + [Objective](#objective)
+      + [Audience](#audience)
+      + [Solution](#solution)
+      + [Scope](#scope)
+   * [💼 Business and Marketing Plan](#-business-and-marketing-plan)
+      + [Business Objectives](#business-objectives)
+      + [User Experience (UX) Strategy](#user-experience-ux-strategy)
+      + [Target Market](#target-market)
+      + [Revenue Model](#revenue-model)
+      + [Marketing Strategy](#marketing-strategy)
+      + [Growth Opportunities](#growth-opportunities)
+   * [🎨 Design](#-design)
+      + [Color Scheme](#color-scheme)
+      + [Typography](#typography)
+      + [Favicons](#favicons)
+      + [Background Image](#background-image)
+   * [📐 Wireframes](#-wireframes)
+      + [Data Structure Diagram](#data-structure-diagram)
+   * [🚀 Features](#-features)
+      + [General Features](#general-features)
+      + [Developer/Tester Features](#developertester-features)
+      + [User Flow Confirmations & Notifications](#user-flow-confirmations-notifications)
+   * [📈 SEO and Marketing Features](#-seo-and-marketing-features)
+      + [Facebook Business Page](#facebook-business-page)
+      + [Newsletter Subscription](#newsletter-subscription)
+   * [🔮 Future Features](#-future-features)
+   * [🧰 Technology Used](#-technology-used)
+      + [Languages](#languages)
+      + [Frameworks, Libraries, and Tools](#frameworks-libraries-and-tools)
+   * [🛠️ Development Process](#-development-process)
+      + [User Stories](#user-stories)
+         - [Project Setup and Initial Configuration](#project-setup-and-initial-configuration)
+   * [⚙️ Setup and Installation (GitHub and Heroku)](#-setup-and-installation-github-and-heroku)
+   * [Project Deployment: Heroku](#project-deployment-heroku)
+      + [1. Initial Setup on Heroku](#1-initial-setup-on-heroku)
+   * [Forking the Repository](#forking-the-repository)
+   * [Cloning the Repository](#cloning-the-repository)
+   * [🧪 Testing and Validation](#-testing-and-validation)
+   * [🐞 Bugs Encountered & Solutions](#-bugs-encountered-solutions)
+      + [🛠️ Known Bugs](#-known-bugs)
+   * [📜 License](#-license)
+   * [🙌 Credits](#-credits)
+   * [Acknowledgements](#acknowledgements)
 
 ## 🧭 Introduction
 
@@ -122,13 +111,6 @@ Includes:
 - SEO with unique meta tags
 - Facebook page to reach users
 - Mailchimp newsletter signup in footer
-
-<details>
-<summary>📷 Facebook Page Screenshots</summary>
-
-![fb-page](documentation/socialmedia/facebookpage.png)
-
-</details>
 
 ### Growth Opportunities
 - Real tutor availability booking
@@ -723,50 +705,6 @@ These screenshots demonstrate the app’s custom toast messages, email confirmat
 
 ---
 
-## 🧪 Testing and Validation
-
-<details>
-<summary>🧪 Validation Screenshots</summary>
-
-These screenshots demonstrate the validation and testing performed on the application’s code and performance, ensuring quality and reliability.
-
-- **Stripe Elements JS Validation**  
-  <img src="documentation/validation/stripe-elementsjs.png" alt="Stripe Elements JS Validation" width="600"/>
-
-- **Script JS Validation**  
-  <img src="documentation/validation/scriptjs.png" alt="Script JS Validation" width="600"/>
-
-- **Profile JS Validation**  
-  <img src="documentation/validation/profilejs.png" alt="Profile JS Validation" width="600"/>
-
-- **Packages JS Validation**  
-  <img src="documentation/validation/packagesjs.png" alt="Packages JS Validation" width="600"/>
-
-- **Footer CSS Validation**  
-  <img src="documentation/validation/footer-css.png" alt="Footer CSS Validation" width="600"/>
-
-- **Lighthouse Performance Report**  
-  <img src="documentation/validation/lighthouse.png" alt="Lighthouse Performance Report" width="600"/>
-
-- **Checkout CSS Validation**  
-  <img src="documentation/validation/checkout-css.png" alt="Checkout CSS Validation" width="600"/>
-
-- **Base JS Validation**  
-  <img src="documentation/validation/basejs.png" alt="Base JS Validation" width="600"/>
-
-- **Base CSS Validation**  
-  <img src="documentation/validation/base-css.png" alt="Base CSS Validation" width="600"/>
-
-- **Bag JS Validation**  
-  <img src="documentation/validation/bagjs.png" alt="Bag JS Validation" width="600"/>
-
-- **Account Management CSS Validation**  
-  <img src="documentation/validation/account_managements-css.png" alt="Account Management CSS Validation" width="600"/>
-
-</details>
-
----
-
 ## 📈 SEO and Marketing Features
 
 ### Sitemap.xml
@@ -788,6 +726,13 @@ These screenshots demonstrate the validation and testing performed on the applic
 ### Facebook Business Page
 
 - The Facebook page helps build trust and gives the brand a real presence online. It’s a place to share updates, post driving tips, connect with learners, and promote special offers. It also boosts visibility in search engines and adds a personal touch through photos and reviews.
+
+<details>
+<summary>📷 Facebook Page Screenshots</summary>
+
+![fb-page](documentation/socialmedia/facebookpage.png)
+
+</details>
 
 ### Newsletter Subscription
 
@@ -1297,6 +1242,59 @@ This site is deployed via Heroku, and the live link can be found here: [Road Rea
 
 Testing was carried out across multiple platforms, browsers, and screen sizes to ensure the site is responsive, performant, accessible, and functions as expected. Below are the details of testing and validation methods used for Road Ready Driving:
 
+<details>
+<summary>🧪 Validation Screenshots</summary>
+
+These screenshots demonstrate the validation and testing performed on the application’s code and performance, ensuring quality and reliability.
+
+- **Stripe Elements JS Validation**  
+  <img src="documentation/validation/stripe-elementsjs.png" alt="Stripe Elements JS Validation" width="500"/>
+
+- **Script JS Validation**  
+  <img src="documentation/validation/scriptjs.png" alt="Script JS Validation" width="500"/>
+
+- **Profile JS Validation**  
+  <img src="documentation/validation/profilejs.png" alt="Profile JS Validation" width="500"/>
+
+- **Packages JS Validation**  
+  <img src="documentation/validation/packagesjs.png" alt="Packages JS Validation" width="500"/>
+
+- **Footer CSS Validation**  
+  <img src="documentation/validation/footer-css.png" alt="Footer CSS Validation" width="500"/>
+
+- **Lighthouse Performance Report**  
+  <img src="documentation/validation/lighthouse.png" alt="Lighthouse Performance Report" width="500"/>
+
+- **Checkout CSS Validation**  
+  <img src="documentation/validation/checkout-css.png" alt="Checkout CSS Validation" width="500"/>
+
+- **Base JS Validation**  
+  <img src="documentation/validation/basejs.png" alt="Base JS Validation" width="500"/>
+
+- **Base CSS Validation**  
+  <img src="documentation/validation/base-css.png" alt="Base CSS Validation" width="500"/>
+
+- **Bag JS Validation**  
+  <img src="documentation/validation/bagjs.png" alt="Bag JS Validation" width="500"/>
+
+- **Account Management CSS Validation**  
+  <img src="documentation/validation/account_managements-css.png" alt="Account Management CSS Validation" width="500"/>
+
+- **URL HTML Validation**  
+  <img src="documentation/validation/htmlurlw3validation.png" alt="Account Management CSS Validation" width="500"/>
+
+- **CSS URL Validation**
+
+  Errors were found when I ran the validation check using the website URL. All of the errors are from third-party sources and are out of my control.
+  * Fontawesome
+  * AOS
+  * Mailchimp
+  * Bootstrap
+
+  <img src="documentation/validation/urlcssvalidation.png" alt="Account Management CSS Validation" width="500"/>
+
+</details>
+
 ### 🔍 Tools Used
 
 * Google Chrome DevTools – Responsive views and device simulation.
@@ -1341,9 +1339,9 @@ Testing was carried out across multiple platforms, browsers, and screen sizes to
     * `profile.js`: Passed ✅ (ES6)
     * `packages.js`: Passed ✅ (ES6)
 
-#### Python (PEP8)
+#### Python Linter (PEP8)
 
-* All Python files passed PEP8 validation via PEP8CI.
+* All Python files passed PEP8 validation via PEP8CI.✅
 * No issues with indentation, naming conventions, or line length.
 
 ### 🧪 Manual Testing
@@ -1663,6 +1661,7 @@ This project is intended for **educational use only**.
 - Bootstrap Documentation
 - Stripe Docs
 - Mailchimp Forms and Newsletter
+- For Fonts [Google Fonts](https://fonts.google.com/) and [Font Awesome](https://fontawesome.com/)
 - Code Institute for inspiration and Setup from Boutique Ado project
 - ChatGPT: For text reviews, background and tutor images, troubleshooting errors and copywriting assistance.
 - [Coolers](https://coolors.co/) for generating the website’s color palette.

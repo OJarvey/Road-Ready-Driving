@@ -65,14 +65,17 @@ class StripeWH_Handler:
                 profile.default_country = shipping_details.address.country
                 profile.default_postcode = shipping_details.address.postal_code
                 profile.default_town_or_city = shipping_details.address.city
-                profile.default_street_address1 = shipping_details.address.line1
-                profile.default_street_address2 = shipping_details.address.line2
+                profile.default_street_address1 = \
+                    shipping_details.address.line1
+                profile.default_street_address2 = \
+                    shipping_details.address.line2
                 profile.default_county = shipping_details.address.state
                 profile.save()
 
             # Use shipping email if billing email is null, fallback to profile
             email = (
-                billing_details.email or shipping_details.email or profile.default_email
+                billing_details.email or shipping_details.email
+                or profile.default_email
             )
 
             order_exists = False
@@ -139,7 +142,8 @@ class StripeWH_Handler:
                 )
         except Exception as e:
             return HttpResponse(
-                content=(f'Webhook received: {event["type"]} | ERROR: {e}'), status=500
+                content=(f'Webhook received: {event["type"]} | ERROR: {e}'),
+                status=500
             )
 
     def handle_payment_intent_payment_failed(self, event):
